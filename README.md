@@ -7,9 +7,9 @@ a web micro-framework.
 ## Team
 
 - Spencer Josi
-- Alan Read
-- Ryan Madulka
-- Caspar Loveless
+- 
+- 
+- 
 
 
 ## Prerequisites
