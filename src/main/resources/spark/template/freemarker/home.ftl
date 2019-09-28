@@ -28,6 +28,15 @@
 
   </div>
 
+  <!-- create a <ul> for players online -->
+  <div class="players">
+    <h2> Players Online</h2>
+    <ul>
+      ${playersOnline}
+    </ul>
+
+  </div>
+
 </div>
 </body>
 
