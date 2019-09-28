@@ -25,6 +25,8 @@ public class GetHomeRoute implements Route {
 
   private final TemplateEngine templateEngine;
 
+  static final String VIEW_NAME = "home.ftl";
+
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
@@ -59,6 +61,6 @@ public class GetHomeRoute implements Route {
     vm.put("message", WELCOME_MSG);
 
     // render the View
-    return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+    return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
   }
 }

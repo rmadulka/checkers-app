@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import static spark.Spark.halt;
-import static spark.Spark.staticFileLocation;
 
 public class PostSigninRoute implements Route {
     static final String USER_PARAM = "username";
@@ -63,12 +61,12 @@ public class PostSigninRoute implements Route {
                 // display a user message in the Home page
                 //homevm.put("message", "YOU HAVE SIGNED IN");
 
-                return templateEngine.render(new ModelAndView(homevm, "home.ftl"));
+                return templateEngine.render(new ModelAndView(homevm, GetHomeRoute.VIEW_NAME));
             default:
                 //This should never happen
                 throw new NoSuchElementException("Invalid result of username checked");
         }
-        return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
+        return templateEngine.render(mv);
     }
 
     private ModelAndView error(Map<String, Object> vm, String message){
