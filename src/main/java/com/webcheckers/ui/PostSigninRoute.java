@@ -6,12 +6,16 @@ import spark.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import static spark.Spark.halt;
+import static spark.Spark.staticFileLocation;
 
 public class PostSigninRoute implements Route {
     static final String USER_PARAM = "username";
+    static final String EXISTING_NAME = "Username is already taken";
+    static final String INVALID_NAME = "Username must only contain alphanumeric characters";
 
     static final String VIEW_NAME = "signin.ftl";
 
@@ -37,20 +41,32 @@ public class PostSigninRoute implements Route {
 
         final String username = request.queryParams(USER_PARAM);
 
-        Player newPLayer = new Player(username);
+        ModelAndView mv;
 
-        boolean userIsTaken = playerLobby.checkUsername(newPLayer);
+        switch (playerLobby.checkUsername(username)) {
+            case NAMEEXISTS:
+                mv = error(vm, EXISTING_NAME);
+                break;
+            case ALPHA:
+                mv = error(vm, INVALID_NAME);
+                break;
+            case VALID:
+                Player newPLayer = new Player(username);
+                playerLobby.addPlayer(newPLayer);
 
-        if (userIsTaken) {
-            vm.put(USER_TAKEN, "username is taken");
-            return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
-        } else {
-            playerLobby.addPlayer(newPLayer);
-
-            //TODO
-            response.redirect(WebServer.HOME_URL);
-            halt();
-            return null;
+                //TODO
+                response.redirect(WebServer.HOME_URL);
+                halt();
+                break;
+            default:
+                throw new NoSuchElementException("Invalid result of username checked");
+                break;
         }
+        return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
+    }
+
+    private ModelAndView error(Map<String, Object> vm, String message){
+        vm.put(USER_TAKEN, message);
+        return new ModelAndView(vm, VIEW_NAME);
     }
 }
