@@ -1,5 +1,10 @@
 package com.webcheckers.model;
 
+/**
+ * A model for a player
+ * Each player has a unique identifier (Username)
+ */
+
 public class Player {
 
     /** The unique identifier for a player */
