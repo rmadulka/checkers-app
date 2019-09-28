@@ -54,13 +54,18 @@ public class PostSigninRoute implements Route {
                 Player newPLayer = new Player(username);
                 playerLobby.addPlayer(newPLayer);
 
-                //TODO
+                final Map<String, Object> navvm = new HashMap<>();
+
+                //TODO clean up
+                navvm.put("currentUser", newPLayer);
+                templateEngine.render(new ModelAndView(navvm, "nav-bar.ftl"));
+
                 response.redirect(WebServer.HOME_URL);
                 halt();
                 break;
             default:
+                //This should never happen
                 throw new NoSuchElementException("Invalid result of username checked");
-                break;
         }
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
