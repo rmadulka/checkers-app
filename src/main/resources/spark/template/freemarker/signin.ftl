@@ -8,6 +8,7 @@
 
 <body>
 <div class="page">
+  <h1 color="blue">Sign-in</h1>
     <#if userTaken??>
         <p>
           ${userTaken}
