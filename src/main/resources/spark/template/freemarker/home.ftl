@@ -29,7 +29,15 @@
   </div>
 
   <!-- create a <ul> for players online -->
-
+<div class = "players">
+  <#if playersOnline??>
+      <ul>
+        <#list playersOnline as p>
+            <li>${p}</li>
+        </#list>
+      </ul>
+  </#if>
+</div>
 <#--  <div class="players">-->
 <#--    <h2> Players Online</h2>-->
 <#--    <ul>-->
