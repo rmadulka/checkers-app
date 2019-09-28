@@ -9,7 +9,7 @@ a web micro-framework.
 - Spencer Josi
 - Casper Loveless
 - Ryan Madulka
-- 
+- Alan Read
 
 
 ## Prerequisites
