@@ -20,6 +20,10 @@ public class PlayerLobby {
         this.players = new HashSet<>();
     }
 
+    public HashSet<Player> getPlayersUsername(){
+
+    }
+
     /**
      * Adds a player to the list of signed-in players
      * @param player A successfully signed-in player
