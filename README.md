@@ -7,7 +7,7 @@ a web micro-framework.
 ## Team
 
 - Spencer Josi
-- 
+- Casper Loveless
 - 
 - 
 
