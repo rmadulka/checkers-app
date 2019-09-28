@@ -13,6 +13,8 @@ public class GetSigninRoute implements Route {
 
     private final TemplateEngine templateEngine;
 
+    public static final String TITLE = "title";
+
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
@@ -41,7 +43,7 @@ public class GetSigninRoute implements Route {
         LOG.finer("GetSigninRoute is invoked.");
         //
         Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Signin");
+        vm.put(TITLE, "Signin");
 
 
         // render the View

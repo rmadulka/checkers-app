@@ -16,7 +16,7 @@
   <form action="./signin" method="POST">
 
     <br/>
-    <input name="Username" />
+    <input name="username" />
     <br/>
     <br/>
     <button type="submit">Ok</button>
