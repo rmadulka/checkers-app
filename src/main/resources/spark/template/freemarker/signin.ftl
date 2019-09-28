@@ -8,9 +8,9 @@
 
 <body>
 <div class="page">
-    <#if userTaken>
+    <#if userTaken??>
         <p>
-          ${userTakenMessage}
+          ${userTaken}
         </p>
     </#if>
   <form action="./signin" method="POST">
