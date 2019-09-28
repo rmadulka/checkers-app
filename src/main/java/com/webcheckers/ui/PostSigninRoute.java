@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import spark.*;
 
 import java.util.HashMap;
@@ -12,12 +13,16 @@ import java.util.Objects;
 
 public class PostSigninRoute implements Route {
     static final String USER_PARAM = "username";
+
     static final String EXISTING_NAME = "Username is already taken";
     static final String INVALID_NAME = "Username must only contain alphanumeric characters";
 
+
+    static final String CURRENT_USER = "currentUser";
+    static final String USER_TAKEN = "userTaken";
     static final String VIEW_NAME = "signin.ftl";
 
-    static final String USER_TAKEN = "userTaken";
+    private static final Message LOGIN_MESSAGE = Message.info("Login Successful");
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
@@ -52,14 +57,14 @@ public class PostSigninRoute implements Route {
                 Player newPLayer = new Player(username);
                 playerLobby.addPlayer(newPLayer);
 
-                //TODO clean up
-
                 Map<String, Object> homevm = new HashMap<>();
-                homevm.put("currentUser", newPLayer);
-                homevm.put("title", "Welcome!");
+                homevm.put(CURRENT_USER, newPLayer);
+
+                //TODO when ALAN finishers GETHOME
+                homevm.put(GetHomeRoute.HOME_TITLE, "Welcome!");
 
                 // display a user message in the Home page
-                //homevm.put("message", "YOU HAVE SIGNED IN");
+                homevm.put(GetHomeRoute.MESSAGE, LOGIN_MESSAGE);
 
                 return templateEngine.render(new ModelAndView(homevm, GetHomeRoute.VIEW_NAME));
             default:

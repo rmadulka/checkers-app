@@ -28,6 +28,8 @@ public class GetHomeRoute implements Route {
 
   private final PlayerLobby playerLobby;
 
+  static final String HOME_TITLE = "title";
+  static final String MESSAGE = "message";
   static final String VIEW_NAME = "home.ftl";
 
   /**
@@ -59,9 +61,9 @@ public class GetHomeRoute implements Route {
     LOG.finer("GetHomeRoute is invoked.");
     //
     Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
+    vm.put(HOME_TITLE, "Welcome!");
     // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
+    vm.put(MESSAGE, WELCOME_MSG);
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
