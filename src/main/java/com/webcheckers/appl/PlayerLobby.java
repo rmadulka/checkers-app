@@ -20,8 +20,9 @@ public class PlayerLobby {
         this.players = new HashSet<>();
     }
 
-    public HashSet<Player> getPlayersUsername(){
 
+    public HashSet<Player> getPlayers(){
+        return this.players;
     }
 
     /**
