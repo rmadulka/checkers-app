@@ -10,28 +10,46 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+import static spark.Spark.halt;
+
 
 public class PostSigninRoute implements Route {
+
+    //Parameters retrieved in the handle method
     static final String USER_PARAM = "username";
 
-    static final String EXISTING_NAME = "Username is already taken";
-    static final String INVALID_NAME = "Username must only contain alphanumeric characters";
-
-
+    //Values used in the view-model
     static final String CURRENT_USER = "currentUser";
     static final String USER_TAKEN = "userTaken";
     static final String VIEW_NAME = "signin.ftl";
 
+    //Error messages
+    static final String EXISTING_NAME = "Username is already taken";
+    static final String INVALID_NAME = "Username must only contain alphanumeric characters";
+
+    //Successful Login Message
     private static final Message LOGIN_MESSAGE = Message.info("Login Successful");
 
+    //Attributes
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
 
 
+    /**
+     * The constructor for the {@code POST /signin} route handler.
+     *
+     * @param playerlobby
+     *    {@Link GameCenter} that holds over statistics
+     * @param templateEngine
+     *    template engine to use for rendering HTML page
+     *
+     * @throws NullPointerException
+     *    when the {@code gameCenter} or {@code templateEngine} parameter is null
+     */
     PostSigninRoute(TemplateEngine templateEngine, PlayerLobby playerlobby) {
         // validation
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
-        //
+
         this.playerLobby = playerlobby;
         this.templateEngine = templateEngine;
     }
@@ -60,13 +78,15 @@ public class PostSigninRoute implements Route {
                 Map<String, Object> homevm = new HashMap<>();
                 homevm.put(CURRENT_USER, newPLayer);
 
-                //TODO when ALAN finishers GETHOME
                 homevm.put(GetHomeRoute.HOME_TITLE, "Welcome!");
 
                 // display a user message in the Home page
                 homevm.put(GetHomeRoute.MESSAGE, LOGIN_MESSAGE);
+                
+                response.redirect("/");
 
                 return templateEngine.render(new ModelAndView(homevm, GetHomeRoute.VIEW_NAME));
+
             default:
                 //This should never happen
                 throw new NoSuchElementException("Invalid result of username checked");
