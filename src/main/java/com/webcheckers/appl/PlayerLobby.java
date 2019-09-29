@@ -8,6 +8,9 @@ import java.util.HashSet;
  */
 public class PlayerLobby {
 
+    /**
+     * Elements that show the validity of a username
+     */
     public enum signinErrors {VALID, NAMEEXISTS, ALPHA}
 
     /** List of signed-in players */
@@ -20,7 +23,10 @@ public class PlayerLobby {
         this.players = new HashSet<>();
     }
 
-
+    /**
+     * Gets the list of signed-in players
+     * @return The list of players
+     */
     public HashSet<Player> getPlayers(){
         return this.players;
     }

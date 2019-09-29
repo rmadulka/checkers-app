@@ -30,12 +30,17 @@
 
   <!-- create a <ul> for players online -->
 <div class = "players">
-  <#if playersOnline??>
-      <ul>
-        <#list playersOnline as p>
-            <li>${p}</li>
-        </#list>
-      </ul>
+  <#if currentUser??>
+      <#if playersOnline??>
+          <ul>
+            <#list playersOnline as p>
+                <li>${p.username}</li>
+            </#list>
+          </ul>
+      </#if>
+  </#if>
+  <#if !currentUser??>
+    <h5>${numPlayers}</h5>
   </#if>
 </div>
 <#--  <div class="players">-->
