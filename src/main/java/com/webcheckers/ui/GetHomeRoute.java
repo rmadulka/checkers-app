@@ -70,12 +70,7 @@ public class GetHomeRoute implements Route {
     vm.put(NUM_PLAYERS, this.playerLobby.getPlayers().size());
     // display a user message in the Home page
     vm.put(MESSAGE, WELCOME_MSG);
-
-    //TODO fix if necessary
-
-    if (currentUser != null) {
-      vm.put(CURRENT_USER, currentUser);
-    }
+    vm.put(CURRENT_USER, currentUser);
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
