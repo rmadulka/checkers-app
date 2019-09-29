@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import static spark.Spark.halt;
+import static spark.Spark.*;
 
 
 public class PostSigninRoute implements Route {
@@ -19,7 +19,6 @@ public class PostSigninRoute implements Route {
     static final String USER_PARAM = "username";
 
     //Values used in the view-model
-    static final String CURRENT_USER = "currentUser";
     static final String USER_TAKEN = "userTaken";
     static final String VIEW_NAME = "signin.ftl";
 
@@ -57,6 +56,8 @@ public class PostSigninRoute implements Route {
 
     public String handle(Request request, Response response) {
 
+        final Session httpSession = request.session();
+
         final Map<String, Object> vm = new HashMap<>();
         vm.put(GetSigninRoute.TITLE, "Signin");
 
@@ -72,21 +73,20 @@ public class PostSigninRoute implements Route {
                 mv = error(vm, INVALID_NAME);
                 break;
             case VALID:
-                Player newPLayer = new Player(username);
-                playerLobby.addPlayer(newPLayer);
+                Player newPlayer = new Player(username);
+                playerLobby.addPlayer(newPlayer);
 
-                Map<String, Object> homevm = new HashMap<>();
-                homevm.put(CURRENT_USER, newPLayer);
+                httpSession.attribute("currentUser", newPlayer);
 
-                homevm.put(GetHomeRoute.HOME_TITLE, "Welcome!");
+//                Map<String, Object> homevm = new HashMap<>();
+//                homevm.put("title", "Welcome!");
+//                // display a user message in the Home page
+//                homevm.put("currentUser", newPlayer);
 
-                // display a user message in the Home page
-                homevm.put(GetHomeRoute.MESSAGE, LOGIN_MESSAGE);
-                
+
                 response.redirect("/");
-
-                return templateEngine.render(new ModelAndView(homevm, GetHomeRoute.VIEW_NAME));
-
+                halt();
+                return null;
             default:
                 //This should never happen
                 throw new NoSuchElementException("Invalid result of username checked");
