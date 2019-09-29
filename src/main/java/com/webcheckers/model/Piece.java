@@ -1,5 +1,8 @@
 package com.webcheckers.model;
 
+/**
+ * Represents a piece on a checkerboard. returns a color and a type.
+ */
 public class Piece {
     
     /**

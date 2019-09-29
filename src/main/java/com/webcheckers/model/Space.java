@@ -1,5 +1,9 @@
 package com.webcheckers.model;
 
+/**
+ * represents a space on a checkerboard. returns a cell index, if the space is valid and the piece
+ * on the space.
+ */
 public class Space {
     private int cellIdx;        /* cell index */
     private boolean isDark;     /* is the space dark? */
