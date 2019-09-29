@@ -29,6 +29,8 @@ public class GetHomeRoute implements Route {
   private final PlayerLobby playerLobby;
 
   static final String HOME_TITLE = "title";
+  private static final String PLAYERS_ONLINE = "playersOnline";
+  private static final String NUM_PLAYERS = "numPlayers";
   static final String MESSAGE = "message";
   static final String VIEW_NAME = "home.ftl";
 
@@ -62,6 +64,8 @@ public class GetHomeRoute implements Route {
     //
     Map<String, Object> vm = new HashMap<>();
     vm.put(HOME_TITLE, "Welcome!");
+    vm.put(PLAYERS_ONLINE, this.playerLobby.getPlayers());
+    vm.put(NUM_PLAYERS, this.playerLobby.getPlayers().size());
     // display a user message in the Home page
     vm.put(MESSAGE, WELCOME_MSG);
 
