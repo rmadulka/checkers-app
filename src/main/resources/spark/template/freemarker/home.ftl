@@ -29,27 +29,22 @@
   </div>
 
   <!-- create a <ul> for players online -->
-<div class = "players">
-  <#if currentUser??>
-      <#if playersOnline??>
-          <ul>
-            <#list playersOnline as p>
-                <li>${p.username}</li>
-            </#list>
-          </ul>
+    <div class = "players">
+      <#if currentUser??>
+          <#if playersOnline??>
+              <ul>
+                <#list playersOnline as p>
+                    <#if !(p.username == currentUser.username)>
+                        <li>${p.username}</li>
+                    </#if>
+                </#list>
+              </ul>
+          </#if>
       </#if>
-  </#if>
-  <#if !currentUser??>
-    <h5>${numPlayers}</h5>
-  </#if>
-</div>
-<#--  <div class="players">-->
-<#--    <h2> Players Online</h2>-->
-<#--    <ul>-->
-<#--      ${playersOnline}-->
-<#--    </ul>-->
-
-<#--  </div>-->
+      <#if !currentUser??>
+        <h5>${numPlayers} Players Online</h5>
+      </#if>
+    </div>
 
 </div>
 </body>
