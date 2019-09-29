@@ -25,9 +25,7 @@
             spectating active games,
             or replay archived games
     -->
-
   </div>
-
   <!-- create a <ul> for players online -->
     <div class = "players">
       <#if currentUser??>
@@ -45,7 +43,6 @@
         <h5>${numPlayers} Players Online</h5>
       </#if>
     </div>
-
 </div>
 </body>
 

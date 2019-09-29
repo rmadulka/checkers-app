@@ -52,6 +52,14 @@ div.page {
   margin: 30px auto;
 }
 
+div.sign-in {
+  padding: 10px 14px;
+}
+
+div.players {
+  padding-left: 14px;
+}
+
 div.page h1 {
   background: #6ECCFF;
   margin: 0;

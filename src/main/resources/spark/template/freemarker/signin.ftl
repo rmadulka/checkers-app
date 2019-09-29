@@ -14,15 +14,15 @@
           ${userTaken}
         </p>
     </#if>
-  <form action="./signin" method="POST">
-
-    <br/>
-    <input name="username" />
-    <br/>
-    <br/>
-    <button type="submit">Ok</button>
-  </form>
-
+  <div class="sign-in">
+    <form action="./signin" method="POST">
+      <br/>
+      <input name="username" />
+      <br/>
+      <br/>
+      <button type="submit">Sign-in</button>
+    </form>
+  </div>
 </div>
 </body>
 
