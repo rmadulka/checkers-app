@@ -8,22 +8,22 @@ package com.webcheckers.model;
 public class Player {
 
     /** The unique identifier for a player */
-    private String username;
+    private String name;
 
     /**
      * Creates a new instance of a player
-     * @param username The unique identifier for player
+     * @param name The unique identifier for player
      */
-    public Player (String username){
-        this.username = username;
+    public Player (String name){
+        this.name = name;
     }
 
     /**
      * Gets the player's username
      * @return the username
      */
-    public String getUsername(){
-        return username;
+    public String getName(){
+        return name;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Player {
             return false;
         }
         final Player that = (Player) obj;
-        return this.username.equals(that.username) ;
+        return this.name.equals(that.name) ;
     }
 
     /**
@@ -49,6 +49,6 @@ public class Player {
      */
     @Override
     public int hashCode(){
-        return username.hashCode();
+        return name.hashCode();
     }
 }
