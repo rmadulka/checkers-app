@@ -8,12 +8,14 @@ public class Piece {
     /**
      * Enums that define the two types of pieces and colors.
      */
-    enum pieceType {
+
+    //TODO might need to remove the public but for now its fine
+    public enum pieceType {
         PAWN,
         KING
     }
 
-    enum pieceColor {
+    public enum pieceColor {
         WHITE,
         RED
     }
