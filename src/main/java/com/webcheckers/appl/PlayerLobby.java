@@ -32,6 +32,20 @@ public class PlayerLobby {
     }
 
     /**
+     * Gets a player based on the players name
+     * @param name Players name
+     * @return The player if it exists in the hash set
+     */
+    public Player getPlayer(String name) {
+        for (Player i : players){
+            if(i.getName().equals(name)){
+                return i;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds a player to the list of signed-in players
      * @param player A successfully signed-in player
      */
@@ -41,14 +55,14 @@ public class PlayerLobby {
 
     /**
      * Checks if a player already exists when signing in
-     * @param username A new player attempting to sign-in
+     * @param name A new player attempting to sign-in
      * @return True if the player already exists
      */
-    public signinErrors checkUsername (String username){
-        Player tempPlayer = new Player(username);
+    public signinErrors checkUsername (String name){
+        Player tempPlayer = new Player(name);
         if (this.players.contains(tempPlayer)){
             return signinErrors.NAMEEXISTS;
-        } else if (!(username.matches("[a-zA-Z0-9 ]*[a-zA-Z0-9]+[a-zA-Z0-9 ]*"))){
+        } else if (!(name.matches("[a-zA-Z0-9 ]*[a-zA-Z0-9]+[a-zA-Z0-9 ]*"))){
             return signinErrors.ALPHA;
         } else {
             return signinErrors.VALID;
