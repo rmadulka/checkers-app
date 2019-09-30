@@ -37,7 +37,7 @@
                             <form action="./game" method="GET">
                                 <input type="hidden" name="sender" value=currentUser />
                                 <input type="hidden" name="receiver" value=p />
-                                <a href="" onclick="$(this).closest('form').submit()"> [${p.name}] </a>
+                                <a href="/game" onclick="form.submit()"> [${p.name}] </a>
                             </form>
                         </li>
                     </#if>
