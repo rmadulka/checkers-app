@@ -32,9 +32,9 @@
           <#if playersOnline??>
               <ul>
                 <#list playersOnline as p>
-                    <#if !(p.username == currentUser.username)>
+                    <#if !(p.name == currentUser.name)>
                         <li>
-                            <a href="#" onclick=""> [${p.username}] </a>
+                            <a href="#" onclick=""> [${p.name}] </a>
                         </li>
                     </#if>
                 </#list>
