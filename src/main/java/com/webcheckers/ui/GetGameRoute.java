@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import com.webcheckers.model.Piece;
+import com.webcheckers.model.Player;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -23,9 +25,24 @@ public class GetGameRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) {
+
+        final Player sender = request.attribute("sender");
+        final Player receiver = request.attribute("receiver");
+
+        System.out.println("GOT THAT SHIT");
+
         LOG.finer("GetGameRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "");
+        vm.put("title", "Checkers");
+
+        vm.put("currentUser", sender);
+        vm.put("redPlayer", sender);
+        vm.put("whitePlayer", receiver);
+
+        vm.put("activeColor", Piece.pieceColor.RED);
+
+//        vm.put("viewMode", );
+//        vm.put("modeOptions", );
 
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));
     }
