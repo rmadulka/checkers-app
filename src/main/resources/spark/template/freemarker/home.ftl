@@ -35,7 +35,8 @@
                     <#if !(p.name == currentUser.name)>
                         <li>
                             <form id="form" action="./game" method="GET">
-                                <input type="hidden" name="receiver" value=p.name />
+                                <input type="hidden" name="sender" value="${currentUser}" />
+                                <input type="hidden" name="receiver" value="${p}" />
                                 <a href="javascript:;" onclick="document.getElementById('form').submit();"> [${p.name}] </a>
                             </form>
                         </li>
