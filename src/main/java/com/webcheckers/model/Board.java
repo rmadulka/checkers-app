@@ -1,10 +1,12 @@
 package com.webcheckers.model;
 
+import java.util.ListIterator;
+
 /**
  * model of the board for the boardview ui
  */
 
- public class Board {
+ public class Board {//implements Iterable<Row> {
      private static final int SIZE = 8;
      private Player white;
      private Player red;
@@ -39,4 +41,8 @@ package com.webcheckers.model;
      public Space[][] getBoard() {
          return this.board;
      }
+
+    /*public ListIterator<Row> iterator() {
+
+    }*/
  }

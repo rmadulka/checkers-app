@@ -8,12 +8,12 @@ import java.util.ListIterator;
 /**
  * Creates a row containing a list of spaces, then iterates through the row.
  */
-public class Row {
-    private int idx;                            /* row index */
+public class Row implements Iterable<Space>{
+    private int index;                            /* row index */
     private ArrayList<Space> spaceSequence;     /* sequence of spaces in a row */
 
-    public Row(int idx, Space[] spaces) {
-        this.idx = idx;
+    public Row(int index, Space[] spaces) {
+        this.index = index;
         this.spaceSequence = new ArrayList<>();
         List<Space> spaceSequence = Arrays.asList(spaces);
         spaceSequence.addAll(spaceSequence);
@@ -23,8 +23,8 @@ public class Row {
      * index of the row
      * @return row index: 0 -7
      */
-    public int getIdx() {
-        return this.idx;
+    public int getIndex() {
+        return this.index;
     }
 
     /**
