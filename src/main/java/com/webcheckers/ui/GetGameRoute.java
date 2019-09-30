@@ -5,35 +5,38 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import spark.*;
 
 public class GetGameRoute implements Route {
 
     private final TemplateEngine templateEngine;
+    private final PlayerLobby playerLobby;
     private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
 
-    public GetGameRoute(final TemplateEngine templateEngine) {
+    public GetGameRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
+        this.playerLobby = playerLobby;
         LOG.config("GetGameRoute is initialized.");
     }
 
     @Override
     public Object handle(Request request, Response response) {
 
-        final Player sender = request.attribute("sender");
-        final Player receiver = request.attribute("receiver");
+        final Session httpSession = request.session();
+        final String receiverName = request.queryParams("receiver");
 
-        System.out.println("GOT THAT SHIT");
+        System.out.println(receiverName);
+
+        Player sender = httpSession.attribute("currentUser");
+        Player receiver = playerLobby.getPlayer(receiverName);
+
 
         LOG.finer("GetGameRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Checkers");
+        vm.put("title", "Checkers Game");
 
         vm.put("currentUser", sender);
         vm.put("redPlayer", sender);
@@ -41,7 +44,7 @@ public class GetGameRoute implements Route {
 
         vm.put("activeColor", Piece.pieceColor.RED);
 
-//        vm.put("viewMode", );
+        vm.put("viewMode", "PLAY");
 //        vm.put("modeOptions", );
 
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));
