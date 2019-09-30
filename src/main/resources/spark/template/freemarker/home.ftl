@@ -34,7 +34,11 @@
                 <#list playersOnline as p>
                     <#if !(p.name == currentUser.name)>
                         <li>
-                            <a href="#" onclick=""> [${p.name}] </a>
+                            <form action="./game" method="GET">
+                                <input type="hidden" name="sender" value=currentUser />
+                                <input type="hidden" name="receiver" value=p />
+                                <a href="" onclick="$(this).closest('form').submit()"> [${p.name}] </a>
+                            </form>
                         </li>
                     </#if>
                 </#list>
