@@ -19,13 +19,13 @@
 
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
-
     <!-- TODO: future content on the Home:
             to start games,
             spectating active games,
             or replay archived games
     -->
   </div>
+    <h2 style="padding-left: 10px">Players Online</h2>
   <!-- create a <ul> for players online -->
     <div class = "players">
       <#if currentUser??>
@@ -33,7 +33,9 @@
               <ul>
                 <#list playersOnline as p>
                     <#if !(p.username == currentUser.username)>
-                        <li>${p.username}</li>
+                        <li>
+                            <a href="#" onclick=""> [${p.username}] </a>
+                        </li>
                     </#if>
                 </#list>
               </ul>
