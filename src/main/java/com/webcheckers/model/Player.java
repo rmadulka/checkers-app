@@ -10,12 +10,16 @@ public class Player {
     /** The unique identifier for a player */
     private String name;
 
+    /** Determines if the player is supposed to be in a game */
+    private boolean inGame;
+
     /**
      * Creates a new instance of a player
      * @param name The unique identifier for player
      */
     public Player (String name){
         this.name = name;
+        this.inGame = false;
     }
 
     /**
@@ -24,6 +28,22 @@ public class Player {
      */
     public String getName(){
         return name;
+    }
+
+    /**
+     * Return the game status of the player
+     * @return The player game status
+     */
+    public boolean getInGame() {
+        return inGame;
+    }
+
+    /**
+     * Sets the game status of the player
+     * @param inGame Boolean that determines if a player is in a game
+     */
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 
     /**

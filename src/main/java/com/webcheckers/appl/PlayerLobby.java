@@ -46,6 +46,16 @@ public class PlayerLobby {
     }
 
     /**
+     * Sets the statuses of both players to be in game
+     * @param player1 A player
+     * @param player2 Another player
+     */
+    public void startGame(Player player1, Player player2){
+        player1.setInGame(true);
+        player2.setInGame(true);
+    }
+
+    /**
      * Adds a player to the list of signed-in players
      * @param player A successfully signed-in player
      */
