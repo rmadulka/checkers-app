@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Board;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 
@@ -34,6 +35,8 @@ public class GetGameRoute implements Route {
         Player sender = httpSession.attribute("currentUser");
         Player receiver = playerLobby.getPlayer(receiverName);
 
+        Board checkersBoard = new Board(receiver, sender);
+
         LOG.finer("GetGameRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Checkers Game");
@@ -45,6 +48,8 @@ public class GetGameRoute implements Route {
         vm.put("activeColor", Piece.pieceColor.RED);
 
         vm.put("viewMode", "PLAY");
+
+        vm.put("board", checkersBoard);
 //        vm.put("modeOptions", );
 
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));
