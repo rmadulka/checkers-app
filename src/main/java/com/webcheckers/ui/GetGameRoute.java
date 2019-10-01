@@ -27,24 +27,46 @@ public class GetGameRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
 
+        final String receiverName = request.queryParams("receiver");
         final Session httpSession = request.session();
 
-        final String receiverName = request.queryParams("receiver");
-
+        Board checkersBoard;
 
         Player sender = httpSession.attribute("currentUser");
-        Player receiver = playerLobby.getPlayer(receiverName);
+        Player receiver;
 
-        Board checkersBoard = new Board(receiver, sender);
+//        System.out.println(sender.getName());
+//        System.out.println(receiver.getName());
+
+        Map<String, Object> vm = new HashMap<>();
+
+        if(!sender.getInGame()) {
+            receiver = playerLobby.getPlayer(receiverName);
+
+            checkersBoard = new Board(receiver, sender);
+
+            playerLobby.startGame(sender, receiver, checkersBoard);
+            //TODO Maybe combine two lines
+
+            vm.put("currentUser", sender);
+            vm.put("redPlayer", sender);
+            vm.put("whitePlayer", receiver);
+
+        } else {
+            receiver = sender.getOpponent();
+
+            checkersBoard = sender.getCurrentBoard();
+
+            vm.put("currentUser", sender);
+            vm.put("redPlayer", receiver);
+            vm.put("whitePlayer", sender);
+        }
 
         LOG.finer("GetGameRoute is invoked.");
-        Map<String, Object> vm = new HashMap<>();
+
         vm.put("title", "Checkers Game");
 
-        vm.put("currentUser", sender);
-        vm.put("redPlayer", sender);
-        vm.put("whitePlayer", receiver);
-
+        //TODO Right now active color is hardcoded
         vm.put("activeColor", Piece.pieceColor.RED);
 
         vm.put("viewMode", "PLAY");

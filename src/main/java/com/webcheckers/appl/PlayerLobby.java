@@ -1,4 +1,5 @@
 package com.webcheckers.appl;
+import com.webcheckers.model.Board;
 import com.webcheckers.model.Player;
 import java.util.HashSet;
 
@@ -50,9 +51,15 @@ public class PlayerLobby {
      * @param player1 A player
      * @param player2 Another player
      */
-    public void startGame(Player player1, Player player2){
+    public void startGame(Player player1, Player player2, Board currentBoard){
         player1.setInGame(true);
         player2.setInGame(true);
+
+        player1.setOpponent(player2);
+        player2.setOpponent(player1);
+
+        player1.setCurrentBoard(currentBoard);
+        player2.setCurrentBoard(currentBoard);
     }
 
     /**

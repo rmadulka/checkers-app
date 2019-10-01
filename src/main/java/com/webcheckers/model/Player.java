@@ -13,6 +13,10 @@ public class Player {
     /** Determines if the player is supposed to be in a game */
     private boolean inGame;
 
+    private Player opponent;
+
+    private Board currentBoard;
+
     /**
      * Creates a new instance of a player
      * @param name The unique identifier for player
@@ -44,6 +48,26 @@ public class Player {
      */
     public void setInGame(boolean inGame) {
         this.inGame = inGame;
+    }
+
+    public void setCurrentBoard(Board currentBoard){
+        this.currentBoard = currentBoard;
+    }
+
+    public void setOpponent(Player opponent){
+        this.opponent = opponent;
+    }
+
+    public void removeOpponent(){
+        this.opponent = null;
+    }
+
+    public Player getOpponent(){
+        return this.opponent;
+    }
+
+    public Board getCurrentBoard(){
+        return currentBoard;
     }
 
     /**

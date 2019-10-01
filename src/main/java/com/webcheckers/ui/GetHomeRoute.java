@@ -11,6 +11,8 @@ import spark.*;
 
 import com.webcheckers.util.Message;
 
+import static spark.Spark.halt;
+
 /**
  * The UI Controller to GET the Home page.
  *
@@ -64,6 +66,12 @@ public class GetHomeRoute implements Route {
     //Get Session and attributes
     final Session httpSession = request.session();
     Player currentUser = httpSession.attribute("currentUser");
+
+    if (currentUser != null && currentUser.getInGame()){
+      response.redirect("/game");
+      halt();
+      return  null;
+    }
 
     //create view-model for home page
     Map<String, Object> vm = new HashMap<>();
