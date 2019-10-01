@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
+
 import spark.*;
 
 public class GetGameRoute implements Route {
@@ -26,13 +27,12 @@ public class GetGameRoute implements Route {
     public Object handle(Request request, Response response) {
 
         final Session httpSession = request.session();
+
         final String receiverName = request.queryParams("receiver");
 
-        System.out.println(receiverName);
 
         Player sender = httpSession.attribute("currentUser");
         Player receiver = playerLobby.getPlayer(receiverName);
-
 
         LOG.finer("GetGameRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
