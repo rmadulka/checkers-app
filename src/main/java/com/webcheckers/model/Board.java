@@ -1,25 +1,27 @@
 package com.webcheckers.model;
 
+import java.util.ArrayList;
 import java.util.ListIterator;
 
 /**
  * model of the board for the boardview ui
  */
 
- public class Board {//implements Iterable<Row> {
+ public class Board implements Iterable<Row> {
      private static final int SIZE = 8;
      private Player white;
      private Player red;
-     private Space[][] board;
+     private ArrayList<Row> board;
 
      public Board(Player white, Player red) {
+         this.board = new ArrayList<>();
          this.white = white;
          this.red = red;
-         init();
+         //init();
      }
 
      private void init() {
-         this.board = new Space[SIZE][SIZE];
+         /*this.board = new Space[SIZE][SIZE];
 
          for (int row = 0; row < SIZE; row++) {
              for (int col = 0; col < SIZE; col++) {
@@ -31,18 +33,18 @@ import java.util.ListIterator;
                      else board[row][col] = new Space(col, true);
                  }
              }
-         }
+         }*/
      }
 
      private void populate() {
          //TODO: implement a method to place/remove a piece in Space.java
      }
 
-     public Space[][] getBoard() {
+     /*public Space[][] getBoard() {
          return this.board;
-     }
+     }*/
 
-    /*public ListIterator<Row> iterator() {
-
-    }*/
+    public ListIterator<Row> iterator() {
+        return this.board.listIterator();
+    }
  }
