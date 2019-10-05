@@ -1,15 +1,24 @@
 package com.webcheckers.model;
 
 public class GameLobby {
-
+    /** represents the player who moves the red checker pieces **/
     private Player redPlayer;
+    /** represents the player who moves the white checker pieces **/
     private Player whitePlayer;
+    /** represents the checkerboard model**/
     private Board board;
 
+    /**
+     * Constructs a GameLobby to keep track of the players in a current game
+     * @param redPlayer
+     *      player who controls the red pieces
+     * @param whitePlayer
+     *      player who controls the white pieces
+     */
     public GameLobby(Player redPlayer, Player whitePlayer){
         this.redPlayer = redPlayer;
         this.whitePlayer = whitePlayer;
-        this.board = new Board(redPlayer, whitePlayer);
+        this.board = new Board(whitePlayer, redPlayer);
         init();
     }
 
@@ -27,6 +36,10 @@ public class GameLobby {
         this.whitePlayer.setCurrentBoard(board);*/
     }
 
+    /**
+     * Gets the current board
+     * @return the board's layout
+     */
     public Board getBoard(){
         return this.board;
     }
