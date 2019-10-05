@@ -35,10 +35,12 @@ public class GetGameRoute implements Route {
 
         Board checkersBoard;
 
-        Player player = httpSession.attribute("currentUser");
+        Player player = httpSession.attribute(GetHomeRoute.CURRENT_USER);
         Player opponent;
 
         Map<String, Object> vm = new HashMap<>();
+
+        System.out.println(player);
 
         if(!player.getInGame()) {
             opponent = playerLobby.getPlayer(receiverName);
@@ -69,6 +71,13 @@ public class GetGameRoute implements Route {
         vm.put("currentUser", player);
 
         vm.put("title", "Checkers Game");
+
+//        for(int row = 0; row < 8;  row++) {
+//            for(int col = 0; col <8; col++) {
+//                System.out.print(boardView.rows.get(row).spaceSequence.get(col));
+//            }
+//            System.out.println("");
+//        }
 
         vm.put("board", boardView);
 

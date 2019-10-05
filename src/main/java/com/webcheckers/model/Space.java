@@ -7,7 +7,7 @@ package com.webcheckers.model;
 public class Space {
     private int cellIdx;        /* cell index */
     private boolean isDark;     /* is the space dark? */
-    public Piece pieceHere;     /* the piece in the spot */
+    public Piece piece;     /* the piece in the spot */
 
     /**
      * constructor for a checkerboard space.
@@ -17,7 +17,7 @@ public class Space {
     public Space(int cellIdx, boolean isDark) {
         this.cellIdx = cellIdx;
         this.isDark = isDark;
-        this.pieceHere = null;
+        this.piece = null;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Space {
      * @return true or false
      */
     public boolean isValid() {
-        return this.isDark && this.pieceHere == null;
+        return this.isDark && this.piece == null;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Space {
      */
     public boolean place(Piece piece) {
         if (piece != null) {
-            pieceHere = piece;
+            this.piece = piece;
             return true;
         } else {
             return false;
@@ -54,6 +54,6 @@ public class Space {
      * @return a piece
      */
     public Piece getPiece() {
-        return this.pieceHere;
+        return this.piece;
     }
 }

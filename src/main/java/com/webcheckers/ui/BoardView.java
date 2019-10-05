@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.model.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class BoardView implements Iterable<Row> {
   private ArrayList<Row> rows = new ArrayList();
@@ -30,8 +31,8 @@ public class BoardView implements Iterable<Row> {
     return null;
     }
 
-  public Iterator<Row> iterator() {
-      return rows.iterator();
+  public ListIterator<Row> iterator() {
+      return rows.listIterator();
   }
 
 }
