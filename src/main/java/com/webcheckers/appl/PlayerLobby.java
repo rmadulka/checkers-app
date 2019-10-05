@@ -1,6 +1,9 @@
 package com.webcheckers.appl;
 import com.webcheckers.model.Board;
+import com.webcheckers.model.GameLobby;
 import com.webcheckers.model.Player;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -17,11 +20,14 @@ public class PlayerLobby {
     /** List of signed-in players */
     private HashSet<Player> players;
 
+    private ArrayList<GameLobby> currentGames;
+
     /**
      * Creates a new instance of a PlayerLobby
      */
     public PlayerLobby(){
         this.players = new HashSet<>();
+        this.currentGames = new ArrayList<>();
     }
 
     /**
@@ -46,25 +52,39 @@ public class PlayerLobby {
         return null;
     }
 
+    /**
+     * Gets the number of players currently signed-in
+     * @return The number of players
+     */
     public int getNumPlayers (){
         return this.players.size();
     }
 
     /**
      * Sets the statuses of both players to be in game
-     * @param player1 A player
-     * @param player2 Another player
-     * @param currentBoard The current board
+     * @param redPlayer The red player
+     * @param whitePlayer The white player
+     * @return The board both players are playing on
      */
-    public void startGame(Player player1, Player player2, Board currentBoard){
-        player1.setInGame(true);
-        player2.setInGame(true);
+    public Board startGame(Player redPlayer, Player whitePlayer){
+        GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
+        currentGames.add(gameLobby);
+        return gameLobby.getBoard();
+    }
 
-        player1.setOpponent(player2);
-        player2.setOpponent(player1);
-
-        player1.setCurrentBoard(currentBoard);
-        player2.setCurrentBoard(currentBoard);
+    /**
+     * Gets GameLobby
+     * @param other other player
+     * @return: the current GameLobby
+     */
+    public GameLobby getGameLobby(Player other) {
+        for (GameLobby games : currentGames){
+            Player opponent = games.getOpponent(other);
+            if(opponent != null) {
+                return games;
+            }
+        }
+        return null;
     }
 
     /**
