@@ -15,10 +15,9 @@ public class Row implements Iterable<Space>{
     public Row(int index, Space[] spaces) {
         this.index = index;
         this.spaceSequence = new ArrayList<>();
-        List<Space> spaceSequence = Arrays.asList(spaces);
-        spaceSequence.addAll(spaceSequence);
+        spaceSequence.addAll(Arrays.asList(spaces));
     }
-    
+
     /**
      * index of the row
      * @return row index: 0 -7

@@ -4,7 +4,7 @@ import com.webcheckers.model.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class BoardView {
+public class BoardView implements Iterable<Row> {
   private ArrayList<Row> rows = new ArrayList();
   public static final int SIZE = 8;
 
