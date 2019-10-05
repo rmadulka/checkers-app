@@ -30,4 +30,13 @@ public class GameLobby {
     public Board getBoard(){
         return this.board;
     }
+
+    public Player getOpponent(Player player) {
+        if(player.equals(redPlayer)){
+            return whitePlayer;
+        } else if (player.equals(whitePlayer)) {
+            return redPlayer;
+        }
+        return null;
+    }
 }

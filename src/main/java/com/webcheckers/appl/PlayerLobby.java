@@ -2,6 +2,8 @@ package com.webcheckers.appl;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.GameLobby;
 import com.webcheckers.model.Player;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -18,11 +20,14 @@ public class PlayerLobby {
     /** List of signed-in players */
     private HashSet<Player> players;
 
+    private ArrayList<GameLobby> currentGames;
+
     /**
      * Creates a new instance of a PlayerLobby
      */
     public PlayerLobby(){
         this.players = new HashSet<>();
+        this.currentGames = new ArrayList<>();
     }
 
     /**
@@ -63,7 +68,18 @@ public class PlayerLobby {
      */
     public Board startGame(Player redPlayer, Player whitePlayer){
         GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
+        currentGames.add(gameLobby);
         return gameLobby.getBoard();
+    }
+
+    public GameLobby getOpponent(Player other) {
+        for (GameLobby games : currentGames){
+            Player opponent = games.getOpponent(other);
+            if(opponent != null) {
+                return games;
+            }
+        }
+        return null;
     }
 
     /**
