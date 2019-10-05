@@ -37,6 +37,19 @@ public class Space {
     }
 
     /**
+     * place piece in a valid space
+     * @param piece
+     */
+    public boolean place(Piece piece) {
+        if (piece != null) {
+            pieceHere = piece;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * is a piece here?
      * @return a piece
      */

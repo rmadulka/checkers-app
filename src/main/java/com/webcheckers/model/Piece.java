@@ -4,12 +4,11 @@ package com.webcheckers.model;
  * Represents a piece on a checkerboard. returns a color and a type.
  */
 public class Piece {
-    
+
     /**
      * Enums that define the two types of pieces and colors.
      */
 
-    //TODO might need to remove the public but for now its fine
     public enum pieceType {
         PAWN,
         KING
@@ -28,7 +27,7 @@ public class Piece {
      * @param type The type of piece constructed.
      * @param color the color of the piece constructed.
      */
-    private Piece(pieceType type, pieceColor color) {
+    Piece(pieceType type, pieceColor color) {
         this.type = type;
         this.color = color;
     }
