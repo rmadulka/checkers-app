@@ -52,4 +52,27 @@ package com.webcheckers.model;
      public Space[][] getBoard() {
          return this.board;
      }
+
+     public Player getRed() {
+         return red;
+     }
+
+     public Player getWhite() {
+         return white;
+     }
+
+     public Space[] getRow(int row) {
+        return board[row];
+    }
+
+    public Space[] reverseRow(int row) {
+        Space[] toReverse = getRow(row);
+        Space[] reversed = new Space[SIZE];
+        int last = SIZE;
+        for (int space = 0; space < SIZE; space++) {
+            last--;
+            reversed[space] = toReverse[last];
+        }
+        return reversed;
+    }
  }
