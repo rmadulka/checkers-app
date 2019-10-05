@@ -20,8 +20,8 @@ public class GameLobby {
         this.redPlayer.setInGame(true);
         this.whitePlayer.setInGame(true);
 
-        this.redPlayer.setOpponent(redPlayer);
-        this.whitePlayer.setOpponent(whitePlayer);
+        /*this.redPlayer.setOpponent(redPlayer);
+        this.whitePlayer.setOpponent(whitePlayer);*/
 
         /*this.redPlayer.setCurrentBoard(board); Most likely not needed
         this.whitePlayer.setCurrentBoard(board);*/
