@@ -72,7 +72,12 @@ public class PlayerLobby {
         return gameLobby.getBoard();
     }
 
-    public GameLobby getOpponent(Player other) {
+    /**
+     * Gets GameLobby
+     * @param other other player
+     * @return: the current GameLobby
+     */
+    public GameLobby getGameLobby(Player other) {
         for (GameLobby games : currentGames){
             Player opponent = games.getOpponent(other);
             if(opponent != null) {
