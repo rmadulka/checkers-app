@@ -13,8 +13,10 @@ public class Player {
     /** Determines if the player is supposed to be in a game */
     private boolean inGame;
 
+    /** The opponent the player is playing against */
     private Player opponent;
 
+    /** The board that both this player and the opponent see */
     private Board currentBoard;
 
     /**
@@ -50,22 +52,41 @@ public class Player {
         this.inGame = inGame;
     }
 
+    /**
+     * Sets the current board
+     * @param currentBoard The current board that both the opponent and this player see
+     */
     public void setCurrentBoard(Board currentBoard){
         this.currentBoard = currentBoard;
     }
 
+    /**
+     * Sets the current opponent
+     * @param opponent The opponent
+     */
     public void setOpponent(Player opponent){
         this.opponent = opponent;
     }
 
+    /**
+     * Removes the opponent at the end of the game
+     */
     public void removeOpponent(){
         this.opponent = null;
     }
 
+    /**
+     * Gets the current opponent that this player is facing
+     * @return The opponent
+     */
     public Player getOpponent(){
         return this.opponent;
     }
 
+    /**
+     * Gets the current board
+     * @return The current board
+     */
     public Board getCurrentBoard(){
         return currentBoard;
     }

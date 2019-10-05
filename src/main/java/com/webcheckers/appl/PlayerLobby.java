@@ -46,10 +46,15 @@ public class PlayerLobby {
         return null;
     }
 
+    public int getNumPlayers (){
+        return this.players.size();
+    }
+
     /**
      * Sets the statuses of both players to be in game
      * @param player1 A player
      * @param player2 Another player
+     * @param currentBoard The current board
      */
     public void startGame(Player player1, Player player2, Board currentBoard){
         player1.setInGame(true);

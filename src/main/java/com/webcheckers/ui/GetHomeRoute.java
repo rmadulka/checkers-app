@@ -77,7 +77,7 @@ public class GetHomeRoute implements Route {
     Map<String, Object> vm = new HashMap<>();
     vm.put(HOME_TITLE, "Welcome!");
     vm.put(PLAYERS_ONLINE, this.playerLobby.getPlayers());
-    vm.put(NUM_PLAYERS, this.playerLobby.getPlayers().size());
+    vm.put(NUM_PLAYERS, this.playerLobby.getNumPlayers());
     // display a user message in the Home page
     vm.put(MESSAGE, WELCOME_MSG);
     vm.put(CURRENT_USER, currentUser);
