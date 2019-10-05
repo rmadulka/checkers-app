@@ -1,5 +1,6 @@
 package com.webcheckers.appl;
 import com.webcheckers.model.Board;
+import com.webcheckers.model.GameLobby;
 import com.webcheckers.model.Player;
 import java.util.HashSet;
 
@@ -46,25 +47,23 @@ public class PlayerLobby {
         return null;
     }
 
+    /**
+     * Gets the number of players currently signed-in
+     * @return The number of players
+     */
     public int getNumPlayers (){
         return this.players.size();
     }
 
     /**
      * Sets the statuses of both players to be in game
-     * @param player1 A player
-     * @param player2 Another player
-     * @param currentBoard The current board
+     * @param redPlayer The red player
+     * @param whitePlayer The white player
+     * @return The board both players are playing on
      */
-    public void startGame(Player player1, Player player2, Board currentBoard){
-        player1.setInGame(true);
-        player2.setInGame(true);
-
-        player1.setOpponent(player2);
-        player2.setOpponent(player1);
-
-        player1.setCurrentBoard(currentBoard);
-        player2.setCurrentBoard(currentBoard);
+    public Board startGame(Player redPlayer, Player whitePlayer){
+        GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
+        return gameLobby.getBoard();
     }
 
     /**
