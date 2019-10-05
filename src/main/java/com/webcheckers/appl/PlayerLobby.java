@@ -66,10 +66,10 @@ public class PlayerLobby {
      * @param whitePlayer The white player
      * @return The board both players are playing on
      */
-    public Board startGame(Player redPlayer, Player whitePlayer){
+    public GameLobby startGame(Player redPlayer, Player whitePlayer){
         GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
         currentGames.add(gameLobby);
-        return gameLobby.getBoard();
+        return gameLobby;
     }
 
     /**

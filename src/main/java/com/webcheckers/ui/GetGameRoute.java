@@ -41,7 +41,9 @@ public class GetGameRoute implements Route {
         if(!player.getInGame()) {
             opponent = playerLobby.getPlayer(receiverName);
 
-            checkersBoard = playerLobby.startGame(player, opponent);
+            GameLobby gameLobby = playerLobby.startGame(player, opponent);
+
+            checkersBoard = gameLobby.getBoard();
 
             vm.put("currentUser", player);
             vm.put("redPlayer", player);
