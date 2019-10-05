@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
+import com.webcheckers.model.GameLobby;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 
@@ -32,34 +33,31 @@ public class GetGameRoute implements Route {
 
         Board checkersBoard;
 
-        Player sender = httpSession.attribute("currentUser");
-        Player receiver;
-
-//        System.out.println(sender.getName());
-//        System.out.println(receiver.getName());
+        Player player = httpSession.attribute("currentUser");
+        Player opponent;
 
         Map<String, Object> vm = new HashMap<>();
 
-        if(!sender.getInGame()) {
-            receiver = playerLobby.getPlayer(receiverName);
+        if(!player.getInGame()) {
+            opponent = playerLobby.getPlayer(receiverName);
 
-            checkersBoard = new Board(receiver, sender);
+            checkersBoard = playerLobby.startGame(player, opponent);
 
-            playerLobby.startGame(sender, receiver, checkersBoard);
-            //TODO Maybe combine two lines
-
-            vm.put("currentUser", sender);
-            vm.put("redPlayer", sender);
-            vm.put("whitePlayer", receiver);
+            vm.put("currentUser", player);
+            vm.put("redPlayer", player);
+            vm.put("whitePlayer", opponent);
 
         } else {
-            receiver = sender.getOpponent();
+            GameLobby gameLobby = playerLobby.getGameLobby(player);
 
-            checkersBoard = sender.getCurrentBoard();
+            assert gameLobby != null : "GameLobby is null"; //Should never happen
 
-            vm.put("currentUser", sender);
-            vm.put("redPlayer", receiver);
-            vm.put("whitePlayer", sender);
+            opponent = gameLobby.getOpponent(player);
+            checkersBoard = gameLobby.getBoard();
+
+            vm.put("currentUser", player);
+            vm.put("redPlayer", opponent);
+            vm.put("whitePlayer", player);
         }
 
         LOG.finer("GetGameRoute is invoked.");
