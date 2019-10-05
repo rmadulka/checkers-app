@@ -28,7 +28,6 @@ public class GetHomeRoute implements Route {
   private final PlayerLobby playerLobby;
 
   //Values for the view-model
-  static final String IN_GAME = "userInGame";
   static final String CURRENT_USER = "currentUser";
   static final String HOME_TITLE = "title";
   private static final String PLAYERS_ONLINE = "playersOnline";
