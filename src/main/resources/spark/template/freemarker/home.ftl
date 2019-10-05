@@ -24,6 +24,11 @@
             spectating active games,
             or replay archived games
     -->
+    <#if userInGame??>
+        <p>
+          ${userInGame}
+        </p>
+    </#if>
   </div>
     <h2 style="padding-left: 10px">Players Online</h2>
   <!-- create a <ul> for players online -->
