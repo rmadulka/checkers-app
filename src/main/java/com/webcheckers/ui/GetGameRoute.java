@@ -15,6 +15,8 @@ import spark.*;
 
 public class GetGameRoute implements Route {
 
+    static final String RED_PLAYER = "redPlayer";
+
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
     private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
@@ -45,7 +47,6 @@ public class GetGameRoute implements Route {
 
             checkersBoard = gameLobby.getBoard();
 
-            vm.put("currentUser", player);
             vm.put("redPlayer", player);
             vm.put("whitePlayer", opponent);
 
@@ -57,21 +58,24 @@ public class GetGameRoute implements Route {
             opponent = gameLobby.getOpponent(player);
             checkersBoard = gameLobby.getBoard();
 
-            vm.put("currentUser", player);
             vm.put("redPlayer", opponent);
             vm.put("whitePlayer", player);
         }
 
+        BoardView boardView = new BoardView(player, checkersBoard);
+
         LOG.finer("GetGameRoute is invoked.");
 
+        vm.put("currentUser", player);
+
         vm.put("title", "Checkers Game");
+
+        vm.put("board", boardView);
 
         //TODO Right now active color is hardcoded
         vm.put("activeColor", Piece.pieceColor.RED);
 
         vm.put("viewMode", "PLAY");
-
-        vm.put("board", checkersBoard);
 //        vm.put("modeOptions", );
 
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));
