@@ -16,8 +16,8 @@ package com.webcheckers.model;
 
     /**
      * Constructs a checkers game board and calls functions to initialize it
-     * @param white
-     * @param red
+     * @param white player who controls white pieces
+     * @param red player who controls red pieces
      */
      public Board(Player white, Player red) {
          this.white = white;
@@ -99,7 +99,7 @@ package com.webcheckers.model;
 
     /**
      * Swaps the positions on the board in order to accommodate each player's perspective as each player's pieces
-     * are initially located on the top of the board, causing positions to be inversely located.
+     * are initially located on the top of the board, causing positions to be inversely related between both players.
      * @param row int value that represents a row on board
      * @return board with inversely swapped positions
      */
