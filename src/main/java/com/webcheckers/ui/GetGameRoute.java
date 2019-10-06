@@ -15,6 +15,12 @@ import spark.*;
 
 public class GetGameRoute implements Route {
 
+    public enum viewMode {
+        PLAY,
+        SPECTATOR,
+        AI
+    }
+
     static final String RED_PLAYER = "redPlayer";
 
     private final TemplateEngine templateEngine;
@@ -84,7 +90,7 @@ public class GetGameRoute implements Route {
         //TODO Right now active color is hardcoded
         vm.put("activeColor", Piece.pieceColor.RED);
 
-        vm.put("viewMode", "PLAY");
+        vm.put("viewMode", viewMode.PLAY);
 //        vm.put("modeOptions", );
 
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));

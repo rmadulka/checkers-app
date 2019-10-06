@@ -1,9 +1,6 @@
 package com.webcheckers.model;
 
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * Creates a row containing a list of spaces, then iterates through the row.
@@ -30,7 +27,7 @@ public class Row implements Iterable<Space>{
      * returns a list iterator that iterates through the space sequence.
      * @return listIterator
      */
-    public ListIterator<Space> iterator() {
-        return spaceSequence.listIterator();
+    public Iterator<Space> iterator() {
+        return spaceSequence.iterator();
     }
 }

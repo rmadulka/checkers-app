@@ -6,10 +6,12 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 public class BoardView implements Iterable<Row> {
-  private ArrayList<Row> rows = new ArrayList();
+  private ArrayList<Row> rows;
   public static final int SIZE = 8;
 
   public BoardView(Player player, Board board) {
+      this.rows = new ArrayList<>();
+
     Piece.pieceColor playerColor = getColor(player, board);
     if (playerColor == Piece.pieceColor.WHITE) {
       for (int row = 0; row < SIZE; row++) {
@@ -31,8 +33,7 @@ public class BoardView implements Iterable<Row> {
     return null;
     }
 
-  public ListIterator<Row> iterator() {
-      return rows.listIterator();
+  public Iterator<Row> iterator() {
+      return rows.iterator();
   }
-
 }
