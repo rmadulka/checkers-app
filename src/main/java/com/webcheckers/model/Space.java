@@ -24,7 +24,7 @@ public class Space {
      * space cell position
      * @return cellIdx: 0 to 63
      */
-    public int getCellIdX() {
+    public int getCellIdx() {
         return this.cellIdx;
     }
 
