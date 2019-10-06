@@ -22,6 +22,12 @@ public class GetGameRoute implements Route {
     }
 
     static final String RED_PLAYER = "redPlayer";
+    static final String WHITE_PLAYER = "whitePlayer";
+    static final String BOARD_VIEW = "board";
+    static final String ACTIVE_COLOR = "activeColor";
+    static final String VIEW_MODE = "viewMode";
+
+    static final String VIEW_NAME = "game.ftl";
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
@@ -53,8 +59,8 @@ public class GetGameRoute implements Route {
 
             checkersBoard = gameLobby.getBoard();
 
-            vm.put("redPlayer", player);
-            vm.put("whitePlayer", opponent);
+            vm.put(RED_PLAYER, player);
+            vm.put(WHITE_PLAYER, opponent);
 
         } else {
             GameLobby gameLobby = playerLobby.getGameLobby(player);
@@ -64,26 +70,26 @@ public class GetGameRoute implements Route {
             opponent = gameLobby.getOpponent(player);
             checkersBoard = gameLobby.getBoard();
 
-            vm.put("redPlayer", opponent);
-            vm.put("whitePlayer", player);
+            vm.put(RED_PLAYER, opponent);
+            vm.put(WHITE_PLAYER, player);
         }
 
         BoardView boardView = new BoardView(player, checkersBoard);
 
         LOG.finer("GetGameRoute is invoked.");
 
-        vm.put("currentUser", player);
+        vm.put(GetHomeRoute.CURRENT_USER, player);
 
-        vm.put("title", "Checkers Game");
+        vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
 
-        vm.put("board", boardView);
+        vm.put(BOARD_VIEW, boardView);
 
         //TODO Right now active color is hardcoded
-        vm.put("activeColor", Piece.pieceColor.RED);
+        vm.put(ACTIVE_COLOR, Piece.pieceColor.RED);
 
-        vm.put("viewMode", viewMode.PLAY);
+        vm.put(VIEW_MODE, viewMode.PLAY);
 //        vm.put("modeOptions", );
 
-        return templateEngine.render(new ModelAndView(vm , "game.ftl"));
+        return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
     }
 }
