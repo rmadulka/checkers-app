@@ -28,12 +28,6 @@ public class GameLobby {
     public void init(){
         this.redPlayer.setInGame(true);
         this.whitePlayer.setInGame(true);
-
-        /*this.redPlayer.setOpponent(redPlayer);
-        this.whitePlayer.setOpponent(whitePlayer);*/
-
-        /*this.redPlayer.setCurrentBoard(board); Most likely not needed
-        this.whitePlayer.setCurrentBoard(board);*/
     }
 
     /**
@@ -44,6 +38,11 @@ public class GameLobby {
         return this.board;
     }
 
+    /**
+     * Finds the opponent based on the player
+     * @param player The player we use to find the opponent to this player
+     * @return The opponent
+     */
     public Player getOpponent(Player player) {
         if(player.equals(redPlayer)){
             return whitePlayer;

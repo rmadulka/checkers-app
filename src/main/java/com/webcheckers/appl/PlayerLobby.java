@@ -1,5 +1,4 @@
 package com.webcheckers.appl;
-import com.webcheckers.model.Board;
 import com.webcheckers.model.GameLobby;
 import com.webcheckers.model.Player;
 
@@ -20,6 +19,7 @@ public class PlayerLobby {
     /** List of signed-in players */
     private HashSet<Player> players;
 
+    /** An array list of GameLobbies */
     private ArrayList<GameLobby> currentGames;
 
     /**
@@ -73,9 +73,9 @@ public class PlayerLobby {
     }
 
     /**
-     * Gets GameLobby
-     * @param other other player
-     * @return: the current GameLobby
+     * Gets GameLobby based on the player name
+     * @param other A player
+     * @return The GameLobby that the player is in
      */
     public GameLobby getGameLobby(Player other) {
         for (GameLobby games : currentGames){
