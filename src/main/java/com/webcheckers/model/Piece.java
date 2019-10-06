@@ -10,7 +10,7 @@ public class Piece {
      */
 
     public enum pieceType {
-        PAWN,
+        SINGLE,
         KING
     }
 

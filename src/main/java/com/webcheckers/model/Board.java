@@ -52,12 +52,12 @@ package com.webcheckers.model;
              for (int col = 0; col < SIZE; col++) {
                 if(row < 3) { // these rows need to have red pieces on black spaces
                     if (board[row][col].isValid()) {
-                        board[row][col].place(new Piece(Piece.pieceType.PAWN, Piece.pieceColor.RED));
+                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
                     }
                 }
                 else if (row > 4) { // these rows need to have white pieces on black spaces
                     if (board[row][col].isValid()) {
-                        board[row][col].place(new Piece(Piece.pieceType.PAWN, Piece.pieceColor.WHITE));
+                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
                     }
                 }
              }

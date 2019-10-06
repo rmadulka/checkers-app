@@ -7,7 +7,7 @@ package com.webcheckers.model;
 public class Space {
     private int cellIdx;        /* cell index */
     private boolean isDark;     /* is the space dark? */
-    public Piece piece;     /* the piece in the spot */
+    private Piece piece;     /* the piece in the spot */
 
     /**
      * constructor for a checkerboard space.
