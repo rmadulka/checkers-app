@@ -23,19 +23,21 @@ public class GetHomeRoute implements Route {
 
   //Welcome message
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
-  private static final Message IN_GAME_MSG = Message.error("Selected player currently in game");
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;
 
   //Values for the view-model
-  static final String IN_GAME = "userInGame";
   static final String CURRENT_USER = "currentUser";
   static final String HOME_TITLE = "title";
   private static final String PLAYERS_ONLINE = "playersOnline";
   private static final String NUM_PLAYERS = "numPlayers";
   static final String MESSAGE = "message";
   static final String VIEW_NAME = "home.ftl";
+
+  //Message String for session attribute
+  static final String MESSAGE_ATR = "message";
+
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -69,32 +71,40 @@ public class GetHomeRoute implements Route {
     final Session httpSession = request.session();
     Player currentUser = httpSession.attribute("currentUser");
 
+    //Displays a new message if there is one
     displayMessage(httpSession, vm);
 
+    //If the currentUser is clicked on at any point, send them to the game
     if (currentUser != null && currentUser.getInGame()){
       response.redirect("/game");
       halt();
       return null;
     }
 
-    //create view-model for home page
-
+    //generate view-model for home page
     vm.put(HOME_TITLE, "Welcome!");
     vm.put(PLAYERS_ONLINE, this.playerLobby.getPlayers());
     vm.put(NUM_PLAYERS, this.playerLobby.getNumPlayers());
-    // display a user message in the Home page
     vm.put(CURRENT_USER, currentUser);
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
   }
 
+  /**
+   * Displays a message on the homepage is there is one
+   * @param httpSession - user's session
+   * @param vm - view-model to be rendered
+   */
   private void displayMessage(Session httpSession, Map<String, Object> vm) {
-    Message newMessage = httpSession.attribute("message");
+    Message newMessage = httpSession.attribute(MESSAGE_ATR);
     if (newMessage != null) {
       vm.put(MESSAGE, newMessage);
-      httpSession.removeAttribute("message");
+
+      //removes the new message ASAP so it is never reused
+      httpSession.removeAttribute(MESSAGE_ATR);
     } else {
+      //default message is a welcome message
       vm.put(MESSAGE, WELCOME_MSG);
     }
   }
