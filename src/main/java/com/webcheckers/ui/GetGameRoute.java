@@ -18,12 +18,16 @@ import static spark.Spark.halt;
 
 public class GetGameRoute implements Route {
 
+    /**
+     * Enum for the type of view
+     */
     public enum viewMode {
         PLAY,
         SPECTATOR,
         AI
     }
 
+    /** Names of the view model values */
     static final String RED_PLAYER = "redPlayer";
     static final String WHITE_PLAYER = "whitePlayer";
     static final String BOARD_VIEW = "board";
@@ -32,18 +36,33 @@ public class GetGameRoute implements Route {
     static final String GENERIC_MESSAGE = "message";
     static final String VIEW_NAME = "game.ftl";
 
+    /** Error message when a player that is currently in a game is selected */
     static final Message IN_GAME_MSG = Message.error("Selected player currently in game");
 
+    /** A template engine object */
     private final TemplateEngine templateEngine;
+    /** A player lobby object */
     private final PlayerLobby playerLobby;
+    /** A log message */
     private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
 
+    /**
+     * Creates an instance of a GetGameRoute
+     * @param templateEngine A template engine object
+     * @param playerLobby A player lobby object (there is only one created)
+     */
     public GetGameRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         this.playerLobby = playerLobby;
         LOG.config("GetGameRoute is initialized.");
     }
 
+    /**
+     * Renders the game page
+     * @param request An HTTP request
+     * @param response An HTTP response
+     * @return A rendered game page
+     */
     @Override
     public Object handle(Request request, Response response) {
 
