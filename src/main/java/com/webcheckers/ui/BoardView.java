@@ -3,15 +3,21 @@ package com.webcheckers.ui;
 import com.webcheckers.model.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.ListIterator;
 
 public class BoardView implements Iterable<Row> {
+
+  /** An array list of row objects */
   private ArrayList<Row> rows;
-  public static final int SIZE = 8;
+  /** Sets the size of the board to always be 8 spaces */
+  private static final int SIZE = 8;
 
+  /**
+   * Creates a new instance of a BoardView
+   * @param player A player
+   * @param board The board
+   */
   public BoardView(Player player, Board board) {
-      this.rows = new ArrayList<>();
-
+    this.rows = new ArrayList<>();
     Piece.pieceColor playerColor = getColor(player, board);
     if (playerColor == Piece.pieceColor.WHITE) {
       for (int row = 0; row < SIZE; row++) {
@@ -24,6 +30,12 @@ public class BoardView implements Iterable<Row> {
     }
   }
 
+    /**
+     * Gets the color of the piece the player is playing as
+     * @param player The player
+     * @param board The board that the player is playing on
+     * @return The color type based on the player
+     */
   public Piece.pieceColor getColor(Player player, Board board) {
     if (board.getRed().equals(player)) {
       return Piece.pieceColor.RED;
@@ -31,9 +43,13 @@ public class BoardView implements Iterable<Row> {
       return Piece.pieceColor.WHITE;
     }
     return null;
-    }
+  }
 
-  public Iterator<Row> iterator() {
-      return rows.iterator();
+    /**
+     * An iterator that goes through the rows in the board
+     * @return An iterator object
+     */
+    public Iterator<Row> iterator() {
+        return rows.iterator();
   }
 }
