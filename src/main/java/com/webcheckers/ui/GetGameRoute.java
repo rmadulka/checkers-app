@@ -29,7 +29,7 @@ public class GetGameRoute implements Route {
     static final String BOARD_VIEW = "board";
     static final String ACTIVE_COLOR = "activeColor";
     static final String VIEW_MODE = "viewMode";
-    static final String GENERIC_MESSAGE = "userInGame";
+    static final String GENERIC_MESSAGE = "message";
     static final String VIEW_NAME = "game.ftl";
 
     static final Message IN_GAME_MSG = Message.error("Selected player currently in game");
@@ -61,7 +61,7 @@ public class GetGameRoute implements Route {
             opponent = playerLobby.getPlayer(receiverName);
             if (opponent.getInGame()) {
                // vm.put(IN_GAME, IN_GAME_MSG);
-                httpSession.attribute(IN_GAME, IN_GAME_MSG);
+                httpSession.attribute(GENERIC_MESSAGE, IN_GAME_MSG);
                 response.redirect("/");
                 halt();
                 return null;
