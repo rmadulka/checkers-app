@@ -11,7 +11,10 @@ import com.webcheckers.model.GameLobby;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 
+import com.webcheckers.util.Message;
 import spark.*;
+
+import static spark.Spark.halt;
 
 public class GetGameRoute implements Route {
 
@@ -26,8 +29,10 @@ public class GetGameRoute implements Route {
     static final String BOARD_VIEW = "board";
     static final String ACTIVE_COLOR = "activeColor";
     static final String VIEW_MODE = "viewMode";
-
+    static final String GENERIC_MESSAGE = "userInGame";
     static final String VIEW_NAME = "game.ftl";
+
+    static final Message IN_GAME_MSG = Message.error("Selected player currently in game");
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
@@ -54,11 +59,16 @@ public class GetGameRoute implements Route {
 
         if(!player.getInGame()) {
             opponent = playerLobby.getPlayer(receiverName);
+            if (opponent.getInGame()) {
+               // vm.put(IN_GAME, IN_GAME_MSG);
+                httpSession.attribute(IN_GAME, IN_GAME_MSG);
+                response.redirect("/");
+                halt();
+                return null;
+            }
 
             GameLobby gameLobby = playerLobby.startGame(player, opponent);
-
             checkersBoard = gameLobby.getBoard();
-
             vm.put(RED_PLAYER, player);
             vm.put(WHITE_PLAYER, opponent);
 
@@ -69,10 +79,10 @@ public class GetGameRoute implements Route {
 
             opponent = gameLobby.getOpponent(player);
             checkersBoard = gameLobby.getBoard();
-
             vm.put(RED_PLAYER, opponent);
             vm.put(WHITE_PLAYER, player);
         }
+
 
         BoardView boardView = new BoardView(player, checkersBoard);
 
@@ -91,5 +101,6 @@ public class GetGameRoute implements Route {
 //        vm.put("modeOptions", );
 
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
+
     }
 }
