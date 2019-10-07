@@ -69,7 +69,7 @@ public class GetHomeRoute implements Route {
     final Session httpSession = request.session();
     Player currentUser = httpSession.attribute("currentUser");
 
-    Message newMessage = httpSession.attribute("message");
+    displayMessage(httpSession, vm);
 
     if (currentUser != null && currentUser.getInGame()){
       response.redirect("/game");
@@ -83,14 +83,19 @@ public class GetHomeRoute implements Route {
     vm.put(PLAYERS_ONLINE, this.playerLobby.getPlayers());
     vm.put(NUM_PLAYERS, this.playerLobby.getNumPlayers());
     // display a user message in the Home page
-    vm.put(MESSAGE, WELCOME_MSG);
     vm.put(CURRENT_USER, currentUser);
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
   }
 
-  public void displayMessage() {
-
+  private void displayMessage(Session httpSession, Map<String, Object> vm) {
+    Message newMessage = httpSession.attribute("message");
+    if (newMessage != null) {
+      vm.put(MESSAGE, newMessage);
+      httpSession.removeAttribute("message");
+    } else {
+      vm.put(MESSAGE, WELCOME_MSG);
+    }
   }
 }
