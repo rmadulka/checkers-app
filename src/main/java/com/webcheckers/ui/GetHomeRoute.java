@@ -23,11 +23,13 @@ public class GetHomeRoute implements Route {
 
   //Welcome message
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  private static final Message IN_GAME_MSG = Message.error("Selected player currently in game");
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;
 
   //Values for the view-model
+  static final String IN_GAME = "userInGame";
   static final String CURRENT_USER = "currentUser";
   static final String HOME_TITLE = "title";
   private static final String PLAYERS_ONLINE = "playersOnline";
@@ -72,10 +74,11 @@ public class GetHomeRoute implements Route {
     if (currentUser != null && currentUser.getInGame()){
       response.redirect("/game");
       halt();
-      return  null;
+      return null;
     }
 
     //create view-model for home page
+
     vm.put(HOME_TITLE, "Welcome!");
     vm.put(PLAYERS_ONLINE, this.playerLobby.getPlayers());
     vm.put(NUM_PLAYERS, this.playerLobby.getNumPlayers());
