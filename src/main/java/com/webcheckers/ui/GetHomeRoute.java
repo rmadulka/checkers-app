@@ -67,6 +67,8 @@ public class GetHomeRoute implements Route {
     final Session httpSession = request.session();
     Player currentUser = httpSession.attribute("currentUser");
 
+    Message newMessage = httpSession.attribute("message");
+
     if (currentUser != null && currentUser.getInGame()){
       response.redirect("/game");
       halt();
@@ -83,5 +85,9 @@ public class GetHomeRoute implements Route {
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
+  }
+
+  public void displayMessage() {
+
   }
 }
