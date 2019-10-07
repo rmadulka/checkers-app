@@ -66,6 +66,7 @@ public class GetGameRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
 
+        //Get Session and Parameters
         final String receiverName = request.queryParams("receiver");
         final Session httpSession = request.session();
 
@@ -74,23 +75,29 @@ public class GetGameRoute implements Route {
         Player player = httpSession.attribute(GetHomeRoute.CURRENT_USER);
         Player opponent;
 
+        //Create new view-model
         Map<String, Object> vm = new HashMap<>();
 
+        //If a player clicks on someone in the list
         if(!player.getInGame()) {
             opponent = playerLobby.getPlayer(receiverName);
+
+            //If the opponent is in a game, return home w/ error message
             if (opponent.getInGame()) {
-               // vm.put(IN_GAME, IN_GAME_MSG);
                 httpSession.attribute(GENERIC_MESSAGE, IN_GAME_MSG);
+
                 response.redirect("/");
                 halt();
                 return null;
             }
 
+            //If the opponent is available, create a new game
             GameLobby gameLobby = playerLobby.startGame(player, opponent);
             checkersBoard = gameLobby.getBoard();
             vm.put(RED_PLAYER, player);
             vm.put(WHITE_PLAYER, opponent);
 
+        //When the opponent is clicked on, set up the game values
         } else {
             GameLobby gameLobby = playerLobby.getGameLobby(player);
 
@@ -102,23 +109,25 @@ public class GetGameRoute implements Route {
             vm.put(WHITE_PLAYER, player);
         }
 
-
-        BoardView boardView = new BoardView(player, checkersBoard);
-
         LOG.finer("GetGameRoute is invoked.");
 
+        //New, separate boardViews for each player
+        BoardView boardView = new BoardView(player, checkersBoard);
+
+        //load vm values
         vm.put(GetHomeRoute.CURRENT_USER, player);
-
         vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
-
         vm.put(BOARD_VIEW, boardView);
+        vm.put(VIEW_MODE, viewMode.PLAY);
 
         //TODO Right now active color is hardcoded
         vm.put(ACTIVE_COLOR, Piece.pieceColor.RED);
 
-        vm.put(VIEW_MODE, viewMode.PLAY);
-//        vm.put("modeOptions", );
 
+        //TODO Eventually
+        //vm.put("modeOptions", );
+
+        //render game view
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
 
     }
