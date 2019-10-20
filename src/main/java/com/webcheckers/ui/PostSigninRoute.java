@@ -27,7 +27,7 @@ public class PostSigninRoute implements Route {
     static final String INVALID_NAME = "Username must only contain alphanumeric characters";
 
     //Successful Login Message
-    private static final Message LOGIN_MESSAGE = Message.info("Login Successful");
+    //private static final Message LOGIN_MESSAGE = Message.info("Login Successful");
 
     //Attributes
     private final TemplateEngine templateEngine;

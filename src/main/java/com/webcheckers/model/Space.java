@@ -21,6 +21,18 @@ public class Space {
     }
 
     /**
+     * constructor for a checkerboard space, used by the testboard.
+     * @param cellIdx cell index
+     * @param isDark is the space dark?
+     * @param piece piece in the space.
+     */
+    public Space(int cellIdx, boolean isDark, Piece piece) {
+        this.cellIdx = cellIdx;
+        this.isDark = isDark;
+        this.piece = piece;
+    }
+
+    /**
      * space cell position
      * @return cellIdx: 0 to 63
      */
@@ -55,5 +67,24 @@ public class Space {
      */
     public Piece getPiece() {
         return this.piece;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Space) {
+            if (this.piece != null && ((Space) obj).piece != null) {
+                return (this.piece.equals(((Space) obj).piece) &&
+                        this.cellIdx == ((Space) obj).cellIdx &&
+                        this.isDark == ((Space) obj).isDark);
+            }
+            else if (this.piece != null || ((Space) obj).piece != null) {
+                return false;
+            }
+            else {
+                return (this.cellIdx == ((Space) obj).cellIdx &&
+                        this.isDark == ((Space) obj).isDark);
+            }
+        }
+        return false;
     }
 }

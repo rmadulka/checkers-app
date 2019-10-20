@@ -47,4 +47,13 @@ public class Piece {
     public pieceColor getColor() {
         return this.color;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Piece) {
+            return (this.type == ((Piece) obj).type &&
+                    this.color == ((Piece) obj).color);
+        }
+        return false;
+    }
 }
