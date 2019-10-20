@@ -2,9 +2,9 @@ package com.webcheckers.model;
 
 public class GameLobby {
     /** represents the player who moves the red checker pieces **/
-    private Player redPlayer;
+    public Player redPlayer;
     /** represents the player who moves the white checker pieces **/
-    private Player whitePlayer;
+    public Player whitePlayer;
     /** represents the checkerboard model**/
     private Board board;
 

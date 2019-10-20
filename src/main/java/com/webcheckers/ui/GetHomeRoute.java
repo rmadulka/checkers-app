@@ -22,7 +22,9 @@ public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
   //Welcome message
-  private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+
+  static final String HOME_TITLE_TEXT = "Welcome!";
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;
@@ -30,8 +32,8 @@ public class GetHomeRoute implements Route {
   //Values for the view-model
   static final String CURRENT_USER = "currentUser";
   static final String HOME_TITLE = "title";
-  private static final String PLAYERS_ONLINE = "playersOnline";
-  private static final String NUM_PLAYERS = "numPlayers";
+  static final String PLAYERS_ONLINE = "playersOnline";
+  static final String NUM_PLAYERS = "numPlayers";
   static final String MESSAGE = "message";
   static final String VIEW_NAME = "home.ftl";
 
@@ -82,7 +84,7 @@ public class GetHomeRoute implements Route {
     }
 
     //generate view-model for home page
-    vm.put(HOME_TITLE, "Welcome!");
+    vm.put(HOME_TITLE, HOME_TITLE_TEXT);
     vm.put(PLAYERS_ONLINE, this.playerLobby.getPlayers());
     vm.put(NUM_PLAYERS, this.playerLobby.getNumPlayers());
     vm.put(CURRENT_USER, currentUser);
@@ -96,7 +98,7 @@ public class GetHomeRoute implements Route {
    * @param httpSession - user's session
    * @param vm - view-model to be rendered
    */
-  private void displayMessage(Session httpSession, Map<String, Object> vm) {
+  public void displayMessage(Session httpSession, Map<String, Object> vm) {
     Message newMessage = httpSession.attribute(MESSAGE_ATR);
     if (newMessage != null) {
       vm.put(MESSAGE, newMessage);

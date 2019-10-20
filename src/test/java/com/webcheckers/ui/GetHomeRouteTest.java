@@ -8,6 +8,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -19,17 +21,20 @@ import spark.Response;
 import spark.Session;
 import spark.TemplateEngine;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 public class GetHomeRouteTest {
 
     private GetHomeRoute CuT;
 
     private PlayerLobby playerLobby;
-
     // mock objects
     private Request request;
     private Session session;
     private TemplateEngine engine;
     private Response response;
+    private Player player;
 
     /**
      * Setup new mock objects for each test.
@@ -41,8 +46,135 @@ public class GetHomeRouteTest {
         when(request.session()).thenReturn(session);
         response = mock(Response.class);
         engine = mock(TemplateEngine.class);
+        playerLobby = mock(PlayerLobby.class);
+        player = mock(Player.class);
 
-        playerLobby = new PlayerLobby();
         CuT = new GetHomeRoute(engine, playerLobby);
+    }
+
+    /**
+     * Test that CuT shows the Home view when the session is brand new.
+     */
+    @Test
+    public void new_session() {
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        // Analyze the results:
+        //   * model is a non-null Map
+        testHelper.assertViewModelExists();
+        testHelper.assertViewModelIsaMap();
+        //   * model contains all necessary View-Model data
+        testHelper.assertViewModelAttribute(GetHomeRoute.HOME_TITLE, GetHomeRoute.HOME_TITLE_TEXT);
+
+        //   * test view name
+        testHelper.assertViewName(GetHomeRoute.VIEW_NAME);
+    }
+
+    /**
+     * Test the players listed
+     */
+    @Test
+    public void PlayerListDisplayed(){
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        HashSet<Player> players = new HashSet<>();
+
+        players.add(mock(Player.class));
+        players.add(mock(Player.class));
+        players.add(mock(Player.class));
+
+        when(playerLobby.getPlayers()).thenReturn(players);
+
+        CuT.handle(request, response);
+
+        testHelper.assertViewModelAttribute(GetHomeRoute.PLAYERS_ONLINE, players);
+    }
+
+    /**
+     * Test that the number of players is properly accessed
+     */
+    @Test
+    public void numPlayersDisplayed() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        when(playerLobby.getNumPlayers()).thenReturn(3);
+
+        CuT.handle(request, response);
+
+        testHelper.assertViewModelAttribute(GetHomeRoute.NUM_PLAYERS, 3);
+    }
+
+    /**
+     * Test user exists
+     */
+    @Test
+    public void currentUser(){
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        Player player = new Player("name");
+        when(session.attribute(GetHomeRoute.CURRENT_USER)).thenReturn(player);
+
+        CuT.handle(request, response);
+
+        testHelper.assertViewModelAttribute(GetHomeRoute.CURRENT_USER, player);
+    }
+
+    /**
+     * Test that CuT shows welcome message
+     */
+    @Test
+    public void initialMessage(){
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        CuT.handle(request, response);
+
+        //  *test that default message is the welcome message
+        testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE, GetHomeRoute.WELCOME_MSG);
+    }
+
+    /**
+     * Test that CuT shows custom messages
+     */
+    @Test
+    public void customMessage(){
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        Message message = Message.info("error");
+        when(session.attribute(GetHomeRoute.MESSAGE)).thenReturn(message);
+
+        CuT.handle(request, response);
+
+        testHelper.assertViewModelAttribute(GetHomeRoute.MESSAGE, message);
+    }
+
+    /**
+     * Test game redirect if a user is in a game
+     */
+    @Test
+    public void gameRedirect(){
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        when(session.attribute(GetHomeRoute.CURRENT_USER)).thenReturn(player);
+        when(player.getInGame()).thenReturn(true);
+
+        try {
+            CuT.handle(request, response);
+            fail("Redirects invoke halt exceptions.");
+        } catch (HaltException e) {
+            // expected
+        }
+
+        // Analyze the results:
+        //   * redirect to the Game view
+        verify(response).redirect(WebServer.GAME_URL);
     }
 }
