@@ -20,7 +20,7 @@ public class PostSigninRoute implements Route {
 
     //Values used in the view-model
     static final String USER_TAKEN = "userTaken";
-    static final String VIEW_NAME = "signin.ftl";
+    public static final String VIEW_NAME = "signin.ftl";
 
     //Error messages
     static final String EXISTING_NAME = "Username is already taken";
@@ -65,7 +65,7 @@ public class PostSigninRoute implements Route {
 
         //Create the view-model for when there is an invalid username
         final Map<String, Object> vm = new HashMap<>();
-        vm.put(GetSigninRoute.TITLE, "Signin");
+        vm.put(GetSigninRoute.TITLE, GetSigninRoute.TITLE_ATTR);
 
         //Get the username from the HTML form
         final String username = request.queryParams(USER_PARAM);
