@@ -38,6 +38,9 @@ public class GetSigninRouteTest {
         CuT = new GetSigninRoute(engine);
     }
 
+    /**
+     * Tests that the CuT shows signin view when the new page is loaded
+     */
     @Test
     public void newSignIn() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();

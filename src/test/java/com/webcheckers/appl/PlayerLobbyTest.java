@@ -1,0 +1,101 @@
+package com.webcheckers.appl;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
+import com.webcheckers.model.Player;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+@Tag("Application-tier")
+public class PlayerLobbyTest {
+
+    private PlayerLobby CuT;
+    private Player playerRed;
+    private Player playerWhite;
+    private Player playerRed2;
+    private Player playerWhite2;
+
+    /**
+     * Set up mock players and a new playerlobby object to test the PlayerLobby class
+     */
+    @BeforeEach
+    public void setUp(){
+        playerRed = mock(Player.class);
+        playerWhite = mock(Player.class);
+        playerRed2 = mock(Player.class);
+        playerWhite2 = mock(Player.class);
+        CuT = new PlayerLobby();
+        CuT.addPlayer(playerRed);
+        CuT.addPlayer(playerWhite);
+    }
+
+    /**
+     * Tests that we can construct a PlayerLobby class
+     */
+    @Test
+    public void testCreatePlayerLobby(){
+        new PlayerLobby();
+    }
+
+    /**
+     * Test that the initial players is the lobby is two given that we added two players in the setup
+     */
+    @Test
+    public void testInitPlayerInLobby(){
+        assertEquals(2, CuT.getNumPlayers());
+    }
+
+    /**
+     * Tests that there is a hashset of players
+     */
+    @Test
+    public void testGetPlayers(){
+        assertNotNull(CuT.getPlayers());
+    }
+
+    /**
+     * Tests that we can start a game between two players that are in the PlayerLobby hashset
+     */
+    @Test
+    public void testStartGame(){
+        assertNotNull(CuT.startGame(playerRed, playerWhite));
+        assertNull(CuT.startGame(playerRed2, playerWhite2));
+    }
+
+    /**
+     * Tests if certain players are currently in a game against each other
+     */
+    @Test
+    public void testGetGameLobby(){
+        CuT.addPlayer(playerRed2);
+        CuT.addPlayer(playerWhite2);
+        CuT.startGame(playerRed, playerWhite);
+        assertSame(CuT.getGameLobby(playerRed), CuT.getGameLobby(playerWhite));
+        CuT.startGame(playerRed2, playerWhite2);
+        assertNotSame(CuT.getGameLobby(playerWhite2), CuT.getGameLobby(playerRed));
+        assertNotSame(CuT.getGameLobby(playerRed2), CuT.getGameLobby(playerWhite));
+        assertSame(CuT.getGameLobby(playerRed2), CuT.getGameLobby(playerWhite2));
+    }
+
+    /**
+     * Tests if a player is not currently in a game
+     */
+    @Test
+    public void testGameLobbyNull(){
+        assertNull(CuT.getGameLobby(playerRed));
+        assertNull(CuT.getGameLobby(playerWhite));
+    }
+
+    /**
+     * Tests if we can add players to the player hashs
+     */
+    @Test
+    public void testAddingPlayers() {
+        CuT.addPlayer(playerRed2);
+        assertEquals(3, CuT.getNumPlayers());
+        CuT.addPlayer(playerWhite2);
+        assertEquals(4, CuT.getNumPlayers());
+    }
+}

@@ -22,8 +22,6 @@ public class PlayerLobby {
     /** An array list of GameLobbies */
     private ArrayList<GameLobby> currentGames;
 
-    private Player selectedPlayer;
-
     /**
      * Creates a new instance of a PlayerLobby
      */
@@ -69,9 +67,12 @@ public class PlayerLobby {
      * @return The board both players are playing on
      */
     public GameLobby startGame(Player redPlayer, Player whitePlayer){
-        GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
-        currentGames.add(gameLobby);
-        return gameLobby;
+        if (players.contains(redPlayer) && players.contains(whitePlayer)) {
+            GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
+            currentGames.add(gameLobby);
+            return gameLobby;
+        }
+        return null;
     }
 
     /**
