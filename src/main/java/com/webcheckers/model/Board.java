@@ -8,9 +8,9 @@ package com.webcheckers.model;
      /** represents the dimensions of the board **/
      private static final int SIZE = 8;
      /** represents the player who controls the white checkers piece (2nd player) **/
-     private Player white;
+     private Player whitePlayer;
      /** represents the player who controls the red checkers piece (1st player) **/
-     private Player red;
+     private Player redPlayer;
      /** represents the board itself as it stores space and row data **/
      private Space[][] board;
 
@@ -19,9 +19,9 @@ package com.webcheckers.model;
      * @param white player who controls white pieces
      * @param red player who controls red pieces
      */
-     public Board(Player white, Player red) {
-         this.white = white;
-         this.red = red;
+     public Board(Player whitePlayer, Player redPlayer) {
+         this.whitePlayer = whitePlayer;
+         this.redPlayer = redPlayer;
          init();
          populate();
      }
@@ -73,20 +73,20 @@ package com.webcheckers.model;
      }
 
     /**
-     * gets the player controlling the red pieces
-     * @return red piece player
-     */
-     public Player getRed() {
-         return red;
-     }
-
-    /**
      * gets the player controlling the white pieces
      * @return white piece player
      */
      public Player getWhite() {
-         return white;
-     }
+         return this.whitePlayer;
+    }
+
+    /**
+     * gets the player controlling the red pieces
+     * @return red piece player
+     */
+     public Player getRed() {
+         return this.redPlayer;
+    }
 
     /**
      * Gets a specific row listed on the board

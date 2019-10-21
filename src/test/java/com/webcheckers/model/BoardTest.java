@@ -3,7 +3,6 @@ package com.webcheckers.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -66,7 +65,7 @@ public class BoardTest {
     testBoardPopulate(testBoard);
     for (int row = 0; row < TEST_SIZE; row++) {
       for (int col = 0; col < TEST_SIZE; col++) {
-        assertEquals(testBoard[row][col], CuT.getBoard()[row][col], "Not equal at " + row + ", " + col);
+        assertEquals(testBoard[row][col], CuT.getBoard()[row][col]);
       }
     }
   }
@@ -107,12 +106,26 @@ public class BoardTest {
   @Test
   public void testReverseRow() {
     Space[] testReverseWhite = new Space[TEST_SIZE];
-    int space = 7;
+    int space1 = 7;
     for (int i = 0; i < TEST_SIZE; i++) {
-      if (space % 2 == 1) testReverseWhite[i] = new Space(space, true,
+      if (space1 % 2 == 1) testReverseWhite[i] = new Space(space1, true,
       new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
-      else if (space % 2 == 0) testReverseWhite[i] = new Space(space, false);
-      space--;
+      else if (space1 % 2 == 0) testReverseWhite[i] = new Space(space1, false);
+      space1--;
+    }
+    for (int j = 0; j < TEST_SIZE; j++) {
+      assertEquals(testReverseWhite[j], CuT.reverseRow(0)[j]);
+    }
+    Space[] testReverseRed = new Space[TEST_SIZE];
+    int space2 = 7;
+    for (int i = 0; i < TEST_SIZE; i++) {
+      if (space2 % 2 == 0) testReverseRed[i] = new Space(space2, true,
+      new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+      else if (space2 % 2 == 1) testReverseRed[i] = new Space(space2, false);
+      space2--;
+    }
+    for (int j = 0; j < TEST_SIZE; j++) {
+      assertEquals(testReverseRed[j], CuT.reverseRow(7)[j]);
     }
   }
 }
