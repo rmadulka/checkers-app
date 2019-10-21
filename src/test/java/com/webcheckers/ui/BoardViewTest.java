@@ -1,5 +1,7 @@
 package com.webcheckers.ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Iterator;
 
 import com.webcheckers.model.Board;
@@ -37,7 +39,7 @@ class BoardViewTest {
             Iterator<Space> redSpaces = rowRed.iterator();
             while (redSpaces.hasNext()) {
                 Space redSpace = redSpaces.next();
-                Assertions.assertEquals(testBoard.getBoard()[redRow][redCol], redSpace);
+                assertEquals(testBoard.getBoard()[redRow][redCol], redSpace);
                 redCol++;
             }
             redRow++;
@@ -51,7 +53,7 @@ class BoardViewTest {
             Iterator<Space> whiteSpaces = rowWhite.iterator();
             while (whiteSpaces.hasNext()) {
                 Space whiteSpace = whiteSpaces.next();
-                Assertions.assertEquals(testBoard.getBoard()[whiteRow][whiteCol], whiteSpace);
+                assertEquals(testBoard.getBoard()[whiteRow][whiteCol], whiteSpace);
                 whiteCol--;
             }
             whiteRow--;
