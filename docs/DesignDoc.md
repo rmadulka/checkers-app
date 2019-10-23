@@ -18,12 +18,16 @@ geometry: margin=1in
 
 ## Executive Summary
 
-This is a summary of the project.
-
+Our web-based checkers application will provide an interactive user experience as players can play against other online 
+users. It will incorporate sign-in functionality as each user can specify who they want to play against, directing both 
+users to a game page presenting a GUI with the game board. The checkers game will also have drag-and-drop piece 
+capabilities as a user can submit their moves when they drop their piece in a valid position. Not only will users be 
+able to play against other online users, but they can compete against an AI or can record games to replay move-by-move.
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+We want to develop a web application for all users to play checkers against other live opponents, abiding by the American
+checkers rules and providing a fully functional server-client connection.
+
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
