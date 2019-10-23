@@ -89,10 +89,12 @@ This section describes the web interface flow; this is how the user views and in
 with the WebCheckers application.
 
 ![The WebCheckers Web Interface Statechart](WebAppInterface.png)
-
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
-
+When the user first connects to the web application, they are sent to the home page. By clicking on the sign-in button,
+on the top left of the screen, the user is then sent to the sign-in page in which they can then enter a username. 
+Assuming the user inputs a valid username and they click on the sign-in button, they will be sent back to the home page. 
+If the player enters an invalid username, the sign-in page will reload. Once they are back on the home page and the user 
+chooses to play an online user, they will both be sent to the game screen. On the game page, each player takes turns making 
+moves and the page updates after each move is made. Once the game is over, the player will be sent back to the homepage. 
 
 ### UI Tier
 > _Provide a summary of the Server-side UI tier of your architecture.
