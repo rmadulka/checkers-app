@@ -18,12 +18,16 @@ geometry: margin=1in
 
 ## Executive Summary
 
-This is a summary of the project.
-
+Our web-based checkers application will provide an interactive user experience as players can play against other online 
+users. It will incorporate sign-in functionality as each user can specify who they want to play against, directing both 
+users to a game page presenting a GUI with the game board. The checkers game will also have drag-and-drop piece 
+capabilities as a user can submit their moves when they drop their piece in a valid position. Not only will users be 
+able to play against other online users, but they can compete against an AI or can record games to replay move-by-move.
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+We want to develop a web application for all users to play checkers against other live opponents, abiding by the American
+checkers rules and providing a fully functional server-client connection.
+
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
@@ -57,10 +61,12 @@ This section describes the application domain.
 
 ![The WebCheckers Domain Model](DomainAnalysisTeam.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
-
+The Checkers WebApp is played by two Players on a single checkers GameBoard.
+The GameBoard contains 64 Squares, with each having a Location and a Color(Dark/Light).
+24 Pieces are initially placed on the GameBoard, and each Player takes control of 12.
+One Piece can occupy one Square. Each Piece has a Color(Red/White) and can either 
+be a Single Piece or a King Piece. A Player can either be a human Player or an AI Player, 
+and a Player has the ability to replay a Game.
 
 ## Architecture and Design
 
