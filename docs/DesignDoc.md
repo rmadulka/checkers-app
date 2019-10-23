@@ -57,10 +57,12 @@ This section describes the application domain.
 
 ![The WebCheckers Domain Model](DomainAnalysisTeam.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
-
+The Checkers WebApp is played by two Players on a single checkers GameBoard.
+The GameBoard contains 64 Squares, with each having a Location and a Color(Dark/Light).
+24 Pieces are initially placed on the GameBoard, and each Player takes control of 12.
+One Piece can occupy one Square. Each Piece has a Color(Red/White) and can either 
+be a Single Piece or a King Piece. A Player can either be a human Player or an AI Player, 
+and a Player has the ability to replay a Game.
 
 ## Architecture and Design
 
