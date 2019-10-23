@@ -9,16 +9,17 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: Checkm8
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Spencer Josi
+  * Casper Loveless
+  * Ryan Madulka
+  * Alan Read
 
 ## Executive Summary
 
 This is a summary of the project.
+
 
 ### Purpose
 > _Provide a very brief statement about the project and the most
