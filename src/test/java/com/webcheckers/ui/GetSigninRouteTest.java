@@ -14,11 +14,11 @@ import static org.mockito.Mockito.when;
 
 public class GetSigninRouteTest {
 
-    // friendly object
+    /** friendly object */
     private GetSigninRoute CuT;
 
 
-    // mock objects
+    /** Mock Objects */
     private Request request;
     private Session session;
     private TemplateEngine engine;

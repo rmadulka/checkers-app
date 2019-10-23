@@ -45,7 +45,7 @@ public class PlayerLobby {
      */
     public Player getPlayer(String name) {
         for (Player i : players){
-            if(i.getName().equals(name)){
+            if(i.getName() != null && i.getName().equals(name)){
                 return i;
             }
         }

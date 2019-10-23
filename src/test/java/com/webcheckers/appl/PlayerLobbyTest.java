@@ -2,6 +2,7 @@ package com.webcheckers.appl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,10 @@ import org.junit.jupiter.api.Test;
 @Tag("Application-tier")
 public class PlayerLobbyTest {
 
+    /** Friendly Objects */
     private PlayerLobby CuT;
+
+    /** Mock Objects */
     private Player playerRed;
     private Player playerWhite;
     private Player playerRed2;
@@ -89,7 +93,7 @@ public class PlayerLobbyTest {
     }
 
     /**
-     * Tests if we can add players to the player hashs
+     * Tests if we can add players to the player hash
      */
     @Test
     public void testAddingPlayers() {
@@ -97,5 +101,28 @@ public class PlayerLobbyTest {
         assertEquals(3, CuT.getNumPlayers());
         CuT.addPlayer(playerWhite2);
         assertEquals(4, CuT.getNumPlayers());
+    }
+
+    /**
+     * Tests if we can get the correct player using the players name
+     */
+    @Test
+    public void testGetPlayer () {
+        when(playerRed.getName()).thenReturn("Name");
+        assertSame(playerRed, CuT.getPlayer(playerRed.getName()));
+        assertNotSame(playerWhite, CuT.getPlayer(playerRed.getName()));
+        assertNotNull(CuT.getPlayer("Name"));
+        assertNull(CuT.getPlayer("test"));
+    }
+
+    /**
+     * Tests if the username the user enters is valid
+     */
+    @Test
+    public void testCheckUsername() {
+        when(playerRed.getName()).thenReturn("Name");
+        when(playerWhite.getName()).thenReturn("*");
+        assertSame(PlayerLobby.signinErrors.VALID, CuT.checkUsername(playerRed.getName()));
+        assertSame(PlayerLobby.signinErrors.ALPHA, CuT.checkUsername(playerWhite.getName()));
     }
 }
