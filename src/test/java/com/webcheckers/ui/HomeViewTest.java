@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import spark.ModelAndView;
 import spark.TemplateEngine;
 import spark.template.freemarker.FreeMarkerEngine;
+
 @Tag("UI-tier")
 public class HomeViewTest {
     private static final String TITLE = "the_title";
@@ -18,8 +19,8 @@ public class HomeViewTest {
     private static final String TITLE_H1_TAG = "<h1>Web Checkers | " + TITLE + "</h1>";
     private static final String PLAYERS_ONLINE = "<h5>0 </h5>";
     private static final String NUM_PLAYERS = "0";
+    private static final String MESSAGE = "message";
     private final TemplateEngine engine = new FreeMarkerEngine();
-
 
 
     @Test
@@ -34,18 +35,21 @@ public class HomeViewTest {
         assertTrue(viewHtml.contains(TITLE_HEAD_TAG), "Title head exists");
         assertTrue(viewHtml.contains(PLAYERS_ONLINE), "Online player count exists");
         assertTrue(viewHtml.contains(NUM_PLAYERS), "Num players exists");
-
-
     }
 
+    @Test
     public void test_error_message(){
         final Map<String, Object> vm = new HashMap<>();
         final ModelAndView modelAndView = new ModelAndView(vm, GetHomeRoute.VIEW_NAME);
         vm.put(GetHomeRoute.HOME_TITLE, TITLE);
         vm.put(GetHomeRoute.PLAYERS_ONLINE, PLAYERS_ONLINE);
         vm.put(GetHomeRoute.NUM_PLAYERS, PLAYERS_ONLINE);
+        vm.put(GetHomeRoute.MESSAGE_ATR, GetHomeRoute.WELCOME_MSG);
         final String viewHtml = engine.render(modelAndView);
         assertTrue(viewHtml.contains(TITLE_HEAD_TAG), "Title head tag exists.");
         assertTrue(viewHtml.contains(TITLE_H1_TAG), "Title heading tag exists.");
+        assertTrue(viewHtml.contains(PLAYERS_ONLINE), "Online player count exists");
+        assertTrue(viewHtml.contains(NUM_PLAYERS), "Num players exists");
+        assertTrue(viewHtml.contains(MESSAGE), "Message exists");
     }
 }
