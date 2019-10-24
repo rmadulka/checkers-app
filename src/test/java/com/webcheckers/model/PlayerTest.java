@@ -41,7 +41,7 @@ public class PlayerTest {
     public void test_set_in_game_same_statuses() {
         Player newPlayer = new Player("j");
         newPlayer.setInGame(false);
-        assertNotEquals(newPlayer.getInGame(), CuT.getInGame());
+        assertEquals(newPlayer.getInGame(), CuT.getInGame());
     }
 
     @Test
