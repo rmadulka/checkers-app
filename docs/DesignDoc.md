@@ -46,14 +46,23 @@ This section describes the features of the application.
 > maybe Epics and critical Stories._
 
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+The Minimum Value Product expresses the most essential requirements that must be developed
+and included within the product in order for it to be satisfactory. For the checkers web-app,
+users must be able to sign in and start a checkers game that abides by the American rules, playing
+on a fully functional GUI board.
 
-### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
+### MVP Features_
+A user must be able to sign in and out of their account, and if they remain logged in they
+can initiate a game with a selected online user. Both users will be transferred to a game board
+screen consisting of all of the checker pieces, along with buttons giving them the option to resign the game
+the game or submit their valid move. When done playing, users can sign out of their account.
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
 
+We have already completed sign-in functionality and the basic structure of the board, so our current sprint plan
+is to complete valid piece movement, develop game structure as users must be able to submit their turn or resign,
+and also to create sign-out functionality. We are expecting to finish the MVP within this sprint, as sprint 3 is
+devoted to completing our enhancements where we want to implement an AI and a replay mode to record and watch previous games.
 
 ## Application Domain
 
