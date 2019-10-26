@@ -62,6 +62,13 @@ public class Space {
     }
 
     /**
+     * remove a piece from a space
+     */
+    public void byebye() {
+        if (piece != null) piece = null;
+    }
+
+    /**
      * is a piece here?
      * @return a piece
      */

@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -15,6 +16,8 @@ import java.util.Stack;
      private Player redPlayer;
      /** represents the board itself as it stores space and row data **/
      private Space[][] board;
+     /** represents a copy of the bord model with pending moves **/
+     private Space[][] moves;
 
 
     /**
@@ -117,5 +120,17 @@ import java.util.Stack;
         return reversed;
     }
 
-
+    public void makeMove(Move move) {
+        moves = new Space[SIZE][SIZE];
+        Arrays.stream(board).map(Space[]::clone).toArray(Space[][]::new);
+        Piece moving = moves[move.getStartRow()][move.getStartCell()].getPiece();
+        moves[move.getStartRow()][move.getStartCell()].byebye();
+        moves[move.getEndRow()][move.getEndCell()].place(moving);
+        int diff = move.getStartRow() - move.getEndRow();
+        if (diff == 2) {
+            Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
+            moves[moveTo.getRow()][moveTo.getCell()].place(moving);
+        }
+    }
  }
+ß
