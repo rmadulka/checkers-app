@@ -159,11 +159,9 @@ public class WebServer {
 
     post("/submitTurn", new PostSubmitTurnRoute(playerLobby));
 
-<<<<<<< HEAD
     post("/resignGame", new PostResignRoute(playerLobby));
-=======
+
     post("/backupMove", new BackupMoveRoute(playerLobby));
->>>>>>> 048b5492d9169fcfa60bdbddd34ccbeb021b026d
 
     //
     LOG.config("WebServer is initialized.");
