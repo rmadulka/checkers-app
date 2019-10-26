@@ -1,12 +1,13 @@
-package com.webcheckers.model;
+package com.webcheckers.appl;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
+import com.webcheckers.appl.GameLobby;
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.*;
 
 public class GameLobbyTest {

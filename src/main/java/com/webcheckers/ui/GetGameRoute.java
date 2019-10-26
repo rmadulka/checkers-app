@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
-import com.webcheckers.model.GameLobby;
+import com.webcheckers.appl.GameLobby;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 

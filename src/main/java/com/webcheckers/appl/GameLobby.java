@@ -1,4 +1,7 @@
-package com.webcheckers.model;
+package com.webcheckers.appl;
+
+import com.webcheckers.model.Board;
+import com.webcheckers.model.Player;
 
 public class GameLobby {
     /** represents the player who moves the red checker pieces **/

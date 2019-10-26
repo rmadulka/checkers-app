@@ -1,5 +1,4 @@
 package com.webcheckers.appl;
-import com.webcheckers.model.GameLobby;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
