@@ -1,5 +1,9 @@
 package com.webcheckers.util;
 
+import com.webcheckers.ui.GetHomeRoute;
+import spark.Session;
+
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -102,6 +106,19 @@ public final class Message {
    */
   public boolean isSuccessful() {
     return !type.equals(Type.ERROR);
+  }
+
+  public static void displayMessage(Session httpSession, Map<String, Object> vm, Message defaultMessage){
+    Message newMessage = httpSession.attribute(GetHomeRoute.MESSAGE_ATR);
+    if (newMessage != null) {
+      vm.put(GetHomeRoute.MESSAGE, newMessage);
+
+      //removes the new message ASAP so it is never reused
+      httpSession.removeAttribute(GetHomeRoute.MESSAGE_ATR);
+    } else {
+      //default message is a welcome message
+      vm.put(GetHomeRoute.MESSAGE, defaultMessage);
+    }
   }
 
   //

@@ -34,11 +34,11 @@ public class GetHomeRoute implements Route {
   static final String HOME_TITLE = "title";
   static final String PLAYERS_ONLINE = "playersOnline";
   static final String NUM_PLAYERS = "numPlayers";
-  static final String MESSAGE = "message";
+  public static final String MESSAGE = "message";
   static final String VIEW_NAME = "home.ftl";
 
   //Message String for session attribute
-  static final String MESSAGE_ATR = "message";
+  public static final String MESSAGE_ATR = "message";
 
 
   /**
@@ -74,7 +74,7 @@ public class GetHomeRoute implements Route {
     Player currentUser = httpSession.attribute("currentUser");
 
     //Displays a new message if there is one
-    displayMessage(httpSession, vm);
+    Message.displayMessage(httpSession, vm, WELCOME_MSG);
 
     //If the currentUser is clicked on at any point, send them to the game
     if (currentUser != null && currentUser.getInGame()){
@@ -91,23 +91,5 @@ public class GetHomeRoute implements Route {
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
-  }
-
-  /**
-   * Displays a message on the homepage is there is one
-   * @param httpSession - user's session
-   * @param vm - view-model to be rendered
-   */
-  public void displayMessage(Session httpSession, Map<String, Object> vm) {
-    Message newMessage = httpSession.attribute(MESSAGE_ATR);
-    if (newMessage != null) {
-      vm.put(MESSAGE, newMessage);
-
-      //removes the new message ASAP so it is never reused
-      httpSession.removeAttribute(MESSAGE_ATR);
-    } else {
-      //default message is a welcome message
-      vm.put(MESSAGE, WELCOME_MSG);
-    }
   }
 }
