@@ -127,4 +127,5 @@ import java.util.Stack;
             board[moveTo.getRow()][moveTo.getCell()].place(moving);
         }
     }
- }
+
+}

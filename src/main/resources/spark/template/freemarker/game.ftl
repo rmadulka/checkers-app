@@ -28,20 +28,22 @@
       <div id="help_text" class="INFO"></div>
 
       <div>
+        <#if messageSignout??>
+          <div id="messageSignout" class="${messageSignout.type}">${messageSignout.text}</div>
+        <#else>
+          <div id="messageSignout" class="INFO" style="display:none">
+            <!-- keep here for client-side messages -->
+          </div>
+        </#if>
+      </div>
+
+      <div>
         <div id="game-controls">
         
           <fieldset id="game-info">
             <legend>Info</legend>
 
             <#include "message.ftl" />
-
-            <#if messageSignout??>
-              <div id="messageSignout" class="${messageSignout.type}">${messageSignout.text}</div>
-            <#else>
-              <div id="messageSignout" class="INFO" style="display:none">
-                <!-- keep here for client-side messages -->
-              </div>
-            </#if>
 
             <div>
               <table data-color='RED'>
@@ -95,6 +97,10 @@
 
     </div>
   </div>
+
+  <#if whitePlayer.name == "Kevin">
+    <h5>Kevin is the best!</h5>
+  </#if>
 
   <audio id="audio" src="http://www.soundjay.com/button/beep-07.mp3" autostart="false" ></audio>
   
