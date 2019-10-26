@@ -2,6 +2,7 @@
   <#if currentUser??>
     <a href="/">my home</a> |
     <form id="signout" action="/signout" method="post">
+      <input type="hidden" name="currentUser" value="${currentUser.name}" />
       <a href="#" onclick="event.preventDefault(); signout.submit();">sign out [${currentUser.name}]</a>
     </form>
   <#else>

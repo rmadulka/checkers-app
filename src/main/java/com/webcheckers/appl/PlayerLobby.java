@@ -98,6 +98,14 @@ public class PlayerLobby {
     }
 
     /**
+     * Removes a player from the list of signed-in players
+     * @param player A player that wants to sign-out
+     */
+    public void removePlayer(Player player) {
+        this.players.remove(player);
+    }
+
+    /**
      * Checks if a player already exists when signing in
      * @param name A new player attempting to sign-in
      * @return True if the player already exists
