@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializer;
@@ -14,40 +15,27 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Session;
-
-public class PostProposedMoveRoute implements Route {
+public class BackupMove {
 
     private final PlayerLobby playerLobby;
 
-    public PostProposedMoveRoute(PlayerLobby playerLobby) {
+    public BackupMoveRoute(PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
     }
-
 
     public Object handle(Request request, Response response) {
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
-
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
+        if(!board.getValidatedMoves().isEmpty()){
 
-        String data = request.queryParams("actionData");
-        Gson gson = new Gson();
-        Move move = gson.fromJson(data, Move.class);
-
-        Message message;
-
-
-        if(MoveValidation.validateMove(move, board)){
-            //TODO law of demeter
-            player.getTurnStack().push(move);
-            message = Message.info("valid");
-        } else {
-            //TODO more than one error message
-            message = Message.error("invlaid");
         }
+        //check if the player has made a valid move for their turn
+        //access a stack that stores all validated moves, .pop() the stack
+        //
 
-        String proposedMove = gson.toJson(message);
-        return proposedMove;
+
     }
+
 }
