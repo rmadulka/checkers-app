@@ -10,7 +10,6 @@ import com.webcheckers.model.Board;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
-import com.webcheckers.util.MoveValidation;
 import spark.Request;
 import spark.Response;
 import spark.Route;
