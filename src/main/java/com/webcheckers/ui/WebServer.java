@@ -152,7 +152,7 @@ public class WebServer {
 
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby ));
 
-    post(SIGNOUT_URL, new PostSignoutRoute(templateEngine, playerLobby));
+    post(SIGNOUT_URL, new PostSignoutRoute(playerLobby));
 
     //TODO Fix names
     post("/validateMove", new PostProposedMoveRoute(playerLobby));

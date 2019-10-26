@@ -5,23 +5,30 @@ import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
 
-import java.util.Objects;
 
 import static spark.Spark.halt;
 
 public class PostSignoutRoute implements Route {
 
+    /** A PlayerLobby object */
     private final PlayerLobby playerLobby;
-    private final TemplateEngine templateEngine;
-
-    static final String GENERIC_MESSAGE = "messageSignout";
+    /** Message that appears when a player signs out mid game */
     static final Message IN_GAME_MSG = Message.error("Cannot sign-out mid game");
 
-    public PostSignoutRoute (final TemplateEngine templateEngine, final PlayerLobby playerLobby) {
-        this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine must not be null");
+    /**
+     * Creates a new instance of PostSignoutRoute
+     * @param playerLobby A PlayerLobby object
+     */
+    public PostSignoutRoute (final PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
     }
 
+    /**
+     * Redirects the user to the home page when they signout and removes them from the list of sign-in users
+     * @param request A http request
+     * @param response A http response
+     * @return null
+     */
     @Override
     public Object handle(Request request, Response response) {
         final String currentUsername = request.queryParams("currentUser");
@@ -35,7 +42,7 @@ public class PostSignoutRoute implements Route {
             halt();
             return null;
         }
-        httpSession.attribute(GENERIC_MESSAGE, IN_GAME_MSG);
+        httpSession.attribute(GetHomeRoute.MESSAGE_ATR, IN_GAME_MSG);
         response.redirect("/game");
         halt();
         return null;
