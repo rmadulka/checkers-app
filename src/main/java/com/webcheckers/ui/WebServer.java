@@ -153,9 +153,12 @@ public class WebServer {
 
     post(SIGNOUT_URL, new PostSignoutRoute(templateEngine, playerLobby));
 
+    //TODO Fix names
     post("/validateMove", new PostProposedMoveRoute(playerLobby));
 
     post("/submitTurn", new PostSubmitTurnRoute(playerLobby));
+
+    post("/resignGame", new PostResignRoute(playerLobby));
 
     //
     LOG.config("WebServer is initialized.");
