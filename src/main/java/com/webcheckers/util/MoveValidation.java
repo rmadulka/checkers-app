@@ -8,9 +8,8 @@ public class MoveValidation {
 
     public static boolean validateMove (Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
-        return gameBoard[move.getEndRow()][move.getEnd().getRow()].isValid() &&
-                move.getStartRow() == move.getEndRow() + 1 &&
-                (move.getStartCell() == move.getEndCell() + 1 ||
-                move.getStartCell() == move.getEndCell() - 1);
+        return gameBoard[move.getEndRow()][move.getEndCell()].isValid() &&
+                move.getStartRow() + 1 == move.getEndRow() &&
+                (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell());
     }
 }
