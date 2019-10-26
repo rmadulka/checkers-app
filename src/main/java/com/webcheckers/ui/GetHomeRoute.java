@@ -74,7 +74,7 @@ public class GetHomeRoute implements Route {
     Player currentUser = httpSession.attribute("currentUser");
 
     //Displays a new message if there is one
-    Message.displayMessage(httpSession, vm, WELCOME_MSG);
+    Message.displayMessage(httpSession, vm, WELCOME_MSG, MESSAGE);
 
     //If the currentUser is clicked on at any point, send them to the game
     if (currentUser != null && currentUser.getInGame()){

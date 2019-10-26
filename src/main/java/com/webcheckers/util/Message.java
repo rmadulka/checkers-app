@@ -108,16 +108,16 @@ public final class Message {
     return !type.equals(Type.ERROR);
   }
 
-  public static void displayMessage(Session httpSession, Map<String, Object> vm, Message defaultMessage){
+  public static void displayMessage(Session httpSession, Map<String, Object> vm, Message defaultMessage, String messageID){
     Message newMessage = httpSession.attribute(GetHomeRoute.MESSAGE_ATR);
     if (newMessage != null) {
-      vm.put(GetHomeRoute.MESSAGE, newMessage);
+      vm.put(messageID, newMessage);
 
       //removes the new message ASAP so it is never reused
       httpSession.removeAttribute(GetHomeRoute.MESSAGE_ATR);
     } else {
       //default message is a welcome message
-      vm.put(GetHomeRoute.MESSAGE, defaultMessage);
+      vm.put(messageID, defaultMessage);
     }
   }
 
