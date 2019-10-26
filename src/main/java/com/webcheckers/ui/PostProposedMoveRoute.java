@@ -7,9 +7,9 @@ import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Move;
-import com.webcheckers.model.MoveValidation;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
+import com.webcheckers.util.MoveValidation;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -37,9 +37,8 @@ public class PostProposedMoveRoute implements Route {
 
         Message message;
 
-        MoveValidation moveValidation = new MoveValidation(move, board);
 
-        if(moveValidation.validateMove()){
+        if(MoveValidation.validateMove(move, board)){
             message = Message.info("valid");
         } else {
             //TODO more than one error message
