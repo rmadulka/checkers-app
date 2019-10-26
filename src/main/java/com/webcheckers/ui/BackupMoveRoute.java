@@ -15,7 +15,10 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Session;
-public class BackupMove {
+
+import java.util.Stack;
+
+public class BackupMoveRoute {
 
     private final PlayerLobby playerLobby;
 
@@ -27,13 +30,18 @@ public class BackupMove {
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
-        Board board = gameLobby.getBoard();
-        if(!board.getValidatedMoves().isEmpty()){
 
+        Stack<Move> validatedMoves = player.getTurnStack();
+        if(!validatedMoves.isEmpty()){
+           Move lastMove = validatedMoves.pop();
+           //TODO Specify what type of move has been undone
+           return Message.info("A ____ move has been undone");
         }
+        return Message.error("No moves have been made to undo");
+
+
         //check if the player has made a valid move for their turn
         //access a stack that stores all validated moves, .pop() the stack
-        //
 
 
     }
