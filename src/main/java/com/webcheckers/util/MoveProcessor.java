@@ -18,7 +18,10 @@ public class MoveProcessor {
 
     public static boolean processMoves(Player player, Board board){
         Stack<Move> turnStack = player.getTurnStack();
+        while (!turnStack.empty()) {
+            board.makeMove(turnStack.remove(0));
+        }
         //TODO assert proper players turn
-        return false;
+        return true;
     }
 }
