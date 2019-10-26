@@ -17,7 +17,7 @@ import spark.Session;
 
 import java.util.Stack;
 
-public class BackupMoveRoute {
+public class BackupMoveRoute implements Route{
 
     private final PlayerLobby playerLobby;
 
