@@ -35,6 +35,14 @@
 
             <#include "message.ftl" />
 
+            <#if messageSignout??>
+              <div id="messageSignout" class="${messageSignout.type}">${messageSignout.text}</div>
+            <#else>
+              <div id="messageSignout" class="INFO" style="display:none">
+                <!-- keep here for client-side messages -->
+              </div>
+            </#if>
+
             <div>
               <table data-color='RED'>
                 <tr>

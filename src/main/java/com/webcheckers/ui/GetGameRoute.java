@@ -126,7 +126,7 @@ public class GetGameRoute implements Route {
 
         //TODO Eventually
         //vm.put("modeOptions", );
-
+        Message.displayMessage(httpSession, vm,null, "messageSignout");
         //render game view
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
 
