@@ -16,8 +16,8 @@ package com.webcheckers.model;
 
     /**
      * Constructs a checkers game board and calls functions to initialize it
-     * @param white player who controls white pieces
-     * @param red player who controls red pieces
+     * @param whitePlayer player who controls white pieces
+     * @param redPlayer player who controls red pieces
      */
      public Board(Player whitePlayer, Player redPlayer) {
          this.whitePlayer = whitePlayer;
