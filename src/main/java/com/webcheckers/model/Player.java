@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import java.util.Stack;
+
 /**
  * A model for a player
  * Each player has a unique identifier (Username)
@@ -12,6 +14,8 @@ public class Player {
 
     /** Determines if the player is supposed to be in a game */
     private boolean inGame;
+
+    private Stack<Move> turnStack = null;
 
     /**
      * Creates a new instance of a player
@@ -43,7 +47,12 @@ public class Player {
      * @param inGame Boolean that determines if a player is in a game
      */
     public void setInGame(boolean inGame) {
+        this.turnStack = new Stack<>();
         this.inGame = inGame;
+    }
+
+    public Stack<Move> getTurnStack(){
+        return turnStack;
     }
 
     /**

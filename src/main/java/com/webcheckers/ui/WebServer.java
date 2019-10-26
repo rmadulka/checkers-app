@@ -152,6 +152,8 @@ public class WebServer {
 
     post("/validateMove", new PostProposedMoveRoute(playerLobby));
 
+    post("/submitTurn", new PostSubmitTurnRoute(playerLobby));
+
     //
     LOG.config("WebServer is initialized.");
   }
