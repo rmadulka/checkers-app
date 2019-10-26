@@ -30,6 +30,7 @@ public class PostSubmitTurnRoute implements Route {
         //TODO Check validity
         if(true){
             message = Message.info("valid");
+            player.getTurnStack().removeAllElements();
         } else {
             //TODO more than one error message
             message = Message.error("invlaid");

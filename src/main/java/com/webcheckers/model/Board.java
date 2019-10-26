@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import java.util.Stack;
+
 /**
  * model of the board for the boardview ui
  */
@@ -13,6 +15,7 @@ package com.webcheckers.model;
      private Player redPlayer;
      /** represents the board itself as it stores space and row data **/
      private Space[][] board;
+
 
     /**
      * Constructs a checkers game board and calls functions to initialize it
@@ -113,4 +116,6 @@ package com.webcheckers.model;
         }
         return reversed;
     }
+
+
  }
