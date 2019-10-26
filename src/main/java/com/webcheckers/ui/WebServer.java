@@ -150,6 +150,8 @@ public class WebServer {
 
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby ));
 
+    post("/validateMove", new PostProposedMoveRoute(playerLobby));
+
     //
     LOG.config("WebServer is initialized.");
   }
