@@ -76,13 +76,13 @@ public class PlayerLobby {
 
     /**
      * Gets GameLobby based on the player name
-     * @param other A player
+     * @param player A player
      * @return The GameLobby that the player is in
      */
-    public GameLobby getGameLobby(Player other) {
+    public GameLobby getGameLobby(Player player) {
         for (GameLobby games : currentGames){
-            Player opponent = games.getOpponent(other);
-            if(opponent != null) {
+            //Player opponent = games.getOpponent(other);
+            if(games.getRedPlayer().equals(player) || games.getWhitePlayer().equals(player)) {
                 return games;
             }
         }

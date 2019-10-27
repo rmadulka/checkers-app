@@ -87,13 +87,18 @@ public class GameLobby {
         if (player.equals(redPlayer)) {
             redPlayer.setInGame(false);
             redPlayer = null;
+            System.out.println("removed red");
         } else if (player.equals(whitePlayer)) {
             whitePlayer.setInGame(false);
             whitePlayer = null;
+            System.out.println("removed white");
         }
     }
 
     public boolean playersEmpty(){
-        return redPlayer == null && whitePlayer == null;
+        if((redPlayer == null) && (whitePlayer == null)){
+            System.out.println("Players removed");
+        }
+        return (redPlayer == null) && (whitePlayer == null);
     }
 }
