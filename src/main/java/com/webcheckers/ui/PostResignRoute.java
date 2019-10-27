@@ -29,6 +29,7 @@ public class PostResignRoute implements Route {
 
 
         //TODO Set Winner/Loser in board and end game processes
+        gameLobby.endGame(Message.info(String.format("%s has resigned",player.getName())));
         if(true){
             message = Message.info("valid");
         } else {

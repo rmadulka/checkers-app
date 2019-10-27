@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
 import com.webcheckers.appl.GameLobby;
@@ -70,6 +71,7 @@ public class GetGameRoute implements Route {
         final String receiverName = request.queryParams("receiver");
         final Session httpSession = request.session();
 
+        GameLobby gameLobby;
         Board checkersBoard;
 
         Player player = httpSession.attribute(GetHomeRoute.CURRENT_USER);
@@ -92,21 +94,27 @@ public class GetGameRoute implements Route {
             }
 
             //If the opponent is available, create a new game
-            GameLobby gameLobby = playerLobby.startGame(player, opponent);
+            //TODO Check if gameLobby is null
+            gameLobby = playerLobby.startGame(player, opponent);
             checkersBoard = gameLobby.getBoard();
             vm.put(RED_PLAYER, player);
             vm.put(WHITE_PLAYER, opponent);
 
         //When the opponent is clicked on, set up the game values
         } else {
-            GameLobby gameLobby = playerLobby.getGameLobby(player);
+            gameLobby = playerLobby.getGameLobby(player);
 
             assert gameLobby != null : "GameLobby is null"; //Should never happen
 
             opponent = gameLobby.getOpponent(player);
             checkersBoard = gameLobby.getBoard();
-            vm.put(RED_PLAYER, opponent);
-            vm.put(WHITE_PLAYER, player);
+            if(gameLobby.getWhitePlayer().equals(player)) {
+                vm.put(RED_PLAYER, opponent);
+                vm.put(WHITE_PLAYER, player);
+            } else if (gameLobby.getRedPlayer().equals(player)){
+                vm.put(RED_PLAYER, player);
+                vm.put(WHITE_PLAYER, opponent);
+            }
         }
 
         LOG.finer("GetGameRoute is invoked.");
@@ -125,7 +133,12 @@ public class GetGameRoute implements Route {
 
 
         //TODO Eventually
-        //vm.put("modeOptions", );
+        final Map<String, Object> modeOptions = new HashMap<>(2);
+        modeOptions.put("isGameOver", gameLobby.getIsGameOver());
+        modeOptions.put("gameOverMessage", gameLobby.getGameOverMessage());
+        vm.put("modeOptionsAsJSON", new Gson().toJson(modeOptions));
+
+
         Message.displayMessage(httpSession, vm,null, "messageSignout");
         //render game view
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));

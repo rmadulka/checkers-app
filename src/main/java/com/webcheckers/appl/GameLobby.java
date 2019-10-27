@@ -2,6 +2,7 @@ package com.webcheckers.appl;
 
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 
 public class GameLobby {
     /** represents the player who moves the red checker pieces **/
@@ -10,6 +11,10 @@ public class GameLobby {
     public Player whitePlayer;
     /** represents the checkerboard model**/
     private Board board;
+
+    private boolean isGameOver;
+
+    private Message gameOverMessage = null;
 
     /**
      * Constructs a GameLobby to keep track of the players in a current game
@@ -22,6 +27,7 @@ public class GameLobby {
         this.redPlayer = redPlayer;
         this.whitePlayer = whitePlayer;
         this.board = new Board(whitePlayer, redPlayer);
+        this.isGameOver = false;
         init();
     }
 
@@ -33,6 +39,12 @@ public class GameLobby {
         this.whitePlayer.setInGame(true);
     }
 
+    public void endGame(Message reason){
+        isGameOver = true;
+        gameOverMessage = reason;
+
+        //TODO Shouldnt happen until player hits exit
+    }
     /**
      * Gets the current board
      * @return the board's layout
@@ -53,5 +65,29 @@ public class GameLobby {
             return redPlayer;
         }
         return null;
+    }
+
+    public boolean getIsGameOver(){
+        return isGameOver;
+    }
+
+    public Message getGameOverMessage(){
+        return gameOverMessage;
+    }
+
+    public Player getRedPlayer(){
+        return redPlayer;
+    }
+
+    public Player getWhitePlayer(){
+        return whitePlayer;
+    }
+
+    public void removePlayer(Player player){
+        if (player.equals(redPlayer)) {
+            redPlayer.setInGame(false);
+        } else if (player.equals(whitePlayer)) {
+            whitePlayer.setInGame(false);
+        }
     }
 }

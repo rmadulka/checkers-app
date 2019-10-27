@@ -163,6 +163,8 @@ public class WebServer {
 
     post("/backupMove", new BackupMoveRoute(playerLobby));
 
+    post("/exitGame", new ExitGameRoute(playerLobby));
+
     //
     LOG.config("WebServer is initialized.");
   }

@@ -194,7 +194,16 @@ define(function(require){
    * Exit the game by navigating to the Home page.
    */
   PlayController.prototype.exitGame = function exitGame() {
-    window.location = '/';
+    //window.location = '/';
+    AjaxUtils.callServer('/exitGame',handleResponse, this)
+
+    function handleResponse(message) {
+      if (message.type === 'INFO') {
+        window.location = '/'
+      } else {
+        this.displayMessage(message)
+      }
+    }
   };
 
   /**
