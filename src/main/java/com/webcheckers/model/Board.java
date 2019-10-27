@@ -1,5 +1,9 @@
 package com.webcheckers.model;
 
+import apple.laf.JRSUIConstants;
+import com.webcheckers.util.MoveProcessor;
+import spark.ModelAndView;
+
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -142,6 +146,16 @@ import java.util.Stack;
             board[moveTo.getRow()][moveTo.getCell()].place(moving);
         }
         switchTurn();
+    }
+
+    public void convertKingPiece(Move move){
+        if(MoveProcessor.reachedEnd(board, move)){
+            int column = move.getEndCell();
+            Piece currentPiece = board[SIZE][column].getPiece();
+            if(currentPiece.getType() == Piece.pieceType.SINGLE){
+                currentPiece.convertToKing(currentPiece);
+            }
+        }
     }
 
 }

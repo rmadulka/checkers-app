@@ -64,8 +64,7 @@ public class MoveProcessor {
      * @param move The move that the player made
      * @return True if the player has reached the end of the board
      */
-    public static boolean reachedEnd(Board board, Move move) {
-        Space[][] gameBoard = board.getBoard();
-        return move.getEndRow() == gameBoard.length;
+    public static boolean reachedEnd(Space[][] board, Move move) {
+        return move.getEndRow() == board.length;
     }
 }
