@@ -86,8 +86,14 @@ public class GameLobby {
     public void removePlayer(Player player){
         if (player.equals(redPlayer)) {
             redPlayer.setInGame(false);
+            redPlayer = null;
         } else if (player.equals(whitePlayer)) {
             whitePlayer.setInGame(false);
+            whitePlayer = null;
         }
+    }
+
+    public boolean playersEmpty(){
+        return redPlayer == null && whitePlayer == null;
     }
 }

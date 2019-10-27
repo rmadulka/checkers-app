@@ -24,6 +24,10 @@ public class ExitGameRoute implements Route {
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         gameLobby.removePlayer(player);
 
+        if (gameLobby.playersEmpty()){
+            playerLobby.removeGameLobby(gameLobby);
+        }
+
         Message message = Message.info("Exiting Game");
 
         return new Gson().toJson(message);
