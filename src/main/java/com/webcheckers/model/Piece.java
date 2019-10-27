@@ -41,6 +41,14 @@ public class Piece {
     }
 
     /**
+     * Converts the given piece to a KING type
+     * @param piece: given piece moved to the last row
+     */
+    public void convertToKing(Piece piece){
+        piece.type = pieceType.KING;
+    }
+
+    /**
      * What color piece is this?
      * @return PieceColor
      */

@@ -79,10 +79,14 @@ public class MoveProcessor {
     public static boolean reachedEnd(Board board, Move move) {
         Space[][] gameBoard = board.getBoard();
         int endRow = move.getEndRow();
-        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+        if (board.getActiveColor() == Piece.pieceColor.WHITE) {
             endRow = adjustRow(move.getEndRow());
         }
         return endRow == gameBoard.length;
+    }
+
+    public static boolean reachedEnd(Space[][] board, Move move) {
+        return move.getEndRow() == board.length;
     }
 
     /**
@@ -90,7 +94,7 @@ public class MoveProcessor {
      * @param row The row that is to be adjusted
      * @return The adjusted row
      */
-    public static int adjustRow(int row){
+    public static int adjustRow(int row) {
         return 8 - row;
     }
 
