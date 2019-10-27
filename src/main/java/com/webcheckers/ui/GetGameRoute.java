@@ -129,7 +129,7 @@ public class GetGameRoute implements Route {
         vm.put(VIEW_MODE, viewMode.PLAY);
 
         //TODO Right now active color is hardcoded
-        vm.put(ACTIVE_COLOR, Piece.pieceColor.RED);
+        vm.put(ACTIVE_COLOR, checkersBoard.getActiveColor());
 
 
         //TODO Eventually

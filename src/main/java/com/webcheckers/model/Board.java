@@ -17,6 +17,8 @@ import java.util.Stack;
      /** represents the board itself as it stores space and row data **/
      private Space[][] board;
 
+     private Piece.pieceColor activeColor;
+
     /**
      * Constructs a checkers game board and calls functions to initialize it
      * @param whitePlayer player who controls white pieces
@@ -25,6 +27,7 @@ import java.util.Stack;
      public Board(Player whitePlayer, Player redPlayer) {
          this.whitePlayer = whitePlayer;
          this.redPlayer = redPlayer;
+         activeColor = Piece.pieceColor.RED;
          init();
          populate();
      }
@@ -117,6 +120,18 @@ import java.util.Stack;
         return reversed;
     }
 
+    private void switchTurn(){
+        if(activeColor.equals(Piece.pieceColor.RED)){
+            activeColor = Piece.pieceColor.WHITE;
+        } else if (activeColor.equals(Piece.pieceColor.WHITE)){
+            activeColor = Piece.pieceColor.RED;
+        }
+    }
+
+    public Piece.pieceColor getActiveColor(){
+        return activeColor;
+    }
+
     public void makeMove(Move move) {
         Piece moving = board[move.getStartRow()][move.getStartCell()].getPiece();
         board[move.getStartRow()][move.getStartCell()].byebye();
@@ -126,6 +141,7 @@ import java.util.Stack;
             Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
             board[moveTo.getRow()][moveTo.getCell()].place(moving);
         }
+        switchTurn();
     }
 
 }
