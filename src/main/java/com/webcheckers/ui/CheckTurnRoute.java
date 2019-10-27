@@ -2,7 +2,9 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 
+import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Board;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.Request;
@@ -24,13 +26,11 @@ public class CheckTurnRoute implements Route{
 
     public Object handle(Request request, Response response){
         Session httpSession = request.session();
-        Player currentPlayer = httpSession.attribute("currentPlayer");
-        Player whitePlayer = httpSession.attribute("whitePlayer");
-        Player redPlayer = httpSession.attribute("redPlayer");
-        String activePiece = httpSession.attribute("activeColor");
+        Player player = httpSession.attribute("currentUser");
+        GameLobby gameLobby = playerLobby.getGameLobby(player);
         Message message;
         //if the current player controls the active piece it is their turn
-        if((currentPlayer == redPlayer && activePiece == "RED") || (currentPlayer == whitePlayer && activePiece == "WHITE")){
+        if((gameLobby.getRedPlayer() == player && currentPiece == red || gameLobby.getWhitePlayer() == player && currentPiece == white)){
             message = Message.info("true");
         }else{
             message = Message.info("false");
