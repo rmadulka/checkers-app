@@ -127,19 +127,15 @@ public class GetGameRoute implements Route {
         vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
         vm.put(BOARD_VIEW, boardView);
         vm.put(VIEW_MODE, viewMode.PLAY);
-
-        //TODO Right now active color is hardcoded
         vm.put(ACTIVE_COLOR, checkersBoard.getActiveColor());
 
-
-        //TODO Eventually
         final Map<String, Object> modeOptions = new HashMap<>(2);
         modeOptions.put("isGameOver", gameLobby.getIsGameOver());
         modeOptions.put("gameOverMessage", gameLobby.getGameOverMessageAsString());
         vm.put("modeOptionsAsJSON", new Gson().toJson(modeOptions));
 
-
         Message.displayMessage(httpSession, vm,null, "messageSignout");
+
         //render game view
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
 

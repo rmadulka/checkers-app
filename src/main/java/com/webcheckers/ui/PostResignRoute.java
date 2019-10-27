@@ -26,7 +26,7 @@ public class PostResignRoute implements Route {
 
         Message message;
 
-        //TODO When is resign going to fail?
+        //TODO When is resign going to fail? - When other player also resigned
         gameLobby.endGame(Message.info(String.format("%s has resigned",player.getName())));
         if(true){
             message = Message.info("valid");
