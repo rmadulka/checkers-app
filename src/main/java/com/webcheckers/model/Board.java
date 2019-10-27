@@ -124,6 +124,9 @@ import java.util.Stack;
         return reversed;
     }
 
+    /**
+     * Alternates the activeColor in order to determine and update whose current turn it is
+     */
     private void switchTurn(){
         if(activeColor.equals(Piece.pieceColor.RED)){
             activeColor = Piece.pieceColor.WHITE;
@@ -132,10 +135,20 @@ import java.util.Stack;
         }
     }
 
+
+    /**
+     * returns the activeColor, which represents whose turn it currently is
+     * @return activeColor
+     */
     public Piece.pieceColor getActiveColor(){
         return activeColor;
     }
 
+    /**
+     * Removes and places a piece from its old position to its new position, while also verifying that the piece has
+     * not been moved past 2 rows. After the move has been finalized, the player's current turn is over
+     * @param move newly made move
+     */
     public void makeMove(Move move) {
         Piece moving = board[move.getStartRow()][move.getStartCell()].getPiece();
         board[move.getStartRow()][move.getStartCell()].byebye();
@@ -148,6 +161,10 @@ import java.util.Stack;
         switchTurn();
     }
 
+    /**
+     * Converts a SINGLE piece to a KING piece when a piece reaches the last row of the board
+     * @param move: move in the final row, provides an EndCell location
+     */
     public void convertKingPiece(Move move){
         if(MoveProcessor.reachedEnd(board, move)){
             int column = move.getEndCell();
