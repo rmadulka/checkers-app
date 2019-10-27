@@ -1,9 +1,6 @@
 package com.webcheckers.util;
 
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Move;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.Space;
+import com.webcheckers.model.*;
 
 import java.util.Stack;
 
@@ -11,6 +8,9 @@ public class MoveProcessor {
 
     public static boolean validateMove (Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
+        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+            gameBoard = reverseRows(board);
+        }
         return gameBoard[move.getEndRow()][move.getEndCell()].isValid() &&
                 move.getStartRow() + 1 == move.getEndRow() &&
                 (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell());
@@ -33,8 +33,8 @@ public class MoveProcessor {
      * @param board A board
      * @return True if there is an available jump move
      */
-    public static boolean checkForJumpMove(Board board       ) {
-        //we need to know the player who is moving     ,^^^^^
+    public static boolean checkForJumpMove(Board board) {
+        //we need to call the getactivecolor method in board
         Space[][] gameBoard = board.getBoard();
         for (int row = 0; row < gameBoard.length - 2; row ++) {
             for(int col = 0; col < gameBoard.length; col ++) {
@@ -67,5 +67,15 @@ public class MoveProcessor {
     public static boolean reachedEnd(Board board, Move move) {
         Space[][] gameBoard = board.getBoard();
         return move.getEndRow() == gameBoard.length;
+    }
+
+    public static Space[][] reverseRows(Board board) {
+        Space[][] gameBoard = board.getBoard();
+        for(int row = 0; row < gameBoard.length; row ++) {
+            for (int col = 0; col < gameBoard.length; col ++) {
+                gameBoard[gameBoard.length - row - 1][gameBoard.length - col - 1] = gameBoard[row][col];
+            }
+        }
+        return gameBoard;
     }
 }
