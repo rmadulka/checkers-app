@@ -37,8 +37,8 @@ public class CheckTurnRoute implements Route{
             message = Message.error("Not your turn");
         }
         Gson gson = new Gson();
-        String backupMessage = gson.toJson(message);
-        return backupMessage;
+        String checkTurn = gson.toJson(message);
+        return checkTurn;
 
     }
 }
