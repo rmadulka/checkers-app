@@ -34,7 +34,7 @@ public class CheckTurnRoute implements Route{
         if((currentPlayer == redPlayer && activePiece == "RED") || (currentPlayer == whitePlayer && activePiece == "WHITE")){
             message = Message.info("it is " + currentPlayer.getName() + "'s turn");
         }else{
-            message = Message.error("IT IS NOT YOUR FUCKING TURN YOU FUCKING IDIOT");
+            message = Message.error("Not your turn");
         }
         Gson gson = new Gson();
         String backupMessage = gson.toJson(message);
