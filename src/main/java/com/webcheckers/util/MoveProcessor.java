@@ -6,13 +6,22 @@ import java.util.Stack;
 
 public class MoveProcessor {
 
+    /**
+     * Checks if a simple move is valid
+     * @param move The move that the player made
+     * @param board The board
+     * @return True if a player made a valid move
+     */
     public static boolean validateMove (Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
+        int startRow = move.getStartRow();
+        int endRow = move.getEndRow();
         if(board.getActiveColor() == Piece.pieceColor.WHITE) {
-            gameBoard = reverseRows(board);
+            startRow = adjustRow(move.getStartRow());
+            endRow = adjustRow(move.getEndRow());
         }
-        return gameBoard[move.getEndRow()][move.getEndCell()].isValid() &&
-                move.getStartRow() + 1 == move.getEndRow() &&
+        return gameBoard[endRow][move.getEndCell()].isValid() &&
+                startRow + 1 == endRow &&
                 (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell());
     }
 
@@ -34,22 +43,25 @@ public class MoveProcessor {
      * @return True if there is an available jump move
      */
     public static boolean checkForJumpMove(Board board) {
-        //we need to call the getactivecolor method in board
         Space[][] gameBoard = board.getBoard();
         for (int row = 0; row < gameBoard.length - 2; row ++) {
             for(int col = 0; col < gameBoard.length; col ++) {
                 //check that this is the moving player's piece
-                if(gameBoard[row][col].isValid()) {//&& check that it's the moving players piece
+                if(gameBoard[row][col].isValid() && gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
                     //check right
                     //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
+                    //TODO Fix law of demeter here
                     if (!(col + 2 > gameBoard.length) && gameBoard[row + 1][col + 1].isValid() &&
-                            gameBoard[row + 2][col + 2].getPiece() == null) { //&& is opponents piece
+                            gameBoard[row + 2][col + 2].getPiece() == null &&
+                            gameBoard[row][col].getPiece().getColor() != board.getActiveColor()) {
                         return true;
                     }
                     //check left
                     //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
+                    //TODO Fix law of demeter here
                     if (!(col - 2 < 0) && gameBoard[row + 1][col - 1].isValid() &&
-                            gameBoard[row + 2][col - 2].getPiece() == null) { //&& is opponents piece
+                            gameBoard[row + 2][col - 2].getPiece() == null &&
+                            gameBoard[row][col].getPiece().getColor() != board.getActiveColor()) {
                         return true;
                     }
                 }
@@ -66,16 +78,32 @@ public class MoveProcessor {
      */
     public static boolean reachedEnd(Board board, Move move) {
         Space[][] gameBoard = board.getBoard();
-        return move.getEndRow() == gameBoard.length;
+        int endRow = move.getEndRow();
+        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+            endRow = adjustRow(move.getEndRow());
+        }
+        return endRow == gameBoard.length;
     }
 
-    public static Space[][] reverseRows(Board board) {
+    /**
+     * Adjusts the row when checking moves for the white player
+     * @param row The row that is to be adjusted
+     * @return The adjusted row
+     */
+    public static int adjustRow(int row){
+        return 8 - row;
+    }
+
+    //create a reverse move instead
+    /*public static Space[][] reverseRows(Board board) {
         Space[][] gameBoard = board.getBoard();
+        Space[][] game = new Space[gameBoard.length][gameBoard.length];
         for(int row = 0; row < gameBoard.length; row ++) {
             for (int col = 0; col < gameBoard.length; col ++) {
-                gameBoard[gameBoard.length - row - 1][gameBoard.length - col - 1] = gameBoard[row][col];
+                //game[gameBoard.length - row - 1][gameBoard.length - col - 1] = gameBoard[row][col];
+                game[row][col] = gameBoard[gameBoard.length - row - 1][gameBoard.length - col - 1];
             }
         }
-        return gameBoard;
-    }
+        return game;
+    }*/
 }
