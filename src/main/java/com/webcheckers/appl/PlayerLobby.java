@@ -121,4 +121,13 @@ public class PlayerLobby {
         }
     }
 
+    /**
+     * Removes a GameLobby object from the list when a player resigns or a game ends
+     * @param gameLobby The GameLobby in which a player has resigned or a game has ended
+     */
+    public void removeGameLobby(GameLobby gameLobby) {
+        this.currentGames.remove(gameLobby);
+    }
+
+
 }
