@@ -32,8 +32,8 @@ public class CheckTurnRoute implements Route{
         Board board = gameLobby.getBoard();
         Message message;
         //if the current player controls the active piece it is their turn
-        if((gameLobby.getRedPlayer() == player && board.getActiveColor() == Piece.pieceColor.RED ||
-                gameLobby.getWhitePlayer() == player && board.getActiveColor() == Piece.pieceColor.WHITE)){
+        if((gameLobby.getRedPlayer() == player && board.getActiveColor() == Piece.pieceColor.RED) ||
+                (gameLobby.getWhitePlayer() == player && board.getActiveColor() == Piece.pieceColor.WHITE)){
             message = Message.info("true");
         }else{
             message = Message.info("false");
