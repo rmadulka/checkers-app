@@ -24,4 +24,37 @@ public class MoveProcessor {
         //TODO assert proper players turn
         return true;
     }
+
+    /**
+     * During a turn, a player is required to perform a jump move if there is one. Furthermore, a player is not required
+     * to perform the jump move with the most jumps. A player can choose to do any jump move on the board, however, if
+     * the piece they choose to perform the jump move is able to do multiple jump moves, then the player is required to
+     * perform all the jump moves
+     * @param board A board
+     * @return True if there is an available jump move
+     */
+    public static boolean checkForJumpMove(Board board       ) {
+        //we need to know the player who is moving     ,^^^^^
+        Space[][] gameBoard = board.getBoard();
+        for (int row = 0; row < gameBoard.length - 2; row ++) {
+            for(int col = 0; col < gameBoard.length; col ++) {
+                //check that this is the moving player's piece
+                if(gameBoard[row][col].isValid()) {//&& check that it's the moving players piece
+                    //check right
+                    //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
+                    if (!(col + 2 > gameBoard.length) && gameBoard[row + 1][col + 1].isValid() &&
+                            gameBoard[row + 2][col + 2].getPiece() == null) { //&& is opponents piece
+                        return true;
+                    }
+                    //check left
+                    //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
+                    if (!(col - 2 < 0) && gameBoard[row + 1][col - 1].isValid() &&
+                            gameBoard[row + 2][col - 2].getPiece() == null) { //&& is opponents piece
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
