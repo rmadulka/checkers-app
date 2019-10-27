@@ -2,13 +2,21 @@ package com.webcheckers.appl;
 
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Player;
+import com.webcheckers.ui.GetHomeRoute;
 import com.webcheckers.util.Message;
 
+import java.util.logging.Logger;
+
 public class GameLobby {
+    private static final Logger LOG = Logger.getLogger(GameLobby.class.getName());
     /** represents the player who moves the red checker pieces **/
     public Player redPlayer;
     /** represents the player who moves the white checker pieces **/
     public Player whitePlayer;
+
+    private boolean redPlayerPresent;
+
+    private boolean whitePlayerPresent;
     /** represents the checkerboard model**/
     private Board board;
 
@@ -29,6 +37,7 @@ public class GameLobby {
         this.board = new Board(whitePlayer, redPlayer);
         this.isGameOver = false;
         init();
+        LOG.config("GameLobby created for [" + redPlayer.getName() + "] [" + whitePlayer.getName() + "]" );
     }
 
     /**
@@ -37,13 +46,14 @@ public class GameLobby {
     public void init(){
         this.redPlayer.setInGame(true);
         this.whitePlayer.setInGame(true);
+        this.redPlayerPresent = true;
+        this.whitePlayerPresent = true;
     }
 
     public void endGame(Message reason){
+        LOG.finer("Game over");
         isGameOver = true;
         gameOverMessage = reason;
-
-        //TODO Shouldnt happen until player hits exit
     }
     /**
      * Gets the current board
@@ -86,19 +96,16 @@ public class GameLobby {
     public void removePlayer(Player player){
         if (player.equals(redPlayer)) {
             redPlayer.setInGame(false);
-            redPlayer = null;
-            System.out.println("removed red");
+            redPlayerPresent = false;
+            LOG.finer("redPlayer removed from GameLobby");
         } else if (player.equals(whitePlayer)) {
             whitePlayer.setInGame(false);
-            whitePlayer = null;
-            System.out.println("removed white");
+            whitePlayerPresent = false;
+            LOG.finer("whitePlayer removed from GameLobby");
         }
     }
 
     public boolean playersEmpty(){
-        if((redPlayer == null) && (whitePlayer == null)){
-            System.out.println("Players removed");
-        }
-        return (redPlayer == null) && (whitePlayer == null);
+        return !(redPlayerPresent || whitePlayerPresent);
     }
 }
