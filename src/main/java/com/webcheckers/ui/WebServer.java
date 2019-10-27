@@ -165,6 +165,8 @@ public class WebServer {
 
     post("/exitGame", new ExitGameRoute(playerLobby));
 
+    post("/checkTurn", new CheckTurnRoute(playerLobby));
+
     //
     LOG.config("WebServer is initialized.");
   }
