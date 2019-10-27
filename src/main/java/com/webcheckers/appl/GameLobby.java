@@ -50,6 +50,8 @@ public class GameLobby {
         this.whitePlayerPresent = true;
     }
 
+    //TODO Fix to have multiple reasons along with winner/Loser
+    //TODO perhaps an enum with RESIGN, NO MOVES, NO PIECES
     public void endGame(Message reason){
         LOG.finer("Game over");
         isGameOver = true;
