@@ -23,12 +23,10 @@ public class PostResignRoute implements Route {
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
-        //use gameLobby to end the game
 
         Message message;
 
-
-        //TODO Set Winner/Loser in board and end game processes
+        //TODO When is resign going to fail?
         gameLobby.endGame(Message.info(String.format("%s has resigned",player.getName())));
         if(true){
             message = Message.info("valid");

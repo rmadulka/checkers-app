@@ -135,7 +135,7 @@ public class GetGameRoute implements Route {
         //TODO Eventually
         final Map<String, Object> modeOptions = new HashMap<>(2);
         modeOptions.put("isGameOver", gameLobby.getIsGameOver());
-        modeOptions.put("gameOverMessage", gameLobby.getGameOverMessage());
+        modeOptions.put("gameOverMessage", gameLobby.getGameOverMessageAsString());
         vm.put("modeOptionsAsJSON", new Gson().toJson(modeOptions));
 
 

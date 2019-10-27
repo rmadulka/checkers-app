@@ -23,8 +23,6 @@ public class ExitGameRoute implements Route {
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
 
-        System.out.println(player);
-
         gameLobby.removePlayer(player);
 
         if (gameLobby.playersEmpty()){

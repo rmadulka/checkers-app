@@ -81,8 +81,11 @@ public class GameLobby {
         return isGameOver;
     }
 
-    public Message getGameOverMessage(){
-        return gameOverMessage;
+    public String getGameOverMessageAsString(){
+        if (gameOverMessage == null) {
+            return null;
+        }
+        return gameOverMessage.getText();
     }
 
     public Player getRedPlayer(){
