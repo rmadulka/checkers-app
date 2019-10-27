@@ -1,15 +1,17 @@
 package com.webcheckers.appl;
 import com.webcheckers.model.Player;
+import com.webcheckers.ui.GetHomeRoute;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Logger;
 
 /**
  * Holds the list of players that successfully signed into the game
  * There should only be one instance of player lobby
  */
 public class PlayerLobby {
-
+    private static final Logger LOG = Logger.getLogger(PlayerLobby.class.getName());
     /**
      * Elements that show the validity of a username
      */
@@ -27,6 +29,7 @@ public class PlayerLobby {
     public PlayerLobby(){
         this.players = new HashSet<>();
         this.currentGames = new ArrayList<>();
+        LOG.config("PlayerLobby Initialized");
     }
 
     /**
@@ -69,6 +72,7 @@ public class PlayerLobby {
         if (players.contains(redPlayer) && players.contains(whitePlayer)) {
             GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
             currentGames.add(gameLobby);
+            LOG.finer("GameLobby added to PlayerLobby");
             return gameLobby;
         }
         return null;
@@ -127,6 +131,7 @@ public class PlayerLobby {
      */
     public void removeGameLobby(GameLobby gameLobby) {
         this.currentGames.remove(gameLobby);
+        LOG.finer("Removed GameLobby from PlayerLobby");
     }
 
 
