@@ -7,6 +7,23 @@ import java.util.Stack;
 public class MoveProcessor {
 
     /**
+     * Main method that determines if the players move is valid
+     * Checks for simple move, single jumps, multijumps and king moves
+     * @param move The players move that needs validation
+     * @param board The game board
+     * @return True if the player made a valid move
+     */
+    public static boolean validateMove (Move move, Board board) {
+        if (validateSimpleMove(move, board) && !checkForJumpMove(board)) {
+            return true;
+        }
+        /*else if (validateJumpMove(move, board)){
+            return true;
+        }*/
+        return false;
+    }
+
+    /**
      * Checks if a simple move is valid
      * @param move The move that the player made
      * @param board The board
@@ -14,6 +31,7 @@ public class MoveProcessor {
      */
     public static boolean validateSimpleMove (Move move, Board board) {
         //columns should be 8-col for white pieces but works without doing this so it may not be necessary to implement
+        Space[][] gameBoard = board.getBoard();
         int startRow = move.getStartRow();
         int endRow = move.getEndRow();
         if(board.getActiveColor() == Piece.pieceColor.WHITE) {
@@ -21,7 +39,12 @@ public class MoveProcessor {
             endRow = adjustRow(move.getEndRow());
         }
         return startRow + 1 == endRow &&
-                (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell());
+                (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell()) &&
+                gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null;
+    }
+
+    public static boolean validateJumpMove(Move move, Board board) {
+        return true;
     }
 
     public static boolean processMoves(Player player, Board board){
@@ -48,23 +71,22 @@ public class MoveProcessor {
         for (int row = 0; row < gameBoard.length - 2; row ++) {
             for(int col = 0; col < gameBoard.length; col ++) {
                 //check that this is the moving player's piece
-                if(gameBoard[row][col].isValid() && gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                if(gameBoard[row][col].getPiece() != null &&
+                        gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
                     //check right
                     //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
                     //TODO Fix law of demeter here
-                    if (!(col + 2 > gameBoard.length) && gameBoard[row + 1][col + 1].getPiece().getColor() != board.getActiveColor() &&
-                            gameBoard[row + 1][col + 1].getPiece() != null &&
-                            gameBoard[row + 2][col + 2].getPiece() == null &&
-                            gameBoard[row][col].getPiece().getColor() != board.getActiveColor()) {
+                    if (!(col + 2 > gameBoard.length) && gameBoard[row + 1][col + 1].getPiece() != null &&
+                            gameBoard[row + 1][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                            gameBoard[row + 2][col + 2].getPiece() == null) {
                         return true;
                     }
                     //check left
                     //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
                     //TODO Fix law of demeter here
-                    if (!(col - 2 < 0) && gameBoard[row + 1][col - 1].getPiece().getColor() != board.getActiveColor() &&
-                            gameBoard[row + 1][col - 1].getPiece() != null &&
-                            gameBoard[row + 2][col - 2].getPiece() == null &&
-                            gameBoard[row][col].getPiece().getColor() != board.getActiveColor()) {
+                    if (!(col - 2 < 0) && gameBoard[row + 1][col - 1].getPiece() != null &&
+                            gameBoard[row + 1][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                            gameBoard[row + 2][col - 2].getPiece() == null) {
                         return true;
                     }
                 }

@@ -36,7 +36,7 @@ public class PostProposedMoveRoute implements Route {
         Message message;
 
 
-        if(MoveProcessor.validateSimpleMove(move, board)){
+        if(MoveProcessor.validateMove(move, board)){
             //TODO law of demeter
             player.getTurnStack().push(move);
             message = Message.info("valid");
