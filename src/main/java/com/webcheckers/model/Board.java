@@ -156,7 +156,7 @@ import java.util.Stack;
         int diff = Math.abs(move.getStartRow() - move.getEndRow());
         if (diff == 2) {
             Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
-            board[moveTo.getRow()][moveTo.getCell()].place(moving);
+            board[moveTo.getRow()][moveTo.getCell()].byebye();
         }
         switchTurn();
     }
