@@ -16,8 +16,9 @@ public class MoveProcessor {
     public static boolean validateMove (Move move, Board board) {
         if (validateSimpleMove(move, board) && !checkForJumpMove(board)) {
             return true;
-        }
-        else if (validateJumpMove(move, board)){
+        }else if(validateKingSimpleMove(move,board)){
+            return true;
+        } else if (validateJumpMove(move, board)){
             return true;
         }
         return false;
@@ -32,23 +33,34 @@ public class MoveProcessor {
     public static boolean validateSimpleMove (Move move, Board board) {
         //columns should be 8-col for white pieces but works without doing this so it may not be necessary to implement
         Space[][] gameBoard = board.getBoard();
-        boolean kingException = false;
         int startRow = move.getStartRow();
         int endRow = move.getEndRow();
         if(board.getActiveColor() == Piece.pieceColor.WHITE) {
             startRow = adjustRow(move.getStartRow());
             endRow = adjustRow(move.getEndRow());
         }
-        Piece checkPiece = gameBoard[startRow][move.getStartCell()].getPiece();
-        if(checkPiece.getType() == Piece.pieceType.KING){
-            if(startRow - 1 == endRow && (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 ==
-                    move.getEndCell()) && gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null){
-                kingException = true;
-            }
-        }
+
         return startRow + 1 == endRow &&
                 ((move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell()) &&
-                gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null) || kingException;
+                        gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null);
+    }
+
+    public static boolean validateKingSimpleMove(Move move, Board board) {
+        Space[][] gameBoard = board.getBoard();
+        int startRow = move.getStartRow();
+        int endRow = move.getEndRow();
+        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+            startRow = adjustRow(move.getStartRow());
+            endRow = adjustRow(move.getEndRow());
+        }
+
+        Piece checkPiece = gameBoard[startRow][move.getStartCell()].getPiece();
+        if(checkPiece != null && checkPiece.getType() == Piece.pieceType.KING){
+            return (startRow - 1 == endRow && (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 ==
+                    move.getEndCell()) && gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null);
+
+        }
+        return false;
     }
 
     /**
@@ -149,7 +161,7 @@ public class MoveProcessor {
             //check right
             //checks out of bounds, if next piece is an enemy piece and the space after is empty
             if(!(move.getEndCell() + 2 > gameBoard.length) &&
-                gameBoard[move.getEndRow() + 1][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() + 1][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
                     gameBoard[move.getEndRow() + 1][move.getEndCell() + 1].getPiece() != null &&
                     gameBoard[move.getEndRow() + 2][move.getEndCell() + 2].getPiece() == null) {
                 return true;
@@ -157,10 +169,10 @@ public class MoveProcessor {
             //check left
             //checks out of bounds, if next piece is an enemy piece and the space after is empty
             return (!(move.getEndCell() - 2 < 0) &&
-                gameBoard[move.getEndRow() - 1][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() - 1][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
                     gameBoard[move.getEndRow() + 1][move.getEndCell() - 1].getPiece() != null &&
                     gameBoard[move.getEndRow() - 2][move.getEndCell() - 2].getPiece() == null);
-            }
+        }
         return false;
     }
 
