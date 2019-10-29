@@ -32,15 +32,23 @@ public class MoveProcessor {
     public static boolean validateSimpleMove (Move move, Board board) {
         //columns should be 8-col for white pieces but works without doing this so it may not be necessary to implement
         Space[][] gameBoard = board.getBoard();
+        boolean kingException = false;
         int startRow = move.getStartRow();
         int endRow = move.getEndRow();
         if(board.getActiveColor() == Piece.pieceColor.WHITE) {
             startRow = adjustRow(move.getStartRow());
             endRow = adjustRow(move.getEndRow());
         }
+        Piece checkPiece = gameBoard[startRow][move.getStartCell()].getPiece();
+        if(checkPiece.getType() == Piece.pieceType.KING){
+            if(startRow - 1 == endRow && (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 ==
+                    move.getEndCell()) && gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null){
+                kingException = true;
+            }
+        }
         return startRow + 1 == endRow &&
-                (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell()) &&
-                gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null;
+                ((move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell()) &&
+                gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null) || kingException;
     }
 
     public static boolean validateJumpMove(Move move, Board board) {
