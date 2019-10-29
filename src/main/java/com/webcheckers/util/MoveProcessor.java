@@ -17,9 +17,9 @@ public class MoveProcessor {
         if (validateSimpleMove(move, board) && !checkForJumpMove(board)) {
             return true;
         }
-        /*else if (validateJumpMove(move, board)){
+        else if (validateJumpMove(move, board)){
             return true;
-        }*/
+        }
         return false;
     }
 
@@ -43,8 +43,35 @@ public class MoveProcessor {
                 gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null;
     }
 
+    /**
+     * Determines a jump move performed by the user is valid
+     * @param move The jump move
+     * @param board he board
+     * @return True if the jump move is valid
+     */
     public static boolean validateJumpMove(Move move, Board board) {
-        return true;
+        Space[][] gameBoard = board.getBoard();
+        int startRow = move.getStartRow();
+        int endRow = move.getEndRow();
+        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+            startRow = adjustRow(move.getStartRow());
+            endRow = adjustRow(move.getEndRow());
+        }
+        if(!(endRow - 2 < 0)) {
+            if (!(move.getEndCell() - 2 < 0) &&
+                    gameBoard[endRow - 2][move.getEndCell() - 2] == gameBoard[startRow][move.getStartCell()] &&
+                    gameBoard[endRow - 1][move.getEndCell() - 1].getPiece() != null &&
+                    gameBoard[endRow - 1][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor()) {
+                return true;
+            }
+            if (!(move.getEndCell() + 2 >= gameBoard.length) &&
+                    gameBoard[endRow - 2][move.getEndCell() + 2] == gameBoard[startRow][move.getStartCell()] &&
+                    gameBoard[endRow - 1][move.getEndCell() + 1].getPiece() != null &&
+                    gameBoard[endRow - 1][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean processMoves(Player player, Board board){
