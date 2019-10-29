@@ -1,6 +1,6 @@
 package com.webcheckers.model;
 
-import apple.laf.JRSUIConstants;
+//import apple.laf.JRSUIConstants;
 import com.webcheckers.util.MoveProcessor;
 import spark.ModelAndView;
 
@@ -166,7 +166,7 @@ import java.util.Stack;
      * @param move: move in the final row, provides an EndCell location
      */
     public void convertKingPiece(Move move){
-        if(MoveProcessor.reachedEnd(board, move)){
+        if(MoveProcessor.reachedEnd(this, move)){
             int column = move.getEndCell();
             Piece currentPiece = board[SIZE][column].getPiece();
             if(currentPiece.getType() == Piece.pieceType.SINGLE){
