@@ -181,6 +181,7 @@ define(function(require){
     function handleResponse(message) {
       if (message.type === 'INFO') {
         // tell the browser to route the player to the Home page
+        console.log("")
         window.location = '/game';
       }
       // handle error message
