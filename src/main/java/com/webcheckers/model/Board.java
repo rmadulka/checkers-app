@@ -165,10 +165,15 @@ import java.util.Stack;
         board[move.getStartRow()][move.getStartCell()].removePiece();
         board[move.getEndRow()][move.getEndCell()].place(moving);
         int diff = Math.abs(move.getStartRow() - move.getEndRow());
+        KingMove km = new KingMove();
+        if(km.reachedEnd(this, move)){
+            convertKingPiece(move);
+        }
         if (diff == 2) {
             Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
             board[moveTo.getRow()][moveTo.getCell()].removePiece();
         }
+        switchTurn();
     }
 
     /**
@@ -176,12 +181,11 @@ import java.util.Stack;
      * @param move: move in the final row, provides an EndCell location
      */
     public void convertKingPiece(Move move){
-        if(MoveProcessor.reachedEnd(this, move)){
-            int column = move.getEndCell();
-            Piece currentPiece = board[SIZE][column].getPiece();
-            if(currentPiece.getType() == Piece.pieceType.SINGLE){
-                currentPiece.convertToKing(currentPiece);
-            }
+        int column = move.getEndCell();
+        int row = move.getEndRow();
+        Piece currentPiece = board[row][column].getPiece();
+        if(currentPiece.getType() == Piece.pieceType.SINGLE) {
+            currentPiece.convertToKing(currentPiece);
         }
     }
 
