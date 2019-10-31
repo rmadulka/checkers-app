@@ -101,6 +101,7 @@ public class MoveProcessor {
         while (!turnStack.empty()) {
             board.makeMove(turnStack.remove(0));
         }
+        board.switchTurn();
         //TODO assert proper players turn
         return true;
     }
