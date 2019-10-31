@@ -181,12 +181,13 @@ define(function(require){
     function handleResponse(message) {
       if (message.type === 'INFO') {
         // tell the browser to route the player to the Home page
-        console.log("")
-        window.location = '/game';
+        console.log("");
+        window.location = '/game'
       }
       // handle error message
       else {
         this.displayMessage(message);
+        setTimeout(() => { window.location = '/game'; }, 5000);
       }
     }
   };
