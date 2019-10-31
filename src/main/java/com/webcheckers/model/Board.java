@@ -127,7 +127,7 @@ import java.util.Stack;
     /**
      * Alternates the activeColor in order to determine and update whose current turn it is
      */
-    private void switchTurn(){
+    public void switchTurn(){
         if(activeColor.equals(Piece.pieceColor.RED)){
             activeColor = Piece.pieceColor.WHITE;
         } else if (activeColor.equals(Piece.pieceColor.WHITE)){
@@ -158,7 +158,6 @@ import java.util.Stack;
             Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
             board[moveTo.getRow()][moveTo.getCell()].byebye();
         }
-        switchTurn();
     }
 
     /**
