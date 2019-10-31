@@ -9,16 +9,17 @@ public class MoveProcessor {
     /**
      * Main method that determines if the players move is valid
      * Checks for simple move, single jumps, multijumps and king moves
-     * @param move The players move that needs validation
+     *
+     * @param move  The players move that needs validation
      * @param board The game board
      * @return True if the player made a valid move
      */
-    public static boolean validateMove (Move move, Board board) {
+    public static boolean validateMove(Move move, Board board) {
         if (validateSimpleMove(move, board) && !checkForJumpMove(board)) {
             return true;
-        }else if(validateKingSimpleMove(move,board)){
+        } else if (validateKingSimpleMove(move, board)) {
             return true;
-        } else if (validateJumpMove(move, board)){
+        } else if (validateJumpMove(move, board)) {
             return true;
         }
         return false;
@@ -26,20 +27,19 @@ public class MoveProcessor {
 
     /**
      * Checks if a simple move is valid
-     * @param move The move that the player made
+     *
+     * @param move  The move that the player made
      * @param board The board
      * @return True if a player made a valid move
      */
-    public static boolean validateSimpleMove (Move move, Board board) {
-        //columns should be 8-col for white pieces but works without doing this so it may not be necessary to implement
+    public static boolean validateSimpleMove(Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
         int startRow = move.getStartRow();
         int endRow = move.getEndRow();
-        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+        if (board.getActiveColor() == Piece.pieceColor.WHITE) {
             startRow = adjustRow(move.getStartRow());
             endRow = adjustRow(move.getEndRow());
         }
-
         return startRow + 1 == endRow &&
                 ((move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell()) &&
                         gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null);
@@ -49,13 +49,13 @@ public class MoveProcessor {
         Space[][] gameBoard = board.getBoard();
         int startRow = move.getStartRow();
         int endRow = move.getEndRow();
-        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+        if (board.getActiveColor() == Piece.pieceColor.WHITE) {
             startRow = adjustRow(move.getStartRow());
             endRow = adjustRow(move.getEndRow());
         }
 
         Piece checkPiece = gameBoard[startRow][move.getStartCell()].getPiece();
-        if(checkPiece != null && checkPiece.getType() == Piece.pieceType.KING){
+        if (checkPiece != null && checkPiece.getType() == Piece.pieceType.KING) {
             return (startRow - 1 == endRow && (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 ==
                     move.getEndCell()) && gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null);
 
@@ -65,34 +65,36 @@ public class MoveProcessor {
 
     /**
      * Determines a jump move performed by the user is valid
-     * @param move The jump move
+     *
+     * @param move  The jump move
      * @param board he board
      * @return True if the jump move is valid
      */
     public static boolean validateJumpMove(Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
-        int startRow = move.getStartRow();
-        int endRow = move.getEndRow();
-        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
-            startRow = adjustRow(move.getStartRow());
-            endRow = adjustRow(move.getEndRow());
+        int one = 1;
+        if(board.getActiveColor() == Piece.pieceColor.WHITE){
+            one = -1;
+            if (move.getEndRow() - move.getStartRow() != -2) {
+                return false;
+            }
+        } else if (move.getEndRow() - move.getStartRow() != 2) {
+            return false;
         }
-        if(!(endRow - 2 < 0)) {
-            if (!(move.getEndCell() - 2 < 0) &&
-                    gameBoard[endRow - 2][move.getEndCell() - 2] == gameBoard[startRow][move.getStartCell()] &&
-                    gameBoard[endRow - 1][move.getEndCell() - 1].getPiece() != null &&
-                    gameBoard[endRow - 1][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor()) {
-                return true;
-            }
-            if (!(move.getEndCell() + 2 >= gameBoard.length) &&
-                    gameBoard[endRow - 2][move.getEndCell() + 2] == gameBoard[startRow][move.getStartCell()] &&
-                    gameBoard[endRow - 1][move.getEndCell() + 1].getPiece() != null &&
-                    gameBoard[endRow - 1][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor()) {
-                return true;
-            }
+        if (!(move.getEndCell() - 2 < 0) &&
+                gameBoard[move.getEndRow() - one * 2][move.getEndCell() - 2] == gameBoard[move.getStartRow()][move.getStartCell()] &&
+                gameBoard[move.getEndRow() - one][move.getEndCell() - 1].getPiece() != null &&
+                gameBoard[move.getEndRow() - one][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor()) {
+            return true;
+        }
+        if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
+                gameBoard[move.getEndRow() - one * 2][move.getEndCell() + 2] == gameBoard[move.getStartRow()][move.getStartCell()] &&
+                gameBoard[move.getEndRow() - one][move.getEndCell() + 1].getPiece() != null &&
+                gameBoard[move.getEndRow() - one][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor()) {
+            return true;
         }
         return false;
-    }
+}
 
     public static boolean processMoves(Player player, Board board){
         Stack<Move> turnStack = player.getTurnStack();
@@ -116,29 +118,31 @@ public class MoveProcessor {
     public static boolean checkForJumpMove(Board board) {
         Space[][] gameBoard = board.getBoard();
         int negOne = 1;
-        if(board.getActiveColor() == Piece.pieceColor.WHITE){
+        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
             negOne = -1;
         }
-        for (int row = 0; row < gameBoard.length - 2; row ++) {
+        for (int row = 0; row < gameBoard.length; row ++) {
             for(int col = 0; col < gameBoard.length; col ++) {
-                //check that this is the moving player's piece
-                if(gameBoard[row][col].getPiece() != null &&
-                        gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
-                    //check right
-                    //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
-                    //TODO Fix law of demeter here
-                    if (!(col + 2 > gameBoard.length) && gameBoard[row + negOne][col + 1].getPiece() != null &&
-                            gameBoard[row + negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
-                            gameBoard[row + negOne * 2][col + 2].getPiece() == null) {
-                        return true;
-                    }
-                    //check left
-                    //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
-                    //TODO Fix law of demeter here
-                    if (!(col - 2 < 0) && gameBoard[row + negOne][col - 1].getPiece() != null &&
-                            gameBoard[row + negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
-                            gameBoard[row + negOne * 2][col - 2].getPiece() == null) {
-                        return true;
+                if (!(row + negOne * 2 > gameBoard.length - 1 || row + negOne * 2 < 0)) {
+                    //check that this is the moving player's piece
+                    if (gameBoard[row][col].getPiece() != null &&
+                            gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                        //check right
+                        //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
+                        //TODO Fix law of demeter here
+                        if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() != null &&
+                                gameBoard[row + negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row + negOne * 2][col + 2].getPiece() == null) {
+                            return true;
+                        }
+                        //check left
+                        //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
+                        //TODO Fix law of demeter here
+                        if (col - 2 >= 0 && gameBoard[row + negOne][col - 1].getPiece() != null &&
+                                gameBoard[row + negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row + negOne * 2][col - 2].getPiece() == null) {
+                            return true;
+                        }
                     }
                 }
             }
@@ -197,19 +201,6 @@ public class MoveProcessor {
      * @return The adjusted row
      */
     public static int adjustRow(int row) {
-        return 8 - row;
+        return 7 - row;
     }
-
-    //create a reverse move instead
-    /*public static Space[][] reverseRows(Board board) {
-        Space[][] gameBoard = board.getBoard();
-        Space[][] game = new Space[gameBoard.length][gameBoard.length];
-        for(int row = 0; row < gameBoard.length; row ++) {
-            for (int col = 0; col < gameBoard.length; col ++) {
-                //game[gameBoard.length - row - 1][gameBoard.length - col - 1] = gameBoard[row][col];
-                game[row][col] = gameBoard[gameBoard.length - row - 1][gameBoard.length - col - 1];
-            }
-        }
-        return game;
-    }*/
 }
