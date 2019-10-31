@@ -64,7 +64,7 @@ public class Space {
     /**
      * remove a piece from a space
      */
-    public void byebye() {
+    public void removePiece() {
         if (piece != null) piece = null;
     }
 

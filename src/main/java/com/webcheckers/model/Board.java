@@ -151,12 +151,12 @@ import java.util.Stack;
      */
     public void makeMove(Move move) {
         Piece moving = board[move.getStartRow()][move.getStartCell()].getPiece();
-        board[move.getStartRow()][move.getStartCell()].byebye();
+        board[move.getStartRow()][move.getStartCell()].removePiece();
         board[move.getEndRow()][move.getEndCell()].place(moving);
         int diff = Math.abs(move.getStartRow() - move.getEndRow());
         if (diff == 2) {
             Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
-            board[moveTo.getRow()][moveTo.getCell()].byebye();
+            board[moveTo.getRow()][moveTo.getCell()].removePiece();
         }
     }
 
