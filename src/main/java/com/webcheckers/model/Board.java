@@ -108,6 +108,17 @@ import java.util.Stack;
     }
 
     /**
+     * Returns space data at a position
+     * @param pos position of space/piece
+     * @return space data at pos
+     */
+    public Space getSpace(Position pos) {
+        int row = pos.getRow();
+        int cell = pos.getCell();
+        return getRow(row)[cell];
+    }
+
+    /**
      * Swaps the positions on the board in order to accommodate each player's perspective as each player's pieces
      * are initially located on the top of the board, causing positions to be inversely related between both players.
      * @param row int value that represents a row on board
