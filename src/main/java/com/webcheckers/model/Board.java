@@ -189,4 +189,29 @@ import java.util.Stack;
         }
     }
 
+    /**
+     * Iterates throughout the board counting the pieces of each player
+     * @return true if both pieces are present, false if only one piece is present indicating someone won
+     */
+    public boolean gameOverCheck(){
+        int redPiece = 0;
+        int whitePiece = 0;
+        for(int r = 0; r < SIZE - 1 ; r++) {
+            for (int c = 0; c < SIZE - 1; c++) {
+                if (board[r][c].getPiece() != null) {
+                    Piece currentPiece = board[r][c].getPiece();
+                    if (currentPiece.getColor() == Piece.pieceColor.RED) {
+                        redPiece++;
+                    } else {
+                        whitePiece++;
+                    }
+                }
+            }
+        }
+        if(whitePiece == 0 || redPiece == 0){
+            return true;
+        }
+        return false;
+    }
+
 }
