@@ -86,29 +86,28 @@ public class JumpMove extends Rules{
      * @param move The first jump
      * @return True if there is a multijump move available
      */
-    //have no clue if this works. Not sure how we should implement a multijump move yet
     public boolean checkMultiJump (Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
         int negOne = 1;
-        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+        if (board.getActiveColor() == Piece.pieceColor.WHITE) {
             negOne = -1;
         }
-        //checks that there is enough room for a multijump
-        if(move.getEndRow() < gameBoard.length - 2) {
-            //check right
-            //checks out of bounds, if next piece is an enemy piece and the space after is empty
-            if(!(move.getEndCell() + 2 > gameBoard.length - 1) &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 2].getPiece() == null) {
-                return true;
-            }
-            //check left
-            //checks out of bounds, if next piece is an enemy piece and the space after is empty
-            return (move.getEndCell() - 2 >= 0 &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
-                    gameBoard[move.getEndRow() - negOne][move.getEndCell() - 2].getPiece() == null);
+        if (move.getEndRow() > gameBoard.length - 2 || move.getEndRow() - 2 < 0) {
+            return false;
+        }
+        //checks out of bounds, if next piece is an enemy piece and the space after is empty
+        if (!(move.getEndCell() - 2 < 0) &&
+                gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece() != null &&
+                gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                gameBoard[move.getEndRow() - negOne][move.getEndCell() - 2].getPiece() == null) {
+            return true;
+        }
+        //checks out of bounds, if next piece is an enemy piece and the space after is empty
+        if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
+                gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece() != null &&
+                gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
+                gameBoard[move.getEndRow() + negOne][move.getEndCell() + 2].getPiece() == null) {
+            return true;
         }
         return false;
     }
