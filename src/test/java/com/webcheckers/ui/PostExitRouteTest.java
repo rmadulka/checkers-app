@@ -7,6 +7,7 @@ import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.Request;
 import spark.Response;
@@ -16,6 +17,7 @@ import spark.TemplateEngine;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@Tag("UI-Tier")
 public class PostExitRouteTest {
     // mock objects
         private PostExitGameRoute CuT;
@@ -47,6 +49,21 @@ public class PostExitRouteTest {
             Player p2 = new Player("p2");
             when(session.attribute("currentUser")).thenReturn(p1);
             GameLobby gameLobby = new GameLobby(p1, p2);
+            when(playerLobby.getGameLobby(p1)).thenReturn(gameLobby);
+            Message m = Message.info("Exiting Game");
+            assertEquals(CuT.handle(request, response), new Gson().toJson(m));
+        }
+
+    /**
+     * Tests how an empty gameLobby is implemented and whether the correct message is returned
+     */
+    @Test
+        public void test_empty_lobby(){
+            Player p1 = new Player("p1");
+            Player p2 = new Player("p2");
+            when(session.attribute("currentUser")).thenReturn(p1);
+            GameLobby gameLobby = new GameLobby(p1, p2);
+            gameLobby.removePlayer(p2);
             when(playerLobby.getGameLobby(p1)).thenReturn(gameLobby);
             Message m = Message.info("Exiting Game");
             assertEquals(CuT.handle(request, response), new Gson().toJson(m));
