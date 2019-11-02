@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
 import com.webcheckers.appl.GameLobby;
-import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 
 import com.webcheckers.util.Message;
@@ -70,7 +69,6 @@ public class GetGameRoute implements Route {
         //Get Session and Parameters
         final String receiverName = request.queryParams("receiver");
         final Session httpSession = request.session();
-
         GameLobby gameLobby;
         Board checkersBoard;
 
@@ -103,9 +101,7 @@ public class GetGameRoute implements Route {
         //When the opponent is clicked on, set up the game values
         } else {
             gameLobby = playerLobby.getGameLobby(player);
-
-            assert gameLobby != null : "GameLobby is null"; //Should never happen
-
+            //assert gameLobby != null : "GameLobby is null"; //Should never happen
             opponent = gameLobby.getOpponent(player);
             checkersBoard = gameLobby.getBoard();
             if(gameLobby.getWhitePlayer().equals(player)) {
