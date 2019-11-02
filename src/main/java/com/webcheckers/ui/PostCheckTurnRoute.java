@@ -13,7 +13,7 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
-public class CheckTurnRoute implements Route{
+public class PostCheckTurnRoute implements Route{
 
     public final PlayerLobby playerLobby;
 
@@ -21,7 +21,7 @@ public class CheckTurnRoute implements Route{
      * intended to check whether or not it is a user's turn
      * @param playerLobby: tracks all signed-in user's data
      */
-    public CheckTurnRoute(PlayerLobby playerLobby){
+    public PostCheckTurnRoute(PlayerLobby playerLobby){
             this.playerLobby = playerLobby;
     }
 

@@ -10,11 +10,11 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
-public class ExitGameRoute implements Route {
+public class PostExitGameRoute implements Route {
 
     private final PlayerLobby playerLobby;
 
-    public ExitGameRoute(PlayerLobby playerLobby){
+    public PostExitGameRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
     }
 

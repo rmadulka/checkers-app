@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 
 import com.webcheckers.appl.PlayerLobby;
-import spark.Route;
 import spark.TemplateEngine;
 
 
@@ -163,9 +162,9 @@ public class WebServer {
 
     post("/backupMove", new BackupMoveRoute(playerLobby));
 
-    post("/exitGame", new ExitGameRoute(playerLobby));
+    post("/exitGame", new PostExitGameRoute(playerLobby));
 
-    post("/checkTurn", new CheckTurnRoute(playerLobby));
+    post("/checkTurn", new PostCheckTurnRoute(playerLobby));
 
     //
     LOG.config("WebServer is initialized.");
