@@ -31,7 +31,7 @@ public class PostSubmitTurnRoute implements Route {
         Message message;
 
         //TODO Check validity - jump moves available
-        if(true && !gameLobby.getIsGameOver()){
+        if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
             MoveProcessor.processMoves(player, board);
             message = Message.info("valid");
             player.getTurnStack().removeAllElements();
