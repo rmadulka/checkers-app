@@ -38,6 +38,8 @@ public class PostCheckTurnRoute implements Route{
         }else{
             message = Message.info("false");
         }
+
+        //TODO check when user resigns game
         Gson gson = new Gson();
         return gson.toJson(message);
 
