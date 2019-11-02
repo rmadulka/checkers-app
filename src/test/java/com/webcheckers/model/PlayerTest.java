@@ -59,4 +59,14 @@ public class PlayerTest {
         ArrayList<String> a = new ArrayList<>();
         assertEquals(a.equals(CuT), CuT.equals(a));
     }
+
+    /**
+     * Tests that a turn stack can be accessed and a new stack is made when a game is created
+     */
+    @Test
+    public void testGetTurnStack() {
+        assertNull(CuT.getTurnStack());
+        CuT.setInGame(true);
+        assertNotNull(CuT.getTurnStack());
+    }
 }

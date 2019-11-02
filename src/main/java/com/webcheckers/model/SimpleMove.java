@@ -10,14 +10,12 @@ public class SimpleMove extends Rules{
      * @return True if a player made a valid move
      */
     public boolean validateSimpleMove(Move move, Board board) {
-        Space[][] gameBoard = board.getBoard();
         int one = 1;
         if (board.getActiveColor() == Piece.pieceColor.WHITE) {
             one = -1;
         }
         return move.getStartRow() + one == move.getEndRow() &&
-                ((move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell()) &&
-                        gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null);
+                ((move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell()));
     }
 
     @Override
