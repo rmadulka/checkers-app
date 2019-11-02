@@ -19,11 +19,16 @@ public class KingSimpleMove extends Rules {
             return (move.getStartRow() - one == move.getEndRow() &&
                     (move.getStartCell() + 1 == move.getEndCell() || move.getStartCell() - 1 == move.getEndCell()) &&
                     gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null);
-
         }
         return false;
     }
 
+    /**
+     * Checks if the move was a valid simple king move
+     * @param move The move the player made
+     * @param board The board
+     * @return True if the move was valid
+     */
     @Override
     public boolean checkMoves(Move move, Board board) {
         return validateKingSimpleMove(move, board);
