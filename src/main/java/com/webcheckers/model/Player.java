@@ -15,6 +15,7 @@ public class Player {
     /** Determines if the player is supposed to be in a game */
     private boolean inGame;
 
+    /** The stack of moves */
     private Stack<Move> turnStack = null;
 
     /**
@@ -51,6 +52,11 @@ public class Player {
         this.inGame = inGame;
     }
 
+    /**
+     * The stack of made moves
+     * Allows for back up moves
+     * @return The stack of moves
+     */
     public Stack<Move> getTurnStack(){
         return turnStack;
     }

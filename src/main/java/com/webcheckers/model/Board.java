@@ -15,7 +15,7 @@ package com.webcheckers.model;
      private Player redPlayer;
      /** represents the board itself as it stores space and row data **/
      private Space[][] board;
-
+     /** The color of the piece that is making a turn */
      private Piece.pieceColor activeColor;
 
     /**
