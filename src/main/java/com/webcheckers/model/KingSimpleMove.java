@@ -1,6 +1,6 @@
 package com.webcheckers.model;
 
-public class KingMove extends Rules {
+public class KingSimpleMove extends Rules {
 
     /**
      * Checks if a backwards move is valid assuming the moving piece is a king piece
