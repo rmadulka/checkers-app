@@ -2,7 +2,13 @@ package com.webcheckers.model;
 
 public class KingJumpMove extends Rules{
 
-    public static boolean ValidateKingJumpMove(Move move, Board board) {
+    /**
+     * Determines if the players king jump move was valid
+     * @param move The move performed
+     * @param board The board
+     * @return True if the move was valid
+     */
+    public boolean ValidateKingJumpMove(Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
         Piece checkPiece = gameBoard[move.getStartRow()][move.getStartCell()].getPiece();
         if(checkPiece != null && checkPiece.getType() == Piece.pieceType.KING) {
@@ -32,6 +38,13 @@ public class KingJumpMove extends Rules{
         return false;
     }
 
+    /**
+     * Checks if the move made was a valid king jump
+     * @param move The move the player made
+     * @param board The board
+     * @return True if the move is valid
+     */
+    @Override
     public boolean checkMoves(Move move, Board board){
         return ValidateKingJumpMove(move, board);
     }
