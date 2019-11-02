@@ -175,33 +175,48 @@ public class MoveProcessor {
         }
         for (int row = 0; row < gameBoard.length; row ++) {
             for (int col = 0; col < gameBoard.length; col++) {
-                int adjustKing = 0;
-                if (gameBoard[row][col].getPiece().getType() == Piece.pieceType.KING) {
-                    if(board.getActiveColor() == Piece.pieceColor.WHITE) {
-                        adjustKing = 2;
-                    } else {
-                        adjustKing = -2;
-                    }
-                }
-                if (!(row + negOne * 2 + adjustKing * 2 > gameBoard.length - 1 || row + negOne * 2 + adjustKing * 2 < 0)) {
+                if (!(row + negOne * 2 > gameBoard.length - 1 || row + negOne * 2 < 0)) {
                     //check that this is the moving player's piece
                     if (gameBoard[row][col].getPiece() != null &&
                             gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
                         //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
                         //TODO Fix law of demeter here
-                        if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + negOne + adjustKing][col + 1].getPiece() != null &&
-                                gameBoard[row + negOne + adjustKing][col + 1].getPiece().getColor() != board.getActiveColor() &&
-                                gameBoard[row + negOne * 2 + adjustKing * 2][col + 2].getPiece() == null) {
+                        if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() != null &&
+                                gameBoard[row + negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row + negOne * 2][col + 2].getPiece() == null) {
                             return true;
                         }
                         //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
                         //TODO Fix law of demeter here
-                        if (col - 2 >= 0 && gameBoard[row + negOne + adjustKing][col - 1].getPiece() != null &&
-                                gameBoard[row + negOne + adjustKing][col - 1].getPiece().getColor() != board.getActiveColor() &&
-                                gameBoard[row + negOne * 2 + adjustKing * 2][col - 2].getPiece() == null) {
+                        if (col - 2 >= 0 && gameBoard[row + negOne][col - 1].getPiece() != null &&
+                                gameBoard[row + negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row + negOne * 2][col - 2].getPiece() == null) {
                             return true;
                         }
                     }
+                }
+                if (gameBoard[row][col].getPiece() != null && gameBoard[row][col].getPiece().getType() == Piece.pieceType.KING) {
+                    if (!(row - negOne * 2> gameBoard.length - 1 || row - negOne * 2 < 0)) {
+                        //check that this is the moving player's piece
+                        if (gameBoard[row][col].getPiece() != null &&
+                                gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                            //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
+                            //TODO Fix law of demeter here
+                            if (!(col + 2 > gameBoard.length - 1) && gameBoard[row - negOne][col + 1].getPiece() != null &&
+                                    gameBoard[row - negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                    gameBoard[row - negOne * 2][col + 2].getPiece() == null) {
+                                return true;
+                            }
+                            //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
+                            //TODO Fix law of demeter here
+                            if (col - 2 >= 0 && gameBoard[row - negOne][col - 1].getPiece() != null &&
+                                    gameBoard[row - negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                    gameBoard[row - negOne * 2][col - 2].getPiece() == null) {
+                                return true;
+                            }
+                        }
+                    }
+
                 }
             }
         }
