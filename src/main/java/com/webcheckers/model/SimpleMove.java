@@ -4,7 +4,6 @@ public class SimpleMove extends Rules{
 
     /**
      * Checks if a simple move is valid
-     *
      * @param move  The move that the player made
      * @param board The board
      * @return True if a player made a valid move
@@ -20,6 +19,12 @@ public class SimpleMove extends Rules{
                         gameBoard[move.getStartRow()][move.getStartCell()].getPiece() != null);
     }
 
+    /**
+     * Checks if a player's simple move is valid
+     * @param move The move the player made
+     * @param board The board
+     * @return True if the move was valid
+     */
     @Override
     public boolean checkMoves(Move move, Board board){
         return validateSimpleMove(move, board);

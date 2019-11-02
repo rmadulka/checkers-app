@@ -3,49 +3,6 @@ package com.webcheckers.model;
 public class JumpMove extends Rules{
 
     /**
-     * During a turn, a player is required to perform a jump move if there is one. Furthermore, a player is not required
-     * to perform the jump move with the most jumps. A player can choose to do any jump move on the board, however, if
-     * the piece they choose to perform the jump move is able to do multiple jump moves, then the player is required to
-     * perform all the jump moves
-     *
-     * This method determines if there is an available jump move on the board
-     * @param board A board
-     * @return True if there is an available jump move
-     */
-    public boolean checkForJumpMove(Board board) {
-        Space[][] gameBoard = board.getBoard();
-        int negOne = 1;
-        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
-            negOne = -1;
-        }
-        for (int row = 0; row < gameBoard.length; row ++) {
-            for(int col = 0; col < gameBoard.length; col ++) {
-                if (!(row + negOne * 2 > gameBoard.length - 1 || row + negOne * 2 < 0)) {
-                    //check that this is the moving player's piece
-                    if (gameBoard[row][col].getPiece() != null &&
-                            gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
-                        //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
-                        //TODO Fix law of demeter here
-                        if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() != null &&
-                                gameBoard[row + negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
-                                gameBoard[row + negOne * 2][col + 2].getPiece() == null) {
-                            return true;
-                        }
-                        //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
-                        //TODO Fix law of demeter here
-                        if (col - 2 >= 0 && gameBoard[row + negOne][col - 1].getPiece() != null &&
-                                gameBoard[row + negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
-                                gameBoard[row + negOne * 2][col - 2].getPiece() == null) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
      * Determines a jump move performed by the user is valid
      *
      * @param move  The jump move
@@ -79,37 +36,11 @@ public class JumpMove extends Rules{
     }
 
     /**
-     * Checks if there is a multijump move is available after a player places a piece down after performing a jump
+     * Determines if the jump move made by the player is valid
+     * @param move The move the player made
      * @param board The board
-     * @param move The first jump
-     * @return True if there is a multijump move available
+     * @return True if the move is valid
      */
-    public boolean checkMultiJump (Move move, Board board) {
-        Space[][] gameBoard = board.getBoard();
-        int negOne = 1;
-        if (board.getActiveColor() == Piece.pieceColor.WHITE) {
-            negOne = -1;
-        }
-        if (move.getEndRow() > gameBoard.length - 2 || move.getEndRow() - 2 < 0) {
-            return false;
-        }
-        //checks out of bounds, if next piece is an enemy piece and the space after is empty
-        if (!(move.getEndCell() - 2 < 0) &&
-                gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece() != null &&
-                gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
-                gameBoard[move.getEndRow() - negOne][move.getEndCell() - 2].getPiece() == null) {
-            return true;
-        }
-        //checks out of bounds, if next piece is an enemy piece and the space after is empty
-        if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
-                gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece() != null &&
-                gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
-                gameBoard[move.getEndRow() + negOne][move.getEndCell() + 2].getPiece() == null) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public boolean checkMoves(Move move, Board board) {
         return validateJumpMove(move, board);
