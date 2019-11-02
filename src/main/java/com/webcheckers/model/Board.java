@@ -32,6 +32,17 @@ package com.webcheckers.model;
      }
 
     /**
+     * Creates a temporary copy of the board
+     * @param board The original board
+     */
+     public Board(Board board) {
+         this.whitePlayer = board.getWhite();
+         this.redPlayer = board.getRed();
+         this.board = board.getBoard();
+         this.activeColor = board.getActiveColor();
+     }
+
+    /**
      * initializes the board by adding dark and white spaces in each position within board
      */
     private void init() {
