@@ -65,4 +65,10 @@ public class Move {
     public int getEndCell () {
         return end.getCell();
     }
+
+
+    public boolean isJumpMove(){
+        return Math.abs(getStartRow() - getEndRow()) > 1
+                && Math.abs(getStartCell() - getEndCell()) > 1;
+    }
 }

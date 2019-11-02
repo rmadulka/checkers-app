@@ -179,7 +179,6 @@ package com.webcheckers.model;
             Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
             board[moveTo.getRow()][moveTo.getCell()].removePiece();
         }
-        switchTurn();
     }
 
     /**
