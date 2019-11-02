@@ -18,46 +18,33 @@ public class MoveProcessor {
      * @param board The game board
      * @return True if the player made a valid move
      */
-    public static boolean validateMove(Move move, Board board) {
+    public static boolean validateMove(Move move, Board board, Player player) {
+        if (!player.getTurnStack().empty() && !player.getTurnStack().peek().isJumpMove()){
+            return false;
+        }
         for (Rules rule : rules) {
             if(rule.checkMoves(move, board)){
                 return true;
             }
         }
         return false;
-
-//        if (validateSimpleMove(move, board) && !checkForJumpMove(board)) {
-//            return true;
-//        } else if (validateKingSimpleMove(move, board)) {
-//            return true;
-//        } else if (validateJumpMove(move, board)) {
-//            return true;
-//        } else if(validateKingJumpMove(move, board)){
-//            return true;
-//        }
-//        return false;
     }
 
     public static boolean validateTurn(Stack<Move> turnStack, Board board){
         Board tempBoard = new Board(board);
+
+        //Runs through the turn stack and makes the moves on to a temp board
         for(Move move : turnStack){
             if(checkForJumpMove(tempBoard) && !move.isJumpMove()){
-                System.out.println("jump move available and move is not a jump move");
                 return false;
             }
             tempBoard.makeMove(move);
-            System.out.println("Temp board updated");
         }
-        //TODO HERE
+
+        //Checks if jump move is available after a jump move was made
         if(checkForJumpMove(tempBoard) && turnStack.peek().isJumpMove()){
-            System.out.println("there is a jump move after and jump move was just made");
-            System.out.println("Jump move available:" + checkForJumpMove(tempBoard));
-            System.out.println("Last move was jump move: " + turnStack.peek().isJumpMove());
-            System.out.println("Active Color: " + tempBoard.getActiveColor().toString());
             return false;
         }
-        System.out.println("good");
-        tempBoard.switchTurn();
         return true;
     }
 //
