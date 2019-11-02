@@ -3,16 +3,15 @@ package com.webcheckers.ui;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import spark.Request;
-import spark.Response;
-import spark.Session;
-import spark.TemplateEngine;
+import spark.*;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+@Tag("UI-TIER")
 public class PostSignoutRouteTest {
 
     // mock objects
@@ -40,11 +39,45 @@ public class PostSignoutRouteTest {
     }
 
     @Test
+    /**
+     * Tests when the user is not currently not in game and the signout is successfully done
+     */
     public void check_successful_signout(){
+        player = new Player("Joseph Mama");
         playerLobby.addPlayer(player);
-        player.setInGame(false);
-        when(player.getInGame()).thenReturn(player.getInGame());
-        CuT.handle(request,response);
+        Player p1 = new Player("lol");
+        p1.setInGame(false);
+        when(request.queryParams("currentUser")).thenReturn(p1.getName());
+        when(playerLobby.getPlayer(p1.getName())).thenReturn(p1);
+
+        try {
+            CuT.handle(request, response);
+            fail("Redirects invoke halt exceptions.");
+        } catch (HaltException e) {
+            // expected
+        }
+        verify(response).redirect(WebServer.HOME_URL);
+    }
+
+    @Test
+    /**
+     * Tests when the player is in game and they cannot sign out
+     */
+    public void invalid_in_game_signout(){
+        player = new Player("Joseph Mama");
+        Player p1 = new Player("lol");
+        p1.setInGame(true);
+        when(request.queryParams("currentUser")).thenReturn(p1.getName());
+        when(playerLobby.getPlayer(p1.getName())).thenReturn(p1);
+        when(session.attribute(GetHomeRoute.MESSAGE_ATR)).thenReturn(Message.error("Cannot sign-out mid game"));
+
+        try {
+            CuT.handle(request, response);
+            fail("Redirects invoke halt exceptions.");
+        } catch (HaltException e) {
+            // expected
+        }
+        verify(response).redirect(WebServer.GAME_URL);
     }
 
 
