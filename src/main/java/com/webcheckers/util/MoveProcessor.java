@@ -22,6 +22,9 @@ public class MoveProcessor {
         if (!player.getTurnStack().empty() && !player.getTurnStack().peek().isJumpMove()){
             return false;
         }
+        if (!player.getTurnStack().empty() && board.checkConvertedKingPiece(player.getTurnStack().get(0))){
+            return false;
+        }
         for (Rules rule : rules) {
             if(rule.checkMoves(move, board)){
                 return true;
@@ -42,7 +45,7 @@ public class MoveProcessor {
         }
 
         //Checks if jump move is available after a jump move was made
-        if(checkForJumpMove(tempBoard) && turnStack.peek().isJumpMove()){
+        if(checkForJumpMove(tempBoard) && turnStack.peek().isJumpMove() && board.checkConvertedKingPiece(turnStack.peek())){
             return false;
         }
         return true;

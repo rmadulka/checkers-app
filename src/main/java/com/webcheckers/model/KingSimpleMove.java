@@ -24,17 +24,6 @@ public class KingSimpleMove extends Rules {
         return false;
     }
 
-    /**
-     * Determines if a checkers piece reaches the end of the board
-     * @param board The game board
-     * @param move The move that the player made
-     * @return True if the player has reached the end of the board
-     */
-    public boolean reachedEnd(Board board, Move move) {
-        Space[][] gameBoard = board.getBoard();
-        return move.getEndRow() == gameBoard.length - 1 || move.getEndRow() == 0;
-    }
-
     @Override
     public boolean checkMoves(Move move, Board board) {
         return validateKingSimpleMove(move, board);

@@ -28,7 +28,8 @@ package com.webcheckers.model;
          this.redPlayer = redPlayer;
          activeColor = Piece.pieceColor.RED;
          init();
-         populate();
+         //populate();
+         customPopulate();
      }
 
     /**
@@ -76,6 +77,32 @@ package com.webcheckers.model;
                         board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
                     }
                 }
+             }
+         }
+     }
+
+     private void customPopulate(){
+         for (int row = 0; row < SIZE; row++) {
+             for (int col = 0; col < SIZE; col++) {
+                 if(row == 4) { // these rows need to have red pieces on black spaces
+                     if (board[row][col].isValid()) {
+                         board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+                     }
+                 }
+                 else if (row == 6) { // these rows need to have white pieces on black spaces
+                     if (board[row][col].isValid()) {
+                         board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+                     }
+                 } else if(row == 0) { // these rows need to have red pieces on black spaces
+                     if (board[row][col].isValid()) {
+                         board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+                     }
+                 }
+                 else if (row == 2) { // these rows need to have white pieces on black spaces
+                     if (board[row][col].isValid()) {
+                         board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+                     }
+                 }
              }
          }
      }
@@ -171,8 +198,7 @@ package com.webcheckers.model;
         board[move.getStartRow()][move.getStartCell()].removePiece();
         board[move.getEndRow()][move.getEndCell()].place(moving);
         int diff = Math.abs(move.getStartRow() - move.getEndRow());
-        KingSimpleMove km = new KingSimpleMove();
-        if(km.reachedEnd(this, move)){
+        if(reachedEnd(move)){
             convertKingPiece(move);
         }
         if (diff == 2) {
@@ -192,6 +218,25 @@ package com.webcheckers.model;
         if(currentPiece.getType() == Piece.pieceType.SINGLE) {
             currentPiece.convertToKing(currentPiece);
         }
+    }
+
+    public boolean checkConvertedKingPiece(Move move){
+        int column = move.getStartCell();
+        int row = move.getStartRow();
+        Piece currentPiece = board[row][column].getPiece();
+        if(currentPiece !=null && reachedEnd(move) && currentPiece.getType() == Piece.pieceType.SINGLE) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a checkers piece reaches the end of the board
+     * @param move The move that the player made
+     * @return True if the player has reached the end of the board
+     */
+    public boolean reachedEnd(Move move) {
+        return move.getEndRow() == board.length - 1 || move.getEndRow() == 0;
     }
 
     /**
