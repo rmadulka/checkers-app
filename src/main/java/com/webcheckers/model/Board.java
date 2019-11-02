@@ -1,11 +1,6 @@
 package com.webcheckers.model;
 
 //import apple.laf.JRSUIConstants;
-import com.webcheckers.util.MoveProcessor;
-import spark.ModelAndView;
-
-import java.util.Arrays;
-import java.util.Stack;
 
 /**
  * model of the board for the boardview ui
@@ -165,7 +160,7 @@ import java.util.Stack;
         board[move.getStartRow()][move.getStartCell()].removePiece();
         board[move.getEndRow()][move.getEndCell()].place(moving);
         int diff = Math.abs(move.getStartRow() - move.getEndRow());
-        KingMove km = new KingMove();
+        KingSimpleMove km = new KingSimpleMove();
         if(km.reachedEnd(this, move)){
             convertKingPiece(move);
         }
