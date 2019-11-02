@@ -2,7 +2,7 @@ package com.webcheckers.model;
 
 public class KingJumpMove extends Rules{
 
-    public static boolean checkForJumpMove(Move move, Board board) {
+    public static boolean ValidateKingJumpMove(Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
         Piece checkPiece = gameBoard[move.getStartRow()][move.getStartCell()].getPiece();
         if(checkPiece != null && checkPiece.getType() == Piece.pieceType.KING) {
@@ -33,7 +33,7 @@ public class KingJumpMove extends Rules{
     }
 
     public boolean checkMoves(Move move, Board board){
-        return checkForJumpMove(move, board);
+        return ValidateKingJumpMove(move, board);
     }
 
 }
