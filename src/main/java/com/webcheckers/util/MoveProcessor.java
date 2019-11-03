@@ -10,7 +10,7 @@ public class MoveProcessor {
 
     static final ArrayList<Rules> rules = new ArrayList<>(Arrays.asList(new SimpleMove(), new JumpMove(), new KingSimpleMove(), new KingJumpMove()));
 
-    static Board tempBoard;
+    static Board temporaryBoard;
 
     /**
      * Main method that determines if the players move is valid
@@ -22,21 +22,21 @@ public class MoveProcessor {
      */
     public static boolean validateMove(Move move, Board board, Player player) {
         if(player.getTurnStack().empty()) {
-            tempBoard = new Board(board);
+            temporaryBoard = new Board(board);
         }
         if (!player.getTurnStack().empty() && !player.getTurnStack().peek().isJumpMove()){
             return false;
         }
         if(!player.getTurnStack().empty()){
-            System.err.println(tempBoard.checkConvertedKingPiece(tempBoard, player.getTurnStack().get(0)));
+            System.err.println(temporaryBoard.checkConvertedKingPiece(temporaryBoard, player.getTurnStack().get(0)));
         }
 
-        if (!player.getTurnStack().empty() && tempBoard.checkConvertedKingPiece(tempBoard, player.getTurnStack().get(0))){
+        if (!player.getTurnStack().empty() && temporaryBoard.checkConvertedKingPiece(temporaryBoard, player.getTurnStack().get(0))){
             return false;
         }
         for (Rules rule : rules) {
-            if(rule.checkMoves(move, tempBoard)){
-                tempBoard.makeMove(move);
+            if(rule.checkMoves(move, temporaryBoard)){
+                temporaryBoard.makeMove(move);
                 return true;
             }
         }
@@ -59,12 +59,18 @@ public class MoveProcessor {
         }
 
         System.out.println("jump move available: " + checkForJumpMove(tempBoard));
+        System.out.println("THIS PIECE JUMP MOVE AVAILABLE: " + checkMultiJump(turnStack.peek(), tempBoard));
         System.out.println("was jump move: " + turnStack.peek().isJumpMove());
+        System.out.println("ACTIVE COLOR: " + tempBoard.getActiveColor().toString());
+
+        System.out.println("");
+        tempBoard.printBoard(tempBoard);
         //Checks if jump move is available after a jump move was made
-        if(checkForJumpMove(tempBoard) && turnStack.peek().isJumpMove()){
+        if(checkMultiJump(turnStack.peek(), tempBoard) && turnStack.peek().isJumpMove()){
 
             return false;
         }
+        tempBoard.switchTurn();
         return true;
     }
 
@@ -150,7 +156,7 @@ public class MoveProcessor {
      * @param move The first jump
      * @return True if there is a multijump move available
      */
-    public boolean checkMultiJump (Move move, Board board) {
+    public static boolean checkMultiJump (Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
         int negOne = 1;
         if (board.getActiveColor() == Piece.pieceColor.WHITE) {
@@ -162,15 +168,15 @@ public class MoveProcessor {
         //checks out of bounds, if next piece is an enemy piece and the space after is empty
         if (!(move.getEndCell() - 2 < 0) &&
                 gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece() != null &&
-                gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
-                gameBoard[move.getEndRow() - negOne][move.getEndCell() - 2].getPiece() == null) {
+                gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                gameBoard[move.getEndRow() + negOne*2][move.getEndCell() - 2].getPiece() == null) {
             return true;
         }
         //checks out of bounds, if next piece is an enemy piece and the space after is empty
         if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
                 gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece() != null &&
                 gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
-                gameBoard[move.getEndRow() + negOne][move.getEndCell() + 2].getPiece() == null) {
+                gameBoard[move.getEndRow() + negOne*2][move.getEndCell() + 2].getPiece() == null) {
             return true;
         }
         return false;
