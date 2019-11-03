@@ -12,10 +12,15 @@ public class MoveTest {
 
     /** Friendly object */
     private Move CuT;
+    private Move CuT2;
+    private Move CuT3;
 
     /** Mock objects */
     private static Position start;
     private static Position end;
+
+    private static Position endJump;
+    private static Position endJumpInvalid;
 
     /**
      * Sets test values for the start and end positions
@@ -24,6 +29,8 @@ public class MoveTest {
     public static void init() {
         start = new Position(1, 1);
         end = new Position(2, 2);
+        endJump = new Position(3, 3);
+        endJumpInvalid = new Position (1, 3);
     }
 
     /**
@@ -32,6 +39,8 @@ public class MoveTest {
     @BeforeEach
     public void setUp() {
         this.CuT = new Move(start, end);
+        this.CuT2 = new Move(start, endJump);
+        this.CuT3 = new Move(start, endJumpInvalid);
     }
 
     /**
@@ -86,5 +95,15 @@ public class MoveTest {
     public void testGetEndCell() {
         assertEquals(end.getCell(), CuT.getEndCell());
         assertNotEquals(start.getCell(), CuT.getEndCell());
+    }
+
+    /**
+     * Tests that a move is a jump move
+     */
+    @Test
+    public void testIsJumpMove() {
+        assertFalse(CuT.isJumpMove());
+        assertTrue(CuT2.isJumpMove());
+        assertFalse(CuT3.isJumpMove());
     }
 }

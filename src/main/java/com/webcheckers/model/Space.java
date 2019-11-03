@@ -76,6 +76,10 @@ public class Space {
         return this.piece;
     }
 
+    /**
+     * Copies the specific piece
+     * @return The new piece
+     */
     public Piece copyPiece(){
         return new Piece(piece.getType(), piece.getColor());
     }
