@@ -52,6 +52,7 @@ public class KingJumpMoveTest {
     Position end = new Position(5, 3);
     Move move = new Move(start, end);
     assertTrue(CuT.validateKingJumpMove(move, board));
+    assertTrue(CuT.checkMoves(move, board));
   }
 
   /**
@@ -67,6 +68,7 @@ public class KingJumpMoveTest {
     Position end = new Position(3, 7);
     Move move = new Move(start, end);
     assertFalse(CuT.validateKingJumpMove(move, board));
+    assertFalse(CuT.checkMoves(move, board));
   }
 
   /**
@@ -80,5 +82,6 @@ public class KingJumpMoveTest {
     Position end = new Position(3, 3);
     Move move = new Move(start, end);
     assertFalse(CuT.validateKingJumpMove(move, board));
+    assertFalse(CuT.checkMoves(move, board));
   }
 }

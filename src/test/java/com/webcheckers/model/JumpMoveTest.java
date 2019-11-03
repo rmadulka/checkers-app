@@ -39,6 +39,7 @@ public class JumpMoveTest {
     Position end = new Position(2, 2);
     Move move = new Move(start, end);
     assertTrue(CuT.validateJumpMove(move, board));
+    assertTrue(CuT.checkMoves(move, board));
   }
 
   /**
@@ -52,6 +53,7 @@ public class JumpMoveTest {
     Position end = new Position(2, 2);
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
+    assertFalse(CuT.checkMoves(move, board));
   }
 
   /**
@@ -63,6 +65,7 @@ public class JumpMoveTest {
     Position end = new Position(2, 2);
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
+    assertFalse(CuT.checkMoves(move, board));
   }
 
   /**
@@ -76,6 +79,7 @@ public class JumpMoveTest {
     Position end = new Position(1,1);
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
+    assertFalse(CuT.checkMoves(move, board));
   }
 
 }
