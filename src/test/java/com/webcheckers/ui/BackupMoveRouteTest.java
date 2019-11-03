@@ -1,6 +1,8 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Board;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.Position;
@@ -30,6 +32,9 @@ public class BackupMoveRouteTest {
     private TemplateEngine engine;
     private Response response;
     private Player player;
+    private Player player2;
+    private Board board;
+    private GameLobby gameLobby;
 
     /**
      * Setup new mock objects for each test.
@@ -43,7 +48,10 @@ public class BackupMoveRouteTest {
         engine = mock(TemplateEngine.class);
         playerLobby = mock(PlayerLobby.class);
         player = mock(Player.class);
+        player2 = mock(Player.class);
+        board = mock(Board.class);
         CuT = new BackupMoveRoute(playerLobby);
+        gameLobby = mock(GameLobby.class);
     }
 
     @Test
@@ -55,9 +63,14 @@ public class BackupMoveRouteTest {
         Move simpleMove = new Move(new Position(0,1), new Position(1,2));
         validatedMoves.push(simpleMove);
         player = new Player("Joseph Mama");
-        player.setTurnStack(validatedMoves);
+        player2 = new Player("Mike Hawk");
+        GameLobby gl = new GameLobby(player, player2);
+        gl.getRedPlayer().setTurnStack(validatedMoves);
+        Board b = new Board(player,player2);
+
         when(session.attribute("currentUser")).thenReturn(player);
-        //when(player.getTurnStack()).thenReturn(validatedMoves);
+        when(playerLobby.getGameLobby(player)).thenReturn(gl);
+        when(gameLobby.getBoard()).thenReturn(b);
         assertEquals(CuT.handle(request, response), "{\"text\":\"A Simple Move has been undone\",\"type\":\"INFO\"}");
     }
 
@@ -70,9 +83,15 @@ public class BackupMoveRouteTest {
         Move simpleMove = new Move(new Position(0,1), new Position(2,3));
         validatedMoves.push(simpleMove);
         player = new Player("Joseph Mama");
-        player.setTurnStack(validatedMoves);
+        player2 = new Player("Mike Hawk");
+        GameLobby gl = new GameLobby(player, player2);
+        gl.getRedPlayer().setTurnStack(validatedMoves);
+        Board b = new Board(player,player2);
+
+
         when(session.attribute("currentUser")).thenReturn(player);
-        //when(player.getTurnStack()).thenReturn(validatedMoves);
+        when(playerLobby.getGameLobby(player)).thenReturn(gl);
+        when(gameLobby.getBoard()).thenReturn(b);
         assertEquals(CuT.handle(request, response), "{\"text\":\"A Jump Move has been undone\",\"type\":\"INFO\"}");
     }
 
@@ -83,8 +102,14 @@ public class BackupMoveRouteTest {
     public void test_empty_stack(){
         Stack<Move> validatedMoves = new Stack<>();
         player = new Player("Joseph Mama");
-        player.setTurnStack(validatedMoves);
+        player2 = new Player("Mike Hawk");
+        GameLobby gl = new GameLobby(player, player2);
+        gl.getRedPlayer().setTurnStack(validatedMoves);
+        Board b = new Board(player,player2);
+
         when(session.attribute("currentUser")).thenReturn(player);
+        when(playerLobby.getGameLobby(player)).thenReturn(gl);
+        when(gameLobby.getBoard()).thenReturn(b);
         assertEquals(CuT.handle(request, response), "{\"text\":\"No moves have been made to undo\",\"type\":\"ERROR\"}");
 
     }
