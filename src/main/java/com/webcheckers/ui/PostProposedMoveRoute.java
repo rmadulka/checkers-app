@@ -42,7 +42,7 @@ public class PostProposedMoveRoute implements Route {
             message = Message.info("valid");
         } else {
             //TODO more than one error message
-            message = Message.error("invlaid");
+            message = Message.error("invalid");
         }
 
         String proposedMove = gson.toJson(message);

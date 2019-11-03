@@ -18,7 +18,7 @@ public class PostCheckTurnRoute implements Route{
     public final PlayerLobby playerLobby;
 
     /**
-     * intended to check whether or not it is a user's turn
+     * intended to inform the user whether or not it is a user's turn
      * @param playerLobby: tracks all signed-in user's data
      */
     public PostCheckTurnRoute(PlayerLobby playerLobby){

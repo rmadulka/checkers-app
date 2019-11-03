@@ -18,7 +18,7 @@ public class BackupMoveRoute implements Route{
     private final PlayerLobby playerLobby;
 
     /**
-     * Intended to add functionality to the Backup button by undoing the most recent turn made by the user
+     * Intended to add functionality to the Backup button by informing that a user's move has been undone
      * @param playerLobby: given playerLobby object
      */
     public BackupMoveRoute(PlayerLobby playerLobby) {
@@ -28,8 +28,8 @@ public class BackupMoveRoute implements Route{
     /**
      * Intended to post a message informing the user whether their backup move undid a specific move or if there has been
      * no move made
-     * @param request
-     * @param response
+     * @param request the HTTP request
+     * @param response the HTTP response
      * @return message informing the user of the backup status
      */
     public Object handle(Request request, Response response) {

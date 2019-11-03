@@ -260,6 +260,11 @@ package com.webcheckers.model;
         return move.getEndRow() == board.length - 1 || move.getEndRow() == 0;
     }
 
+    /**
+     * Used to create a temporary board before moves are fully validated and finalized
+     * @param board board with not fully validated moves
+     * @return temporary board
+     */
     public Space[][] copyBoard(Board board){
         Space[][] newBoard = new Space[SIZE][SIZE];
         for(int row = 0;row < SIZE; row++) {

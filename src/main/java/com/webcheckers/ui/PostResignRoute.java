@@ -13,12 +13,23 @@ import spark.Session;
 
 public class PostResignRoute implements Route {
 
+    /** represents the players online, able to manage users **/
     private final PlayerLobby playerLobby;
 
+    /**
+     * Intended to inform the user of their opponent's resignation after they have hit "Resign"
+     * @param playerLobby
+     */
     public PostResignRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
     }
 
+    /**
+     * Used to inform the user that a user has resigned
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return a message informing the user that their opponent has resigned
+     */
     public Object handle(Request request, Response response){
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
@@ -37,7 +48,6 @@ public class PostResignRoute implements Route {
         }
 
         Gson gson = new Gson();
-        String resign = gson.toJson(message);
-        return resign;
+        return gson.toJson(message);
     }
 }
