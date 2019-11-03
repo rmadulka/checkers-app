@@ -28,6 +28,9 @@ public class JumpMoveTest {
     board = new Board(redPlayer, whitePlayer);
   }
 
+  /**
+   * Tests a forward jump move
+   */
   @Test
   public void jumpMoveTest() {
     Position start = new Position(0, 0);
@@ -36,27 +39,35 @@ public class JumpMoveTest {
     Position end = new Position(2, 2);
     Move move = new Move(start, end);
     assertTrue(CuT.validateJumpMove(move, board));
-
   }
 
+  /**
+   * Tests a jump move over the same color as the piece jumping
+   */
   @Test
   public void jumpMoveWrongColor() {
-    Position start = new Position(1, 1);
-    Space jumping = board.getSpace(new Position(2, 2));
+    Position start = new Position(0, 0);
+    Space jumping = board.getSpace(new Position(1, 1));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
-    Position end = new Position(3, 3);
+    Position end = new Position(2, 2);
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
   }
 
+  /**
+   * Tests a jump move over an empty space
+   */
   @Test
   public void jumpMoveNoCapture() {
-    Position start = new Position(3, 5);
-    Position end = new Position(5, 8);
+    Position start = new Position(0, 0);
+    Position end = new Position(2, 2);
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
   }
 
+  /**
+   * Tests a jump move in the wrong direction
+   */
   @Test
   public void jumpMoveWrongDirection() {
     Position start = new Position(3,3);
