@@ -30,10 +30,10 @@ public class JumpMoveTest {
 
   @Test
   public void jumpMoveTest() {
-    Position start = new Position(0, 1);
-    Space jumping = board.getSpace(new Position(1, 2));
+    Position start = new Position(0, 0);
+    Space jumping = board.getSpace(new Position(1, 1));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-    Position end = new Position(2, 3);
+    Position end = new Position(2, 2);
     Move move = new Move(start, end);
     assertTrue(CuT.validateJumpMove(move, board));
 
@@ -66,4 +66,5 @@ public class JumpMoveTest {
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
   }
+
 }
