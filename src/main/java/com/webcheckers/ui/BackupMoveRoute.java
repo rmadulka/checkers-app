@@ -6,6 +6,7 @@ import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
+import com.webcheckers.util.MoveProcessor;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -36,15 +37,20 @@ public class BackupMoveRoute implements Route{
         Message message = Message.error("No moves have been made to undo");
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
+        GameLobby gameLobby = playerLobby.getGameLobby(player);
+        Board board = gameLobby.getBoard();
+        Message message;
         Stack<Move> validatedMoves = player.getTurnStack();
         if(!validatedMoves.isEmpty()){
-            Move lastMove = validatedMoves.pop();
-            if(lastMove.isJumpMove()){
-                message = Message.info("A Jump Move has been undone");
-            }
-            else if(!lastMove.isJumpMove()){
-                message = Message.info("A Simple Move has been undone");
-            }
+           Move lastMove = validatedMoves.pop();
+           MoveProcessor.refreshTempBoard(board, player);
+           MoveProcessor.checkUnconvert(lastMove);
+           if(lastMove.isJumpMove()){
+              message = Message.info("A Jump Move has been undone");
+           }
+           else if(!lastMove.isJumpMove()){
+               message = Message.info("A Simple Move has been undone");
+           }
         }
         Gson gson = new Gson();
         return gson.toJson(message);
