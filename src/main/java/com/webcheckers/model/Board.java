@@ -207,6 +207,18 @@ package com.webcheckers.model;
         }
     }
 
+    public void makeTempMove(Move move){
+        Piece moving = board[move.getStartRow()][move.getStartCell()].getPiece();
+        board[move.getStartRow()][move.getStartCell()].removePiece();
+        board[move.getEndRow()][move.getEndCell()].place(moving);
+        int diff = Math.abs(move.getStartRow() - move.getEndRow());
+        if (diff == 2) {
+            Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
+            board[moveTo.getRow()][moveTo.getCell()].removePiece();
+        }
+
+    }
+
     /**
      * Converts a SINGLE piece to a KING piece when a piece reaches the last row of the board
      * @param move: move in the final row, provides an EndCell location
@@ -218,24 +230,6 @@ package com.webcheckers.model;
         if(currentPiece.getType() == Piece.pieceType.SINGLE) {
             currentPiece.convertToKing(currentPiece);
         }
-    }
-
-    public boolean checkConvertedKingPiece(Board board, Move move){
-        int column = move.getStartCell();
-        int row = move.getStartRow();
-
-        //System.err.println(row);
-        //.err.println(column);
-        //System.out.println("Temp Board: " + board.getBoard()[row][column]);
-
-        //printBoard(board);
-
-        Piece currentPiece = board.getBoard()[row][column].getPiece();
-        System.out.println("Current Piece: " + currentPiece);
-        if(reachedEnd(move) && currentPiece.getType() == Piece.pieceType.SINGLE) {
-            return true;
-        }
-        return false;
     }
 
     public void printBoard(Board board){

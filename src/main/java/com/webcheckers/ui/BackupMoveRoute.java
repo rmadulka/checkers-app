@@ -45,7 +45,6 @@ public class BackupMoveRoute implements Route{
         if(!validatedMoves.isEmpty()){
            Move lastMove = validatedMoves.pop();
            MoveProcessor.refreshTempBoard(board, player);
-           MoveProcessor.checkUnconvert(lastMove);
            if(lastMove.isJumpMove()){
               message = Message.info("A Jump Move has been undone");
            }
