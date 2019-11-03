@@ -10,6 +10,7 @@ import com.webcheckers.model.Board;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
+import com.webcheckers.util.MoveProcessor;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -29,10 +30,14 @@ public class BackupMoveRoute implements Route{
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
+        Board board = gameLobby.getBoard();
         Message message;
         Stack<Move> validatedMoves = player.getTurnStack();
         if(!validatedMoves.isEmpty()){
            Move lastMove = validatedMoves.pop();
+
+           MoveProcessor.refreshTempBoard(board, player);
+           MoveProcessor.checkUnconvert(lastMove);
            //TODO Specify what type of move has been undone
            message = Message.info("A ____ move has been undone");
         }else{
