@@ -39,7 +39,7 @@ package com.webcheckers.model;
      public Board(Board board) {
          this.whitePlayer = board.getWhite();
          this.redPlayer = board.getRed();
-         this.board = board.getBoard();
+         this.board = copyBoard(board);
          this.activeColor = board.getActiveColor();
      }
 
@@ -220,14 +220,35 @@ package com.webcheckers.model;
         }
     }
 
-    public boolean checkConvertedKingPiece(Move move){
+    public boolean checkConvertedKingPiece(Board board, Move move){
         int column = move.getStartCell();
         int row = move.getStartRow();
-        Piece currentPiece = board[row][column].getPiece();
-        if(currentPiece !=null && reachedEnd(move) && currentPiece.getType() == Piece.pieceType.SINGLE) {
+
+//        System.err.println(row);
+//        System.err.println(column);
+        System.out.println("Temp Board: " + board.getBoard()[row][column]);
+
+        //printBoard(board);
+
+        Piece currentPiece = board.getBoard()[row][column].getPiece();
+        System.out.println("Current Piece: " + currentPiece);
+        if(reachedEnd(move) && currentPiece.getType() == Piece.pieceType.SINGLE) {
             return true;
         }
         return false;
+    }
+
+    private void printBoard(Board board){
+        for(int row = 0;row < SIZE; row++) {
+            for(int col = 0; col < SIZE; col++){
+                if(board.getBoard()[row][col].getPiece() != null){
+                    System.out.print("1");
+                } else {
+                    System.out.print("0");
+                }
+            }
+            System.out.println("");
+        }
     }
 
     /**
@@ -237,6 +258,31 @@ package com.webcheckers.model;
      */
     public boolean reachedEnd(Move move) {
         return move.getEndRow() == board.length - 1 || move.getEndRow() == 0;
+    }
+
+    public Space[][] copyBoard(Board board){
+        Space[][] newBoard = new Space[SIZE][SIZE];
+        for(int row = 0;row < SIZE; row++) {
+            for(int col = 0; col < SIZE; col++){
+                if (row % 2 == 0) {
+                    if (col % 2 == 0) newBoard[row][col] = new Space(col, false);
+                    else newBoard[row][col] = new Space(col, true);
+                } else {
+                    if (col % 2 == 1) newBoard[row][col] = new Space(col, false);
+                    else newBoard[row][col] = new Space(col, true);
+                }
+            }
+        }
+
+        for(int row = 0;row < SIZE; row++) {
+            for(int col = 0; col < SIZE; col++){
+                if (board.getBoard()[row][col].getPiece()!=null){
+                    newBoard[row][col].place(board.getBoard()[row][col].copyPiece());
+                }
+            }
+        }
+
+        return newBoard;
     }
 
     /**

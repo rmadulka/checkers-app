@@ -22,7 +22,11 @@ public class MoveProcessor {
         if (!player.getTurnStack().empty() && !player.getTurnStack().peek().isJumpMove()){
             return false;
         }
-        if (!player.getTurnStack().empty() && board.checkConvertedKingPiece(player.getTurnStack().get(0))){
+        if(!player.getTurnStack().empty()){
+            System.err.println(board.checkConvertedKingPiece(board, player.getTurnStack().get(0)));
+        }
+
+        if (!player.getTurnStack().empty() && board.checkConvertedKingPiece(board, player.getTurnStack().get(0))){
             return false;
         }
         for (Rules rule : rules) {
@@ -38,14 +42,20 @@ public class MoveProcessor {
 
         //Runs through the turn stack and makes the moves on to a temp board
         for(Move move : turnStack){
+            System.err.println("was converted piece: " + board.checkConvertedKingPiece(tempBoard, move));
             if(checkForJumpMove(tempBoard) && !move.isJumpMove()){
                 return false;
+            } else if (board.checkConvertedKingPiece(tempBoard, move)){
+                return true;
             }
             tempBoard.makeMove(move);
         }
 
+        System.out.println("jump move available: " + checkForJumpMove(tempBoard));
+        System.out.println("was jump move: " + turnStack.peek().isJumpMove());
         //Checks if jump move is available after a jump move was made
-        if(checkForJumpMove(tempBoard) && turnStack.peek().isJumpMove() && board.checkConvertedKingPiece(turnStack.peek())){
+        if(checkForJumpMove(tempBoard) && turnStack.peek().isJumpMove()){
+
             return false;
         }
         return true;

@@ -76,6 +76,10 @@ public class Space {
         return this.piece;
     }
 
+    public Piece copyPiece(){
+        return new Piece(piece.getType(), piece.getColor());
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Space) {
