@@ -8,7 +8,7 @@ public class KingJumpMove extends Rules{
      * @param board The board
      * @return True if the move was valid
      */
-    public boolean ValidateKingJumpMove(Move move, Board board) {
+    public boolean validateKingJumpMove(Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
         Piece checkPiece = gameBoard[move.getStartRow()][move.getStartCell()].getPiece();
         if(checkPiece != null && checkPiece.getType() == Piece.pieceType.KING) {
@@ -46,7 +46,7 @@ public class KingJumpMove extends Rules{
      */
     @Override
     public boolean checkMoves(Move move, Board board){
-        return ValidateKingJumpMove(move, board);
+        return validateKingJumpMove(move, board);
     }
 
 }
