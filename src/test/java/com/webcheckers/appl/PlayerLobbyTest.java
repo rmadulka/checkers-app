@@ -125,4 +125,26 @@ public class PlayerLobbyTest {
         assertSame(PlayerLobby.signinErrors.VALID, CuT.checkUsername(playerRed.getName()));
         assertSame(PlayerLobby.signinErrors.ALPHA, CuT.checkUsername(playerWhite.getName()));
     }
+
+    /**
+     * Tests that we can properly remove a player
+     */
+    @Test
+    public void testRemovePlayer() {
+        when(playerRed.getName()).thenReturn("Foo");
+        assertSame(playerRed, CuT.getPlayer(playerRed.getName()));
+        CuT.removePlayer(playerRed);
+        assertNotSame(playerRed, CuT.getPlayer(playerRed.getName()));
+    }
+
+    /**
+     * Tests that we can properly remove a GameLobby
+     */
+    @Test
+    public void testRemoveGameLobby() {
+        CuT.startGame(playerRed, playerWhite);
+        assertNotNull(CuT.getGameLobby(playerRed));
+        CuT.removeGameLobby(CuT.getGameLobby(playerRed));
+        assertNull(CuT.getGameLobby(playerRed));
+    }
 }
