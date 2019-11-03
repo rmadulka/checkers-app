@@ -10,6 +10,8 @@ public class MoveProcessor {
 
     static final ArrayList<Rules> rules = new ArrayList<>(Arrays.asList(new SimpleMove(), new JumpMove(), new KingSimpleMove(), new KingJumpMove()));
 
+    static Board tempBoard;
+
     /**
      * Main method that determines if the players move is valid
      * Checks for simple move, single jumps, multijumps and king moves
@@ -19,21 +21,26 @@ public class MoveProcessor {
      * @return True if the player made a valid move
      */
     public static boolean validateMove(Move move, Board board, Player player) {
+        if(player.getTurnStack().empty()) {
+            tempBoard = new Board(board);
+        }
         if (!player.getTurnStack().empty() && !player.getTurnStack().peek().isJumpMove()){
             return false;
         }
         if(!player.getTurnStack().empty()){
-            System.err.println(board.checkConvertedKingPiece(board, player.getTurnStack().get(0)));
+            System.err.println(tempBoard.checkConvertedKingPiece(tempBoard, player.getTurnStack().get(0)));
         }
 
-        if (!player.getTurnStack().empty() && board.checkConvertedKingPiece(board, player.getTurnStack().get(0))){
+        if (!player.getTurnStack().empty() && tempBoard.checkConvertedKingPiece(tempBoard, player.getTurnStack().get(0))){
             return false;
         }
         for (Rules rule : rules) {
-            if(rule.checkMoves(move, board)){
+            if(rule.checkMoves(move, tempBoard)){
+                tempBoard.makeMove(move);
                 return true;
             }
         }
+        System.err.println("Made it thorugh all rules");
         return false;
     }
 
