@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,6 +93,16 @@ public class PlayerTest {
     public void testGetTurnStack() {
         assertNull(CuT.getTurnStack());
         CuT.setInGame(true);
+        assertNotNull(CuT.getTurnStack());
+    }
+
+    /**
+     * Tests that we can set the turn stack
+     */
+    @Test
+    public void testSetTurnStack() {
+        assertNull(CuT.getTurnStack());
+        CuT.setTurnStack(new Stack<>());
         assertNotNull(CuT.getTurnStack());
     }
 }
