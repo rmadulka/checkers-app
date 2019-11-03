@@ -53,6 +53,14 @@ public class Player {
     }
 
     /**
+     * Adds a move to the turn stack
+     * @param move - Move to be added
+     */
+    public void addMove(Move move){
+        turnStack.push(move);
+    }
+
+    /**
      * The stack of made moves
      * Allows for back up moves
      * @return The stack of moves

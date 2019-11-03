@@ -41,14 +41,15 @@ public class PostSubmitTurnRoute implements Route {
 
         Message message;
 
-        //TODO Check validity - jump moves available
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
             MoveProcessor.processMoves(player, board);
-            message = Message.info("valid");
+            message = Message.info("Valid Turn");
+
+            //Not needed but for safety
             player.getTurnStack().removeAllElements();
         } else {
             //TODO more than one error message
-            message = Message.error("invalid");
+            message = Message.error("Invalid: There is a jump move available");
         }
 
         Gson gson = new Gson();

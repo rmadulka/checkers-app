@@ -81,7 +81,10 @@ package com.webcheckers.model;
          }
      }
 
-     private void customPopulate(){
+    /**
+     * A Testing board that is used to test moves without replaying an entire game of checkers
+     */
+    private void customPopulate(){
          for (int row = 0; row < SIZE; row++) {
              for (int col = 0; col < SIZE; col++) {
                  if(row == 4) { // these rows need to have red pieces on black spaces
@@ -207,6 +210,13 @@ package com.webcheckers.model;
         }
     }
 
+    /**
+     * Method for making moves on a temporary board
+     * Only difference is that pieces are never promoted to kings,
+     * which disallows for further moves after a piece reaches the end
+     *
+     * @param move Move to be made
+     */
     public void makeTempMove(Move move){
         Piece moving = board[move.getStartRow()][move.getStartCell()].getPiece();
         board[move.getStartRow()][move.getStartCell()].removePiece();
@@ -232,6 +242,10 @@ package com.webcheckers.model;
         }
     }
 
+    /**
+     * Debugging code to align temp boards with the original boards
+     * @param board - board to be printed
+     */
     public void printBoard(Board board){
         for(int row = 0;row < SIZE; row++) {
             for(int col = 0; col < SIZE; col++){

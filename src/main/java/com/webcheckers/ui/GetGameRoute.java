@@ -92,7 +92,6 @@ public class GetGameRoute implements Route {
             }
 
             //If the opponent is available, create a new game
-            //TODO Check if gameLobby is null
             gameLobby = playerLobby.startGame(player, opponent);
             checkersBoard = gameLobby.getBoard();
             vm.put(RED_PLAYER, player);

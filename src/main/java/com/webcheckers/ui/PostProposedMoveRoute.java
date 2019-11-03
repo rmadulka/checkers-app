@@ -37,12 +37,11 @@ public class PostProposedMoveRoute implements Route {
 
 
         if(MoveProcessor.validateMove(move, board, player)){
-            //TODO law of demeter
-            player.getTurnStack().push(move);
-            message = Message.info("valid");
+            player.addMove(move);
+            message = Message.info("Move is Valid");
         } else {
             //TODO more than one error message
-            message = Message.error("invalid");
+            message = Message.error("Invalid Move");
         }
 
         String proposedMove = gson.toJson(message);
