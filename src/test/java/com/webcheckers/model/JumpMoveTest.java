@@ -14,10 +14,19 @@ public class JumpMoveTest {
    */
   private JumpMove CuT;
 
+  /**
+   * Mock player object
+   */
   private static Player redPlayer;
 
+  /**
+   * Mock player object
+   */
   private static Player whitePlayer;
 
+  /**
+   * Mock board object
+   */
   private static Board board;
 
   @BeforeEach
