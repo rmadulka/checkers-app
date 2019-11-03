@@ -61,6 +61,10 @@ public class Player {
         return turnStack;
     }
 
+    /**
+     * Sets the value to a new type of stack (used for testing)
+     * @param stack new move stack
+     */
     public void setTurnStack(Stack<Move> stack){
         turnStack = stack;
     }
