@@ -3,6 +3,7 @@ package com.webcheckers.model;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,14 @@ public class SpaceTest {
     private final boolean isDark = true;
     private final int cellIdx2 = 2;
     private Piece piece;
+
+    /** Piece needed to test a copy */
+    private static Piece pieceCopy;
+
+    @BeforeAll
+    public static void init() {
+        pieceCopy = new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED);
+    }
 
     /**
      * Sets up the friendly and mock objects
@@ -79,5 +88,14 @@ public class SpaceTest {
         CuT.place(piece);
         CuT3.place(piece);
         assertTrue(CuT.equals(CuT3));
+    }
+
+    /**
+     * Tests the copy constructor and tests the copying of a piece
+     */
+    @Test
+    public void testCopyPiece() {
+        Space CuT4 = new Space(3, true, pieceCopy);
+        assertEquals(CuT4.getPiece(), CuT4.copyPiece());
     }
 }

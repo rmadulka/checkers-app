@@ -66,7 +66,10 @@ public class Move {
         return end.getCell();
     }
 
-
+    /**
+     * Determines if a move was a jump move
+     * @return True if a move was a jump
+     */
     public boolean isJumpMove(){
         return Math.abs(getStartRow() - getEndRow()) > 1
                 && Math.abs(getStartCell() - getEndCell()) > 1;
