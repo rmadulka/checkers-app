@@ -61,6 +61,10 @@ public class Player {
         return turnStack;
     }
 
+    public void setTurnStack(Stack<Move> stack){
+        turnStack = stack;
+    }
+
     /**
      * Overrides the equals method to compare to player objects
      * @param obj Another player object
