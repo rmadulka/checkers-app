@@ -238,7 +238,7 @@ package com.webcheckers.model;
         return false;
     }
 
-    private void printBoard(Board board){
+    public void printBoard(Board board){
         for(int row = 0;row < SIZE; row++) {
             for(int col = 0; col < SIZE; col++){
                 if(board.getBoard()[row][col].getPiece() != null){
