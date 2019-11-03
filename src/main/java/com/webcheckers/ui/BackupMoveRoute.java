@@ -2,7 +2,9 @@ package com.webcheckers.ui;
 
 
 import com.google.gson.Gson;
+import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Board;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
@@ -39,7 +41,6 @@ public class BackupMoveRoute implements Route{
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
-        Message message;
         Stack<Move> validatedMoves = player.getTurnStack();
         if(!validatedMoves.isEmpty()){
            Move lastMove = validatedMoves.pop();
