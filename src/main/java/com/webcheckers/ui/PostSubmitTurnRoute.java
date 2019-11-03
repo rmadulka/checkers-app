@@ -16,12 +16,23 @@ import static spark.Spark.halt;
 
 public class PostSubmitTurnRoute implements Route {
 
+    /** represents the players online, able to manage users **/
     private final PlayerLobby playerLobby;
 
+    /**
+     * Intended to inform the user that their move(s) have been validated or invalidated
+     * @param playerLobby
+     */
     public PostSubmitTurnRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
     }
 
+    /**
+     * Calls validation methods in order to output the correct invalid or valid message
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return valid/invalid message
+     */
     public Object handle(Request request, Response response){
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
@@ -37,12 +48,11 @@ public class PostSubmitTurnRoute implements Route {
             player.getTurnStack().removeAllElements();
         } else {
             //TODO more than one error message
-            message = Message.error("invlaid");
+            message = Message.error("invalid");
         }
 
         Gson gson = new Gson();
-        String submitMove = gson.toJson(message);
-        return submitMove;
+        return gson.toJson(message);
     }
 
 }

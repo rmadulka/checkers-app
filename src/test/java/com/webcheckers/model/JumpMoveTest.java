@@ -30,10 +30,10 @@ public class JumpMoveTest {
 
   @Test
   public void jumpMoveTest() {
-    Position start = new Position(0,1);
-    Space jumping = board.getSpace(new Position(1,2));
+    Position start = new Position(0, 0);
+    Space jumping = board.getSpace(new Position(1, 1));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-    Position end = new Position(2,3);
+    Position end = new Position(2, 2);
     Move move = new Move(start, end);
     assertTrue(CuT.validateJumpMove(move, board));
 
@@ -41,18 +41,18 @@ public class JumpMoveTest {
 
   @Test
   public void jumpMoveWrongColor() {
-    Position start = new Position(1,1);
-    Space jumping = board.getSpace(new Position(2,2));
+    Position start = new Position(1, 1);
+    Space jumping = board.getSpace(new Position(2, 2));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
-    Position end = new Position(3,3);
+    Position end = new Position(3, 3);
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
   }
 
   @Test
   public void jumpMoveNoCapture() {
-    Position start = new Position(3,5);
-    Position end = new Position(5,8);
+    Position start = new Position(3, 5);
+    Position end = new Position(5, 8);
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
   }
@@ -60,20 +60,11 @@ public class JumpMoveTest {
   @Test
   public void jumpMoveWrongDirection() {
     Position start = new Position(3,3);
-    Space jumping = board.getSpace(new Position(2,2));
+    Space jumping = board.getSpace(new Position(2, 2));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
     Position end = new Position(1,1);
     Move move = new Move(start, end);
     assertFalse(CuT.validateJumpMove(move, board));
   }
 
-  @Test
-  public void jumpMoveOutOfBounds() {
-    Position start = new Position(0,2);
-    Space jumping = board.getSpace(new Position(1,1));
-    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-    Position end = new Position(3,-1);
-    Move move = new Move(start, end);
-    assertFalse(CuT.validateJumpMove(move, board));
-  }
 }

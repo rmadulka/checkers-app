@@ -62,6 +62,14 @@ public class Player {
     }
 
     /**
+     * Sets the value to a new type of stack (used for testing)
+     * @param stack new move stack
+     */
+    public void setTurnStack(Stack<Move> stack){
+        turnStack = stack;
+    }
+
+    /**
      * Overrides the equals method to compare to player objects
      * @param obj Another player object
      * @return True if two players are the same

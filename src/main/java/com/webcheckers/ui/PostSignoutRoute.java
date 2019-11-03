@@ -10,7 +10,7 @@ import static spark.Spark.halt;
 
 public class PostSignoutRoute implements Route {
 
-    /** A PlayerLobby object */
+    /** represents the players online, able to manage users **/
     private final PlayerLobby playerLobby;
     /** Message that appears when a player signs out mid game */
     static final Message IN_GAME_MSG = Message.error("Cannot sign-out mid game");

@@ -12,12 +12,23 @@ import spark.Session;
 
 public class PostExitGameRoute implements Route {
 
+    /** represents the players online, able to manage users **/
     private final PlayerLobby playerLobby;
 
+    /**
+     * Used to give functionality to the "Exit" button
+     * @param playerLobby
+     */
     public PostExitGameRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
     }
 
+    /**
+     * Used to fully end the gameLobby the game is being held in and informing the user that the game is exiting
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return exiting message
+     */
     public Object handle(Request request, Response response){
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");

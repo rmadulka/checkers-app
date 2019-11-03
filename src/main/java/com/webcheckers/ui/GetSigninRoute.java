@@ -8,13 +8,11 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 public class GetSigninRoute implements Route {
+
     private static final Logger LOG = Logger.getLogger(GetSigninRoute.class.getName());
-
     private final TemplateEngine templateEngine;
-
     public static final String TITLE = "title";
     public static final String TITLE_ATTR = "Signin";
-
     public static final String VIEW_NAME = "signin.ftl";
 
     /**
