@@ -224,9 +224,9 @@ package com.webcheckers.model;
         int column = move.getStartCell();
         int row = move.getStartRow();
 
-//        System.err.println(row);
-//        System.err.println(column);
-        System.out.println("Temp Board: " + board.getBoard()[row][column]);
+        //System.err.println(row);
+        //.err.println(column);
+        //System.out.println("Temp Board: " + board.getBoard()[row][column]);
 
         //printBoard(board);
 

@@ -19,6 +19,9 @@ public class KingJumpMove extends Rules{
             if (Math.abs(move.getEndRow() - move.getStartRow()) != 2) {
                 return false;
             }
+            if(move.getEndRow() + one*2 > gameBoard.length - 1 || move.getEndRow() + one*2 < 0) {
+                return false;
+            }
             //checks backwards right diagonal jump moves
             if(!(move.getEndCell() - 2 < 0) &&
                     gameBoard[move.getEndRow() + one * 2][move.getEndCell() - 2] == gameBoard[move.getStartRow()][move.getStartCell()] &&
