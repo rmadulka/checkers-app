@@ -18,12 +18,19 @@ public class BoardTest {
 
 
   @BeforeEach
+  /**
+   * Initiates the the mock objects
+   */
   public void setup() {
     whitePlayer = mock(Player.class);
     redPlayer = mock(Player.class);
     CuT = new Board(whitePlayer, redPlayer);
   }
 
+  /**
+   * Helper function that fills in the spaces in the boaard
+   * @param testBoard
+   */
   private void testBoardInit(Space[][] testBoard) {
     for (int row = 0; row < TEST_SIZE; row++) {
       for (int col = 0; col < TEST_SIZE; col++) {
@@ -38,6 +45,10 @@ public class BoardTest {
     }
   }
 
+  /**
+   * Helper function used to populate the board with pieces
+   * @param testBoard: sample board to fill
+   */
   private void testBoardPopulate(Space[][] testBoard) {
     for (int row = 0; row < TEST_SIZE; row++) {
       for (int col = 0; col < TEST_SIZE; col++) {
@@ -58,6 +69,9 @@ public class BoardTest {
   }
 
   @Test
+  /**
+   * Tests whether the board can be obtained after being populated
+   */
   public void getBoard() {
     assertNotNull(CuT.getBoard());
     Space[][] testBoard = new Space[TEST_SIZE][TEST_SIZE];
@@ -71,16 +85,25 @@ public class BoardTest {
   }
 
   @Test
+  /**
+   * Tests whether the red piece player can be obtained
+   */
   public void getRed() {
     assertSame(redPlayer, CuT.getRed());
   }
 
   @Test
+  /**
+   * Tests whether the white piece player can be obtained
+   */
   public void getWhite() {
     assertSame(whitePlayer, CuT.getWhite());
   }
 
   @Test
+  /**
+   * Tests whether a specified row can be obtained given the mock board
+   */
   public void getRow() {
     Space[] testRowRed = new Space[TEST_SIZE];
     for (int space = 0; space < TEST_SIZE; space++) {
@@ -104,6 +127,10 @@ public class BoardTest {
   }
 
   @Test
+  /**
+   * Tests the board being flipped as the board must be positioned where the pieces are aligned on the bottom
+   * for each player
+   */
   public void testReverseRow() {
     Space[] testReverseWhite = new Space[TEST_SIZE];
     int space1 = 7;

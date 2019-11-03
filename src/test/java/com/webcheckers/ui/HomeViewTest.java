@@ -24,6 +24,9 @@ public class HomeViewTest {
 
 
     @Test
+    /**
+     * Tests the default construction of the home.ftl HTML
+     */
     public void test_default_home_page(){
         final Map<String, Object> vm = new HashMap<>();
         final ModelAndView modelAndView = new ModelAndView(vm, GetHomeRoute.VIEW_NAME);
@@ -38,6 +41,9 @@ public class HomeViewTest {
     }
 
     @Test
+    /**
+     * Tests whether an error message will appear on the screen
+     */
     public void test_error_message(){
         final Map<String, Object> vm = new HashMap<>();
         final ModelAndView modelAndView = new ModelAndView(vm, GetHomeRoute.VIEW_NAME);

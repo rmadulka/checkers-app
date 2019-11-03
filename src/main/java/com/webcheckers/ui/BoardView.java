@@ -56,10 +56,18 @@ public class BoardView implements Iterable<Row> {
         return rows.iterator();
   }
 
+  /**
+   * Obtains the white piece player
+   * @return whitePlayer
+   */
   public Player getWhite() {
     return whitePlayer;
   }
 
+  /**
+   * Obtains the red piece player
+   * @return redPlayer
+   */
   public Player getRed() {
     return redPlayer;
   }
