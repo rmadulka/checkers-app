@@ -22,6 +22,9 @@ class BoardViewTest {
 
 
     @BeforeEach
+    /**
+     * Initiates the mock objects
+     */
     void testSetup() {
         red = Mockito.mock(Player.class);
         white = Mockito.mock(Player.class);
@@ -30,6 +33,9 @@ class BoardViewTest {
     }
 
     @Test
+    /**
+     * Tests the construction of a BoardView
+     */
     void iteratorTest() {
         int redRow = 0;
         Iterator<Row> redRows = CuT.iterator();
@@ -61,11 +67,17 @@ class BoardViewTest {
     }
 
     @Test
+    /**
+     * Tests whether the white piece player can be obtained
+     */
     void getWhitePlayerTest() {
         Assertions.assertSame(CuT.getWhite(), white);
     }
 
     @Test
+    /**
+     * Tests whether the red piece player can be obtained
+     */
     void getRedPlayerTest() {
         Assertions.assertSame(CuT.getRed(), red);
     }
