@@ -231,4 +231,5 @@ of the tests since we were making continuous changes as we went leading to us ha
 the end of the spring. During testing, our goal was to get above 90% code coverage for all the tests. We did not 
 focus much on branching and focused mainly on missed instructions. We set this goal since it is a possible percentage to
 get and by setting it higher would almost be impossible for many of the classes when testing.We were able to reach this 
-goal by having an overall code coverage above 90%. The only class we were unable to test was the Application class. 
+goal by having a total code coverage of 95%. We were able to get branching to 81% which is quite high given that we didn't
+focus on it.The only class we were unable to test was the Application class. 
