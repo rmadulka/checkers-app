@@ -216,3 +216,11 @@ this current sprint.
 > coverage targets, why you selected those values, and how well your
 > code coverage met your targets. If there are any anomalies, discuss
 > those._
+
+Our strategy for unit testing was to test as we went to prevent having to do all the tests at the end of the sprint. 
+This allowed us to determine if we could continue with the MVP. However, we were not able to do this for the majority
+of the tests since we were making continuous changes as we went leading to us having to do a lot of the testing at
+the end of the spring. During testing, our goal was to get above 90% code coverage for all the tests. We did not 
+focus much on branching and focused mainly on missed instructions. We set this goal since it is a possible percentage to
+get and by setting it higher would almost be impossible for many of the classes when testing.We were able to reach this 
+goal by having an overall code coverage above 90%. The only class we were unable to test was the Application class. 
