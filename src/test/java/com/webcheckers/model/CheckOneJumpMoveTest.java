@@ -197,4 +197,33 @@ public class CheckOneJumpMoveTest {
     blocking.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
     assertFalse(CuT.checkMoves(move, board));
   }
+
+  @Test
+  public void testRedKingNextJump() {
+    Position start = new Position(7, 7);
+    Space jumping = board.getSpace(new Position(6, 6));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    Position end = new Position(5, 5);
+    Space ended = board.getSpace(end);
+    ended.place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+    Move move = new Move(start, end);
+    Space ahead = board.getSpace(new Position(4, 6));
+    ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    assertTrue(CuT.checkMoves(move, board));
+  }
+
+  @Test
+  public void testWhiteKingNextJump() {
+    board.switchTurn();
+    Position start = new Position(0, 0);
+    Space jumping = board.getSpace(new Position(1, 1));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    Position end = new Position(2, 2);
+    Space ended = board.getSpace(end);
+    ended.place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+    Move move = new Move(start, end);
+    Space ahead = board.getSpace(new Position(3, 1));
+    ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertTrue(CuT.checkMoves(move, board));
+  }
 }
