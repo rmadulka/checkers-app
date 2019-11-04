@@ -129,7 +129,7 @@ moves and the page updates after each move is made. Once the game is over, the p
 > a flow or "story line" that the reader can follow._
 
 The user begins by connecting to the web page by invoking GetHomeRoute in which they are prompted with a sign in link. When the user signs in,
-GetSignInRoute is called. When the user enters a name, PostSignInRoute is called; if the name is valid, the user will
+GetSignInRoute is called. When the user enters a name, PostSignInRoute is called; if the name is valid, the user will be
 directed home, otherwise the page displays an error message and the user can try again. Back home, the user can see and
 click on other online players. If another player is clicked on, GetGameRoute is invoked; if the clicked on player is
 already in a game, the user is sent home with and error message, otherwise a game is created between the two players and
