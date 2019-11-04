@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class CheckOneJumpMoveTest {
+public class CheckAllJumpMoveTest {
 
   /**
    * Friendly object
    */
-  private CheckOneJumpMove CuT;
+  private CheckAllJumpMove CuT;
 
-  /**
+    /**
    * Mock player object
    */
   private static Player redPlayer;
@@ -30,7 +30,7 @@ public class CheckOneJumpMoveTest {
 
   @BeforeEach
   private void init() {
-    CuT = new CheckOneJumpMove();
+    CuT = new CheckAllJumpMove();
     redPlayer = new Player("Red");
     whitePlayer = new Player("White");
     board = new Board(redPlayer, whitePlayer);
@@ -62,7 +62,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testRedHasOneJumpMoveRight() {
+  public void testRedHasAtleastOneJumpMoveRight() {
     Position start = new Position(0, 0);
     Space jumping = board.getSpace(new Position(1, 1));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
@@ -76,7 +76,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testRedHasOneMoveJumpLeft() {
+  public void testRedHasAtleastOneMoveJumpLeft() {
     Position start = new Position(0, 0);
     Space jumping = board.getSpace(new Position(1, 1));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
@@ -90,7 +90,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testWhiteHasOneJumpMoveRight() {
+  public void testWhiteHasAtleastOneJumpMoveRight() {
     board.switchTurn();
     Position start = new Position(7, 7);
     Space jumping = board.getSpace(new Position(6, 6));
@@ -105,7 +105,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testWhiteHasOneMoveJumpLeft() {
+  public void testWhiteHasAtleastOneMoveJumpLeft() {
     board.switchTurn();
     Position start = new Position(7, 7);
     Space jumping = board.getSpace(new Position(6, 6));
@@ -120,7 +120,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testRedWrongColorNextJump() {
+  public void testRedWrongColorNoNextJump() {
     Position start = new Position(0, 0);
     Space jumping = board.getSpace(new Position(1, 1));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
@@ -134,7 +134,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testWhiteWrongColorNextJump() {
+  public void testWhiteWrongColorNoNextJump() {
     board.switchTurn();
     Position start = new Position(7, 7);
     Space jumping = board.getSpace(new Position(6, 6));
@@ -149,7 +149,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testRedBlockedNextJump() {
+  public void testRedBlockedNoNextJump() {
     Position start = new Position(0, 0);
     Space jumping = board.getSpace(new Position(1, 1));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
@@ -165,7 +165,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testWhiteBlockedNextJump() {
+  public void testWhiteBlockedNoNextJump() {
     board.switchTurn();
     Position start = new Position(7, 7);
     Space jumping = board.getSpace(new Position(6, 6));
@@ -182,7 +182,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testRedKingNextJump() {
+  public void testRedKingHasNextJump() {
     Position start = new Position(7, 7);
     Space jumping = board.getSpace(new Position(6, 6));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
@@ -196,7 +196,7 @@ public class CheckOneJumpMoveTest {
   }
 
   @Test
-  public void testWhiteKingNextJump() {
+  public void testWhiteKingHasNextJump() {
     board.switchTurn();
     Position start = new Position(0, 0);
     Space jumping = board.getSpace(new Position(1, 1));
