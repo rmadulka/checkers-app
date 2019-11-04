@@ -50,8 +50,8 @@ public class MoveProcessor {
 
 
         //Run through all move rules to make sure a legal move is made
-        for (Rules rule : rules) {
-            if(rule.checkMoves(move, temporaryBoard)){
+        for (int i = 0; i < rules.size(); i++) {
+            if(rules.get(i).checkMoves(move, temporaryBoard)){
                 temporaryBoard.makeTempMove(move);
                 return true;
             }
