@@ -11,7 +11,7 @@ public class CheckAllJumpMove extends Rules{
      * @param board A board
      * @return True if there is an available jump move
      */
-    private boolean checkForJumpMove(Board board) {
+    public boolean checkForJumpMove(Board board) {
         Space[][] gameBoard = board.getBoard();
         int negOne = 1;
         if(board.getActiveColor() == Piece.pieceColor.WHITE) {

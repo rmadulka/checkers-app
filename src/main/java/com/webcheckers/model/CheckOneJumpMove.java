@@ -8,7 +8,7 @@ public class CheckOneJumpMove extends Rules {
      * @param move The first jump
      * @return True if there is a multijump move available
      */
-    public static boolean checkMultiJump (Move move, Board board) {
+    public boolean checkMultiJump (Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
         int negOne = 1;
         if (board.getActiveColor() == Piece.pieceColor.WHITE) {

@@ -45,6 +45,7 @@ public class CheckOneJumpMoveTest {
     Space ended = board.getSpace(end);
     ended.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
     Move move = new Move(start, end);
+    assertFalse(CuT.checkMultiJump(move, board));
     assertFalse(CuT.checkMoves(move, board));
   }
 
@@ -58,6 +59,7 @@ public class CheckOneJumpMoveTest {
     Space ended = board.getSpace(end);
     ended.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
     Move move = new Move(start, end);
+    assertFalse(CuT.checkMultiJump(move, board));
     assertFalse(CuT.checkMoves(move, board));
   }
 
@@ -72,6 +74,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(3,3));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    assertTrue(CuT.checkMultiJump(move, board));
     assertTrue(CuT.checkMoves(move, board));
   }
 
@@ -86,6 +89,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(3, 1));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    assertTrue(CuT.checkMultiJump(move, board));
     assertTrue(CuT.checkMoves(move, board));
   }
 
@@ -101,6 +105,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(4,4));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertTrue(CuT.checkMultiJump(move, board));
     assertTrue(CuT.checkMoves(move, board));
   }
 
@@ -116,6 +121,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(4, 6));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertTrue(CuT.checkMultiJump(move, board));
     assertTrue(CuT.checkMoves(move, board));
   }
 
@@ -130,6 +136,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(3,3));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertFalse(CuT.checkMultiJump(move, board));
     assertFalse(CuT.checkMoves(move, board));
   }
 
@@ -145,6 +152,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(4,4));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    assertFalse(CuT.checkMultiJump(move, board));
     assertFalse(CuT.checkMoves(move, board));
   }
 
@@ -161,6 +169,7 @@ public class CheckOneJumpMoveTest {
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
     Space blocking = board.getSpace(new Position(4, 0));
     blocking.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    assertFalse(CuT.checkMultiJump(move, board));
     assertFalse(CuT.checkMoves(move, board));
   }
 
@@ -178,6 +187,7 @@ public class CheckOneJumpMoveTest {
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
     Space blocking = board.getSpace(new Position(3, 7));
     blocking.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertFalse(CuT.checkMultiJump(move, board));
     assertFalse(CuT.checkMoves(move, board));
   }
 
@@ -192,6 +202,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(4, 4));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    assertTrue(CuT.checkMultiJump(move, board));
     assertTrue(CuT.checkMoves(move, board));
   }
 
@@ -206,6 +217,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(4, 6));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    assertTrue(CuT.checkMultiJump(move, board));
     assertTrue(CuT.checkMoves(move, board));
   }
 
@@ -221,6 +233,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(3, 3));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertTrue(CuT.checkMultiJump(move, board));
     assertTrue(CuT.checkMoves(move, board));
   }
 
@@ -236,6 +249,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(3, 1));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertTrue(CuT.checkMultiJump(move, board));
     assertTrue(CuT.checkMoves(move, board));
   }
 
