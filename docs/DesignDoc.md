@@ -151,7 +151,7 @@ Our application tier consists of two classes that are both intended to manage bo
 services to the UI tier. PlayerLobby directly manages all online users and GameLobby manages users that are both
 in a current game together, allowing UI classes to directly access user information as the application classes are implemented
 within the UI tier. Both application classes include information such as the board, players, moves, and game statuses, 
-allowing the UI tier to extract that data and have it visible to both users.
+allowing the UI classes to extract that data and have it visible to both users.
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
@@ -194,8 +194,16 @@ and instead create an instance of the MoveProcessor class to adhere to the desig
 
 
 ## Testing
+We had a handful of testing strategies when we ran our board to check for any bugs or to check if a certain
+function was working properly. We made custom board populations where we got to position pieces at specific locations
+in order to review specific piece movements and to make testing significantly easier. We also debugged our code
+especially when reviewing our temporary board and finalized board implementation since the finalized board only consists
+of fully validated moves. We developed a printBoard() class within Board in order to review moves on the temporary
+board so we can review how the board is being updated. With those techniques, we were able to create a specific
+condition to better our testing efficiency.
 > _This section will provide information about the testing performed
 > and the results of the testing._
+
 
 ### Acceptance Testing
 Fortunately all of our user stories' acceptance criteria pass, however, throughout the sprint we had
