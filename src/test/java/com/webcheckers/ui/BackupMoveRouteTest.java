@@ -21,7 +21,7 @@ import java.util.Stack;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@Tag("UI-TIER")
+@Tag("UI-tier")
 public class BackupMoveRouteTest {
 
     // mock objects

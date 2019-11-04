@@ -74,6 +74,14 @@ public class GameLobby {
     }
 
     /**
+     * Sets the IsGameOver status to a new value (used for testing purposes)
+     * @param gameOver updated game status
+     */
+    public void setIsGameOver(boolean gameOver){
+        this.isGameOver = gameOver;
+    }
+
+    /**
      * Finds the opponent based on the player
      * @param player The player we use to find the opponent to this player
      * @return The opponent

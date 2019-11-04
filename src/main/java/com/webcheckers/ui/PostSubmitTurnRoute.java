@@ -40,7 +40,6 @@ public class PostSubmitTurnRoute implements Route {
         Board board = gameLobby.getBoard();
 
         Message message;
-
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
             MoveProcessor.processMoves(player, board);
             message = Message.info("Valid Turn");

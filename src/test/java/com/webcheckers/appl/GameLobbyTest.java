@@ -100,4 +100,14 @@ public class GameLobbyTest {
       assertNotEquals(CuT.getBoard(), gl.getBoard());
     }
 
+    /**
+     * Tests that a IsGameOver value is properly set and updated
+     */
+    @Test
+    public void test_set_IsGameOver(){
+        CuT.setIsGameOver(true);
+        GameLobby gl = new GameLobby(redPlayer, whitePlayer);
+        assertNotEquals(CuT.getIsGameOver(), gl.getIsGameOver());
+    }
+
 }
