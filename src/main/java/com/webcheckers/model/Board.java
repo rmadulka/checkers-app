@@ -146,6 +146,16 @@ import com.webcheckers.util.MoveProcessor;
         return this.board;
     }
 
+
+    /**
+     * sets the board to a new board 2-d array
+     * @param b current board to set
+     */
+    public void setBoard(Space[][] b){
+        this.board = b;
+    }
+
+
     /**
      * gets the player controlling the white pieces
      *

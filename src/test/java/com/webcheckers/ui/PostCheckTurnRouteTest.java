@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
@@ -52,6 +53,7 @@ public class PostCheckTurnRouteTest {
          * Tests whether the message output is correct when it is the user's turn
          */
         public void test_your_turn(){
+            Message m = Message.info("true");
             Player p1 = new Player("Joe Mama");
             Player p2 = new Player("Mike Hawk");
             GameLobby gl = new GameLobby(p1, p2);
@@ -59,7 +61,7 @@ public class PostCheckTurnRouteTest {
 
             when(session.attribute("currentUser")).thenReturn(p1);
             when(playerLobby.getGameLobby(p1)).thenReturn(gl);
-            assertEquals(CuT.handle(request,response), "{\"text\":\"true\",\"type\":\"INFO\"}");
+            assertEquals(CuT.handle(request,response), new Gson().toJson(m));
 
 
         }
@@ -69,6 +71,7 @@ public class PostCheckTurnRouteTest {
          * Tests whether the message output is correct when it is the opponent's turn
          */
         public void test_opponent_turn(){
+            Message m = Message.info("false");
             Player p1 = new Player("Joe Mama");
             Player p2 = new Player("Mike Hawk");
             GameLobby gl = new GameLobby(p1, p2);
@@ -78,7 +81,7 @@ public class PostCheckTurnRouteTest {
 
             when(session.attribute("currentUser")).thenReturn(p1);
             when(playerLobby.getGameLobby(p1)).thenReturn(gl);
-            assertEquals(CuT.handle(request,response), "{\"text\":\"false\",\"type\":\"INFO\"}");
+            assertEquals(CuT.handle(request,response), new Gson().toJson(m));
 
         }
 }
