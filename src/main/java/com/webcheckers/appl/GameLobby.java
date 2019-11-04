@@ -66,6 +66,14 @@ public class GameLobby {
     }
 
     /**
+     * Sets the board to a new value (used for testing purposes)
+     * @param board updated board layout
+     */
+    public void setBoard(Board board){
+        this.board = board;
+    }
+
+    /**
      * Finds the opponent based on the player
      * @param player The player we use to find the opponent to this player
      * @return The opponent

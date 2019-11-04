@@ -7,7 +7,9 @@ import static org.mockito.Mockito.when;
 
 
 import com.webcheckers.appl.GameLobby;
+import com.webcheckers.model.Board;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import org.junit.jupiter.api.*;
 
 public class GameLobbyTest {
@@ -86,4 +88,16 @@ public class GameLobbyTest {
 
         assertFalse(mock(Player.class).getInGame());
     }
+
+    /**
+     * Tests that a board value is properly set and updated
+     */
+    @Test
+    public void test_set_board(){
+      CuT.setBoard(new Board(redPlayer, whitePlayer));
+      GameLobby gl = new GameLobby(redPlayer, whitePlayer);
+      gl.setBoard(new Board(whitePlayer, redPlayer));
+      assertNotEquals(CuT.getBoard(), gl.getBoard());
+    }
+
 }
