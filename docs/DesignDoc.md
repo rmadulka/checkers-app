@@ -172,9 +172,18 @@ gipieces through jumps),
 > analysis of where there are problems in the code base which could be
 > addressed with design changes, and describe those suggested design
 > improvements. After completion of the Code metrics exercise, you
-> will also discuss the resutling metric measurements.  Indicate the
+> will also discuss the resulting metric measurements.  Indicate the
 > hot spots the metrics identified in your code base, and your
 > suggested design improvements to address those hot spots._
+
+For the next sprint, we should focus on fixing law of demeter violations in our code. There are some places in our code 
+that use too much coupling to access information about an object. For example, in order to get the color of a piece, we use
+board[][].getPiece().getColor(), which violates the law of demeter. Currently, we place TODO everywhere the law of demeter
+is violated so that we can go back and fix it in the future. On the design front, we could change the MoveProcessor class
+such that the methods are not all static boolean. When all the methods in this class are public static boolean, any other
+class is able to call the method which is not a good design choice. In the future, we should remove static from these methods
+and instead create an instance of the MoveProcessor class to adhere to the design principles. 
+
 
 ## Testing
 > _This section will provide information about the testing performed
