@@ -43,11 +43,9 @@ public class PostResignRoute implements Route {
             gameLobby.endGame(Message.info(String.format("%s has resigned",player.getName())));
             message = Message.info("Game has ended");
         } else {
+
             //if the game failed to end
-
-            //TODO Other means of game ending
-
-            message = Message.error(String.format("%s has already resigned", gameLobby.getOpponent(player).getName()));
+            message = Message.error("Game has already ended");
         }
 
         Gson gson = new Gson();

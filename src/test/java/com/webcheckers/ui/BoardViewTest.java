@@ -11,9 +11,11 @@ import com.webcheckers.model.Space;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Tag("UI-tier")
 class BoardViewTest {
     private Player red;
     private Player white;
