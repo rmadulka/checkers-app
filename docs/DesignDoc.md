@@ -128,6 +128,21 @@ moves and the page updates after each move is made. Once the game is over, the p
 > responsibilities.  This should be a narrative description, i.e. it has
 > a flow or "story line" that the reader can follow._
 
+The user begins by connecting to the web page by invoking GetHomeRoute in which they are prompted with a sign in link. When the user signs in,
+GetSignInRoute is called. When the user enters a name, PostSignInRoute is called; if the name is valid, the user will
+directed home, otherwise the page displays an error message and the user can try again. Back home, the user can see and
+click on other online players. If another player is clicked on, GetGameRoute is invoked; if the clicked on player is
+already in a game, the user is sent home with and error message, otherwise a game is created between the two players and
+both are sent to the GameView page. When a player moves a piece, PostProposedMoveRoute is invoked, which determines
+whether or not the individual move is valid. If the move is valid, the player can hit the submit button, which invokes
+PostSubmitTurnRoute, which validates the entire turn before actually making the moves on the board. While a player is
+deciding a turn, the opponent is invoking PostCheckTurnRoute which checks to see if it their turn yet. At any point a
+player can resign, in which PostResignRoute is invoked, which ends the game and displays an exit gameView. If a player
+tries to resign after a game has ended, the PostResignRoute will not allow resignation. When the exit page is displayed,
+the user can press the exit button, in which ExitGameRoute is invoked, which removes the player from the GameLobby
+and redirects them back home. At home, a user can hit the sign out link, which invokes PostSignOutRoute, which removes
+the user from the PlayerLobby. A player cannot sign out during a game.
+
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class structure or object diagrams) with some
 > details such as critical attributes and methods._
