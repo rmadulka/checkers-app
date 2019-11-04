@@ -48,6 +48,9 @@ public class PostSubmitTurnRouteTest {
     }
 
     @Test
+    /**
+     * Tests when the user has made valid moves and that the correct message has been outputted
+     */
     public void test_valid_move_message(){
         Message m =  Message.info("Valid Turn");
         player = new Player("Joe Mama");
