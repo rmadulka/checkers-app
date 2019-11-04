@@ -43,8 +43,8 @@ import com.webcheckers.util.MoveProcessor;
         init();
         //populate();
         //customPopulate();
-        endGameTestOne();
-        //endGameTestTwo();
+        //endGameTestOne();
+        endGameTestTwo();
     }
 
     /**
