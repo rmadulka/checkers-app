@@ -45,6 +45,15 @@ public class PostSubmitTurnRoute implements Route {
             MoveProcessor.processMoves(player, board);
             message = Message.info("Valid Turn");
 
+            //EndGame Conditions
+            if(board.checkNoAvailiablePieces()){
+                gameLobby.endGame(Message.info(String.format("%s has no remaining pieces",board.getActiveColor().toString())));
+            }
+
+            if(!board.checkSingleAvailableMove()){
+                gameLobby.endGame(Message.info(String.format("%s has no available moves",board.getActiveColor().toString())));
+            }
+
             //Not needed but for safety
             player.getTurnStack().removeAllElements();
         } else {

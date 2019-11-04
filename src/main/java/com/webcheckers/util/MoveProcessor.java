@@ -12,10 +12,12 @@ public class MoveProcessor {
     static final ArrayList<Rules> rules = new ArrayList<>(Arrays.asList(new SimpleMove(), new JumpMove(), new KingSimpleMove(), new KingJumpMove()));
 
     /** Rule for checking the entire board for a jump move */
-    static final Rules allJumpRule = new CheckAllJumpMove();
+    public static final Rules allJumpRule = new CheckAllJumpMove();
 
     /** Rule for checking a piece for continuing jump moves */
     static final Rules oneJumpRule = new CheckOneJumpMove();
+
+    public static final Rules allSimpleMoveRule = new CheckSimpleMove();
 
     /** A temporary board that is made for a turn */
     static Board temporaryBoard;
@@ -105,8 +107,6 @@ public class MoveProcessor {
         while (!turnStack.empty()) {
             board.makeMove(turnStack.remove(0));
         }
-
-        //Switch turns after the moves have been made
         board.switchTurn();
     }
 
