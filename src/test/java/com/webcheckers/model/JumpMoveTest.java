@@ -91,4 +91,35 @@ public class JumpMoveTest {
     assertFalse(CuT.checkMoves(move, board));
   }
 
+  @Test
+  /**
+   * Tests a white piece jump move
+   */
+  public void test_white_jump_move(){
+    board.switchTurn();
+    Position start = new Position(5, 5);
+    Space jumping = board.getSpace(new Position(4, 4));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    Position end = new Position(3, 3);
+    Move move = new Move(start, end);
+    assertTrue(CuT.validateJumpMove(move, board));
+    assertTrue(CuT.checkMoves(move, board));
+
+  }
+
+  @Test
+  /**
+   * Tests an invalid jump that is too far
+   */
+  public void test_too_far_of_a_jump(){
+    board.switchTurn();
+    Position start = new Position(5, 5);
+    Space jumping = board.getSpace(new Position(4, 4));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    Position end = new Position(2, 2);
+    Move move = new Move(start, end);
+    assertFalse(CuT.validateJumpMove(move, board));
+
+  }
+
 }
