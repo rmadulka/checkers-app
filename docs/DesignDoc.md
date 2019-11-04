@@ -145,6 +145,8 @@ the user from the PlayerLobby. A player cannot sign out during a game.
 
 ![The WebCheckers Web Interface checkTurn State Diagram](CheckTurnRouteStateDiagram.png)
 
+![The WebCheckers Web Interface Game Route Sequence Diagram](GameRouteSequence.png)
+
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class structure or object diagrams) with some
 > details such as critical attributes and methods._
