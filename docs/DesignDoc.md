@@ -76,7 +76,21 @@ and a Player has the ability to replay a Game.
 
 ## Architecture and Design
 
-This section describes the application architecture.
+This section describes the application architecture. 
+
+In the application, our design focuses on utilizing MVC. The user is able to interact with everything in the view which 
+includes the ftl, CSS and JavaScript. The controller consists of the two application tier classes PlayerLobby and 
+GameLobby which are invoked by most of the UI tier handler classes. The model contains most of the move validation and stores the 
+information related to players and the positions on the board. We designed the board using a 2d array so we could iterate
+through to find specific pieces and to validate the moves of a piece. Furthermore, we implemented iterator to populate the 
+board in the ftl so that the user could see and interact with a changing board. When implementing move validation, we decided
+to use an abstract class that different move classes extended to make it easier to check for valid moves. We split this into
+checking for a jump, a simple move, a backwards king move and a backwards king jump. By splitting these rules into
+separate classes, we were able to follow high cohesion and polymorphism principles. This also made it easier to determine
+if a move was legal since we could just call the abstract method to determine if the given move was valid based on our
+rules. However, by doing this, we had to create a util tier class that contained static boolean methods that utilized 
+the abstract class. This was not the best design choice but was the "cleanest" way we could think about going about 
+validation. 
 
 ### Summary
 
