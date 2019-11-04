@@ -159,9 +159,17 @@ allowing the UI tier to extract that data and have it visible to both users.
 
 ### Model Tier
 The root of our model tier is our board class which initiates our board as a 2-d array that is compiled of a variety of
-types of objects. It is comprised of Spaces (which creates the layout of the board of dark and white tiles), Pieces (which
-the users move diagonally on dark tiles utilizing different valid movement techniques in order to remove the opponent's 
-gipieces through jumps), 
+types of objects. It is comprised of Spaces, which creates the layout of the board of dark and white tiles, and those
+Spaces contains Pieces, which the users move diagonally on dark tiles utilizing different valid movement techniques in 
+order to remove the opponent's pieces through jump moves. For piece movement, we developed a Position class that tracked
+player movement with row and column coordinates and those positions were stored within a Move object that contained a
+start and end position, checking whether or not those two positions represented a valid move. Once the Move object was 
+instantiated, it then would go through a utility class called MoveProcessor that called a variety of move checking model
+classes to ensure the user made a valid move. Within MoveProcessor, we created an array with the object type "Rules",
+which is an abstract class being extended in a variety of move validating model classes. Some of those classes, such as
+JumpMove, KingSimpleMove, KingJumpMove, and SimpleMove, all validate the Move based on its positions and piece status. For
+CheckAllJumpMove, CheckSimpleMove, and CheckOneJumpMove, those classes review whether a multi-jump move, a simple move, or
+a force jump move are available, respectively.
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
@@ -181,6 +189,12 @@ gipieces through jumps),
 > and the results of the testing._
 
 ### Acceptance Testing
+Fortunately all of our user stories' acceptance criteria pass, however, throughout the sprint we had
+multiple failures when updating the Acceptance Testing sheet. For this sprint we focused mostly on moves and
+in which we had a plethora of bugs involving forcing jump moves for both simple and king pieces. When testing,
+comments were left mentioning bugs occurring within the Acceptance Testing sheet and it was later updated once
+those code fixes were made. Overall, all of our user stories have been thoroughly tested and approved for
+this current sprint.
 > _Report on the number of user stories that have passed all their
 > acceptance criteria tests, the number that have some acceptance
 > criteria tests failing, and the number of user stories that
