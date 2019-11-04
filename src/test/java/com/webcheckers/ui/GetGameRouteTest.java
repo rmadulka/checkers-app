@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 
-@Tag("UI-TIER")
+@Tag("UI-tier")
 public class GetGameRouteTest {
 
     /** Names of the view model values */
