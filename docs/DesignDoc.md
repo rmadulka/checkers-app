@@ -191,7 +191,13 @@ CheckAllJumpMove, CheckSimpleMove, and CheckOneJumpMove, those classes review wh
 a force jump move are available, respectively.
 
 ![The WebCheckers Web Interface KingJumpMoveValidationStateChart](KingJumpMoveValidationStateChart.png)
-
+The KingJumpMoveValidation() Statechart demonstrates how the method processes on determining whether
+or not the current move is a valid King Jump Move. It initially is called by MoveProcessor and then the 
+current move is retrieved and analyzed. The variable "one" is based off of the piece color, in which it is
+either 1 if its red or -1 if the piece is white. This is due to the fact that red and white players moves are
+inverted compared to one another as they start on different sides of the board. Then our the KingJumpValidation() method
+proceeds to check for a backwards right jump and then a backwards left jump, returning true if the conditions pass or 
+false if neither pass.
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
