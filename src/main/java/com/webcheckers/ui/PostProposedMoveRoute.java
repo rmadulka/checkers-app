@@ -15,13 +15,24 @@ import spark.Session;
 
 public class PostProposedMoveRoute implements Route {
 
+    /** A player lobby */
     private final PlayerLobby playerLobby;
 
+    /**
+     * Creates an instance of PostProposedMoveRoute
+     * @param playerLobby A playerLobby object
+     */
     public PostProposedMoveRoute(PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
     }
 
-
+    /**
+     * Validates a players move if it is a valid move or not
+     * Move gets added to the stack of moves if it is a valid move
+     * @param request An http request
+     * @param response An http response
+     * @return The proposed move
+     */
     public Object handle(Request request, Response response) {
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
