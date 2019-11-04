@@ -84,4 +84,59 @@ public class KingJumpMoveTest {
     assertFalse(CuT.validateKingJumpMove(move, board));
     assertFalse(CuT.checkMoves(move, board));
   }
+
+  @Test
+  /**
+   * tests a normal king jump by a white piece
+   */
+  public void test_white_king_jump(){
+    board.switchTurn();
+    Position start = new Position(3,3);
+    Space king = board.getSpace(start);
+    king.place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+    Space jumping = board.getSpace(new Position(4, 2));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    Position end = new Position(5, 1);
+    Move move = new Move(start, end);
+    assertTrue(CuT.validateKingJumpMove(move, board));
+    assertTrue(CuT.checkMoves(move, board));
+  }
+
+  @Test
+  /**
+   * tests a jump that is too far and is invalid
+   */
+  public void test_too_far_of_a_jump(){
+    board.switchTurn();
+    Position start = new Position(3,3);
+    Space king = board.getSpace(start);
+    Space jumping = board.getSpace(new Position(4, 2));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    king.place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+    Position end = new Position(6, 1);
+    Move move = new Move(start, end);
+    assertFalse(CuT.validateKingJumpMove(move, board));
+  }
+
+  @Test
+  /**
+   * tests a left diagonal king jump
+   */
+  public void test_left_diagonal_king_jump(){
+    Position start = new Position(3,3);
+    Space king = board.getSpace(start);
+    king.place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+    Space jumping = board.getSpace(new Position(2, 2));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    Position end = new Position(1, 1);
+    Move move = new Move(start, end);
+    assertTrue(CuT.validateKingJumpMove(move, board));
+    assertTrue(CuT.checkMoves(move, board));
+
+
+
+
+  }
+
+
 }
