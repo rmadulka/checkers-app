@@ -133,13 +133,21 @@ moves and the page updates after each move is made. Once the game is over, the p
 
 
 ### Application Tier
-Our application tier consists
+Our application tier consists of two classes that are both intended to manage board logic along with providing 
+services to the UI tier. PlayerLobby directly manages all online users and GameLobby manages users that are both
+in a current game together, allowing UI classes to directly access user information as the application classes are implemented
+within the UI tier. Both application classes include information such as the board, players, moves, and game statuses, 
+allowing the UI tier to extract that data and have it visible to both users.
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
 
 
 ### Model Tier
+The root of our model tier is our board class which initiates our board as a 2-d array that is compiled of a variety of
+types of objects. It is comprised of Spaces (which creates the layout of the board of dark and white tiles), Pieces (which
+the users move diagonally on dark tiles utilizing different valid movement techniques in order to remove the opponent's 
+pieces through jumps), 
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._

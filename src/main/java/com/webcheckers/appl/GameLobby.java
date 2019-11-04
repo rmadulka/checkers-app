@@ -95,10 +95,18 @@ public class GameLobby {
         return null;
     }
 
+    /**
+     * Used to get a boolean value indicating the game status
+     * @return isGameOver current value
+     */
     public boolean getIsGameOver(){
         return isGameOver;
     }
 
+    /**
+     * Intended to return a string that describes the game over message once it is updated from its initial value of null
+     * @return string of the gameOverMessage
+     */
     public String getGameOverMessageAsString(){
         if (gameOverMessage == null) {
             return null;
@@ -106,14 +114,26 @@ public class GameLobby {
         return gameOverMessage.getText();
     }
 
+    /**
+     * Gets the player controlling the red pieces
+     * @return redplayer Player object
+     */
     public Player getRedPlayer(){
         return redPlayer;
     }
 
+    /**
+     * Gets the player controlling the white pieces
+     * @return whitePlayer Player object
+     */
     public Player getWhitePlayer(){
         return whitePlayer;
     }
 
+    /**
+     * Removes a specified player from the game, typically once a player has resigned or the game is over
+     * @param player specified player to remove
+     */
     public void removePlayer(Player player){
         if (player.equals(redPlayer)) {
             redPlayer.setInGame(false);
@@ -126,6 +146,10 @@ public class GameLobby {
         }
     }
 
+    /**
+     * Checks if both players have left the game
+     * @return boolean whether both players are present
+     */
     public boolean playersEmpty(){
         return !(redPlayerPresent || whitePlayerPresent);
     }
