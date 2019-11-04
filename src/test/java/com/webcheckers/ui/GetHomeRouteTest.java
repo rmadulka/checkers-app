@@ -10,6 +10,7 @@ import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.HaltException;
 import spark.ModelAndView;
@@ -19,6 +20,7 @@ import spark.Session;
 import spark.TemplateEngine;
 import java.util.HashSet;
 
+@Tag("UI-tier")
 public class GetHomeRouteTest {
 
     private GetHomeRoute CuT;

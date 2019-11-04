@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
-@Tag("UI-TIER")
+@Tag("UI-tier")
 public class PostSignoutRouteTest {
 
     // mock objects
