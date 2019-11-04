@@ -146,6 +146,10 @@ import com.webcheckers.util.MoveProcessor;
         return this.board;
     }
 
+
+    public void setBoard(Space[][] b){
+        this.board = b;
+    }
     /**
      * gets the player controlling the white pieces
      *

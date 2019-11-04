@@ -27,7 +27,7 @@ public class Piece {
      * @param type The type of piece constructed.
      * @param color the color of the piece constructed.
      */
-    Piece(pieceType type, pieceColor color) {
+    public Piece(pieceType type, pieceColor color) {
         this.type = type;
         this.color = color;
     }
