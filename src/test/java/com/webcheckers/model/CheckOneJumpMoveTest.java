@@ -162,7 +162,7 @@ public class CheckOneJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(4,4));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-    assertTrue(CuT.checkMoves(move, board));
+    assertFalse(CuT.checkMoves(move, board));
   }
 
   @Test
