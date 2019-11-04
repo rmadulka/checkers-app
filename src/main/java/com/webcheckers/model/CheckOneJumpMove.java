@@ -18,8 +18,8 @@ public class CheckOneJumpMove extends Rules {
                 gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getType() == Piece.pieceType.SINGLE) {
             return false;
         }
-        if(move.getEndRow() <= gameBoard.length - 2 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED ||
-                move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE) {
+        if((move.getEndRow() <= gameBoard.length - 2 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED) ||
+                (move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE)) {
             //checks out of bounds, if next piece is an enemy piece and the space after is empty
             if (!(move.getEndCell() - 2 < 0) &&
                     gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece() != null &&
@@ -35,10 +35,10 @@ public class CheckOneJumpMove extends Rules {
                 return true;
             }
         }
-        if (gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getType() == Piece.pieceType.KING &&
-                move.getEndRow() <= gameBoard.length - 2 &&
-                gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE ||
-                move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED) {
+        if (gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getType().equals(Piece.pieceType.KING) &&
+                ((move.getEndRow() <= gameBoard.length - 2 &&
+                gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE) ||
+                (move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED))) {
             if (!(move.getEndCell() - 2 < 0) &&
                     gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece() != null &&
                     gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
