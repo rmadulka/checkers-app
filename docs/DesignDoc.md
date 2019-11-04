@@ -194,6 +194,9 @@ which is an abstract class being extended in a variety of move validating model 
 JumpMove, KingSimpleMove, KingJumpMove, and SimpleMove, all validate the Move based on its positions and piece status. For
 CheckAllJumpMove, CheckSimpleMove, and CheckOneJumpMove, those classes review whether a multi-jump move, a simple move, or
 a force jump move are available, respectively.
+
+![The WebCheckers Web Interface KingJumpMoveValidationStateChart](KingJumpMoveValidationStateChart.png)
+
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
