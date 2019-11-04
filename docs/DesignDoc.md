@@ -243,8 +243,8 @@ this current sprint.
 Our strategy for unit testing was to test as we went to prevent having to do all the tests at the end of the sprint. 
 This allowed us to determine if we could continue with the MVP. However, we were not able to do this for the majority
 of the tests since we were making continuous changes as we went leading to us having to do a lot of the testing at
-the end of the spring. During testing, our goal was to get above 90% code coverage for all the tests. We did not 
+the end of the sprint. During testing, our goal was to get above 90% code coverage for all the tests. We did not 
 focus much on branching and focused mainly on missed instructions. We set this goal since it is a possible percentage to
 get and by setting it higher would almost be impossible for many of the classes when testing.We were able to reach this 
-goal by having a total code coverage of 95%. We were able to get branching to 81% which is quite high given that we didn't
+goal by having a total code coverage of 95%. We were able to get branching to 81% which is quite high given that we did not
 focus on it.The only class we were unable to test was the Application class. 
