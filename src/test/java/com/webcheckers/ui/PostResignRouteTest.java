@@ -28,7 +28,6 @@ public class PostResignRouteTest {
     private Response response;
     private GameLobby gameLobby;
     private Player playerRed;
-    private Player playerWhite;
 
     /**
      * Sets up all the mock and friendly objects
@@ -41,7 +40,6 @@ public class PostResignRouteTest {
         response = mock(Response.class);
         gameLobby = mock(GameLobby.class);
         playerRed = mock(Player.class);
-        playerWhite = mock(Player.class);
         playerLobby = mock(PlayerLobby.class);
         CuT = new PostResignRoute(playerLobby);
     }
@@ -54,7 +52,7 @@ public class PostResignRouteTest {
         when(session.attribute("currentUser")).thenReturn(playerRed);
         when(playerLobby.getGameLobby(playerRed)).thenReturn(gameLobby);
         when(gameLobby.getIsGameOver()).thenReturn(false);
-        Message m = Message.info("valid");
+        Message m = Message.info("Game has ended");
         assertEquals(CuT.handle(request, response), new Gson().toJson(m));
     }
 
@@ -66,9 +64,7 @@ public class PostResignRouteTest {
         when(session.attribute("currentUser")).thenReturn(playerRed);
         when(playerLobby.getGameLobby(playerRed)).thenReturn(gameLobby);
         when(gameLobby.getIsGameOver()).thenReturn(true);
-        when(gameLobby.getOpponent(playerRed)).thenReturn(playerWhite);
-        when(playerWhite.getName()).thenReturn("name");
-        Message m = Message.error("name has already resigned");
+        Message m = Message.error("Game has already ended");
         assertEquals(CuT.handle(request, response), new Gson().toJson(m));
     }
 }
