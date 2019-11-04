@@ -39,30 +39,27 @@ checkers rules and providing a fully functional server-client connection.
 
 ## Requirements
 
-This section describes the features of the application.
-
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
+The most essential components of Webcheckers is to have sign-in functionality, initiating games with other players, and
+the ability to play a game of checkers according to the American Rules on a GUI with drag-and-drop pieces. In order to
+adhere to the checkers rulebook, developing a system to thoroughly validate moves is mandatory as the code must review
+moves made by the player and asses its validity once the user has submitted their turn. 
 
 ### Definition of MVP
 The Minimum Value Product expresses the most essential requirements that must be developed
-and included within the product in order for it to be satisfactory. For the checkers web-app,
-users must be able to sign in and start a checkers game that abides by the American rules, playing
-on a fully functional GUI board.
+and included within the product in order for it to be satisfactory. 
 
-### MVP Features_
+### MVP Features
 A user must be able to sign in and out of their account, and if they remain logged in they
 can initiate a game with a selected online user. Both users will be transferred to a game board
 screen consisting of all of the checker pieces, along with buttons giving them the option to resign the game
-the game or submit their valid move. When done playing, users can sign out of their account.
+the game, backup their most recent move, or submit their valid turn. When done playing, users can sign out of their account.
 
 ### Roadmap of Enhancements
 
 We have already completed sign-in functionality and the basic structure of the board, so our current sprint plan
 is to complete valid piece movement, develop game structure as users must be able to submit their turn or resign,
 and also to create sign-out functionality. We are expecting to finish the MVP within this sprint, as sprint 3 is
-devoted to completing our enhancements where we want to implement an AI and a replay mode to record and watch previous games.
+devoted to completing our enhancements where we want to implement an AI and a replay mode to record and playback previous games.
 
 ## Application Domain
 
@@ -136,6 +133,7 @@ moves and the page updates after each move is made. Once the game is over, the p
 
 
 ### Application Tier
+Our application tier consists
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
