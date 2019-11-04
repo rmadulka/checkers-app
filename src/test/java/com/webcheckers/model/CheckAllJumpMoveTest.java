@@ -182,7 +182,7 @@ public class CheckAllJumpMoveTest {
   }
 
   @Test
-  public void testRedKingHasNextJump() {
+  public void testRedKingHasNextJumpRight() {
     Position start = new Position(7, 7);
     Space jumping = board.getSpace(new Position(6, 6));
     jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
@@ -196,7 +196,21 @@ public class CheckAllJumpMoveTest {
   }
 
   @Test
-  public void testWhiteKingHasNextJump() {
+  public void testRedKingHasNextJumpLeft() {
+    Position start = new Position(7, 7);
+    Space jumping = board.getSpace(new Position(6, 6));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    Position end = new Position(5, 5);
+    Space ended = board.getSpace(end);
+    ended.place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+    Move move = new Move(start, end);
+    Space ahead = board.getSpace(new Position(4, 4));
+    ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    assertTrue(CuT.checkMoves(move, board));
+  }
+
+  @Test
+  public void testWhiteKingHasNextJumpRight() {
     board.switchTurn();
     Position start = new Position(0, 0);
     Space jumping = board.getSpace(new Position(1, 1));
@@ -206,6 +220,21 @@ public class CheckAllJumpMoveTest {
     ended.place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(3, 1));
+    ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertTrue(CuT.checkMoves(move, board));
+  }
+
+  @Test
+  public void testWhiteKingHasNextJumpLeft() {
+    board.switchTurn();
+    Position start = new Position(0, 0);
+    Space jumping = board.getSpace(new Position(1, 1));
+    jumping.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    Position end = new Position(2, 2);
+    Space ended = board.getSpace(end);
+    ended.place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+    Move move = new Move(start, end);
+    Space ahead = board.getSpace(new Position(3, 3));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
     assertTrue(CuT.checkMoves(move, board));
   }
