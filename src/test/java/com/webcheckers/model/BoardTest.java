@@ -18,10 +18,12 @@ public class BoardTest {
   public static final int minPlaceRow = 4;
 
   private static Move move;
+  private static Move move2;
 
   @BeforeAll
   public static void init () {
     move = new Move(new Position(6,5), new Position(7,6));
+    move2 = new Move(new Position(5, 4), new Position(7, 6));
   }
 
 
@@ -36,7 +38,7 @@ public class BoardTest {
   }
 
   /**
-   * Helper function that fills in the spaces in the boaard
+   * Helper function that fills in the spaces in the board
    * @param testBoard
    */
   private void testBoardInit(Space[][] testBoard) {
@@ -164,12 +166,33 @@ public class BoardTest {
     }
   }
 
-  /*@Test
-  public void testMakeMove() {
-    Space[][] game = new Space[8][8];
-    game[5][6].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
-    assertEquals(Piece.pieceType.SINGLE, game[5][6].getPiece().getType());
+  /**
+   * Tests if we can make a move and if we can convert a piece to a king
+   */
+  @Test
+  public void testMakeMoveAndConvertKing() {
+    Space[][] game = new Space[TEST_SIZE][TEST_SIZE];
+    testBoardInit(game);
+    game[6][5].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    assertEquals(Piece.pieceType.SINGLE, game[6][5].getPiece().getType());
     CuT.makeMove(move);
+    Space[][] updateGame = CuT.getBoard();
+    assertEquals(Piece.pieceType.KING, updateGame[7][6].getPiece().getType());
+  }
 
-  }*/
+  /**
+   * Tests a jump move in makemove method and makeTempMove method
+   */
+  @Test
+  public void testMakeMoveAndTempMove() {
+    Space[][] game = new Space[TEST_SIZE][TEST_SIZE];
+    testBoardInit(game);
+    game[5][4].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    CuT.makeMove(move2);
+    Space[][] updateGame = CuT.getBoard();
+    assertNull(updateGame[6][5].getPiece());
+
+    CuT.makeTempMove(move2);
+    assertNull(updateGame[6][5].getPiece());
+  }
 }
