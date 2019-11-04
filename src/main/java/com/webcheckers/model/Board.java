@@ -43,8 +43,8 @@ import com.webcheckers.util.MoveProcessor;
         init();
         //populate();
         //customPopulate();
-        //endGameTestOne();
-        endGameTestTwo();
+        endGameTestOne();
+        //endGameTestTwo();
     }
 
     /**
@@ -363,19 +363,7 @@ import com.webcheckers.util.MoveProcessor;
         return false;
     }
 
-    public boolean checkAvailableMoves() {
-        boolean result = false;
-        for (int r = 0; r < SIZE - 1; r++) {
-            for (int c = 0; c < SIZE - 1; c++) {
-                if(board[r][c]!=null){
-                    result = result || checkSingleAvailableMove();
-                }
-            }
-        }
-        return result;
-    }
-
-    public boolean checkSingleAvailableMove(){
+    public boolean checkAvailableMove(){
         return MoveProcessor.allJumpRule.checkMoves(null, this) || MoveProcessor.allSimpleMoveRule.checkMoves(null, this);
     }
 }
