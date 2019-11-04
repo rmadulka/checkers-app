@@ -202,6 +202,7 @@ public class CheckAllJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(4, 6));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    jumping.removePiece();
     assertTrue(CuT.checkForJumpMove(board));
     assertTrue(CuT.checkMoves(move, board));
   }
@@ -217,6 +218,7 @@ public class CheckAllJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(4, 4));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    jumping.removePiece();
     assertTrue(CuT.checkForJumpMove(board));
     assertTrue(CuT.checkMoves(move, board));
   }
@@ -233,6 +235,7 @@ public class CheckAllJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(3, 1));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    jumping.removePiece();
     assertTrue(CuT.checkForJumpMove(board));
     assertTrue(CuT.checkMoves(move, board));
   }
@@ -249,6 +252,7 @@ public class CheckAllJumpMoveTest {
     Move move = new Move(start, end);
     Space ahead = board.getSpace(new Position(3, 3));
     ahead.place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+    jumping.removePiece();
     assertTrue(CuT.checkForJumpMove(board));
     assertTrue(CuT.checkMoves(move, board));
   }
