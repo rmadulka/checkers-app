@@ -143,6 +143,8 @@ the user can press the exit button, in which ExitGameRoute is invoked, which rem
 and redirects them back home. At home, a user can hit the sign out link, which invokes PostSignOutRoute, which removes
 the user from the PlayerLobby. A player cannot sign out during a game.
 
+![The WebCheckers Web Interface checkTurn State Diagram](CheckTurnRouteStateDiagram.png)
+
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class structure or object diagrams) with some
 > details such as critical attributes and methods._
