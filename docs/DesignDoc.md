@@ -82,7 +82,7 @@ In the application, our design focuses on utilizing MVC. The user is able to int
 includes the ftl, CSS and JavaScript. The controller consists of the two application tier classes PlayerLobby and 
 GameLobby which are invoked by most of the UI tier handler classes. The model contains most of the move validation and stores the 
 information related to players and the positions on the board. We designed the board using a 2d array so we could iterate
-through to find specific pieces and to validate the moves of a piece. Furthermore, we implemented iterator to populate the 
+through to find specific pieces and to validate the moves of a piece. Furthermore, we implemented an iterator to populate the 
 board in the ftl so that the user could see and interact with a changing board. When implementing move validation, we decided
 to use an abstract class that different move classes extended to make it easier to check for valid moves. We split this into
 checking for a jump, a simple move, a backwards king move and a backwards king jump. By splitting these rules into
@@ -144,13 +144,13 @@ and redirects them back home. At home, a user can hit the sign out link, which i
 the user from the PlayerLobby. A player cannot sign out during a game.
 
 
-A state diagram that shows the overall states of playing a game. The PostSubmitTurn and PostCheckTurn routes are used to
-the user from the PlayerLobby. A player cannot sign out during a game. The PostSubmitTurn and PostCheckTurn routes are used to
+
 
 
 ![The WebCheckers Web Interface Statechart](GameStateDiagram.png)
-
-A state diagram that shows the overall states of playing a game.
+A state diagram that shows the overall states of playing a game. The PostSubmitTurn and PostCheckTurn routes are used to
+change the turns during the game. GetGameRoute is used to load the game page. PostExitGame is used to go back to the home
+page.
 
 ![UI Tier uml](UI Tier UML.png)
 Shows the UML diagram of the UI tier classes.
