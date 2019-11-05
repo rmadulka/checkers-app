@@ -186,6 +186,7 @@ in a current game together, allowing UI classes to directly access user informat
 within the UI tier.
 
 ![Application tier UML](appl.png)
+Shows the UML diagram for a Application tier
 
 Both application classes include information such as the board, players, moves, and game statuses,
 allowing the UI classes to extract that data and have it visible to both users.
@@ -208,6 +209,7 @@ JumpMove, KingSimpleMove, KingJumpMove, and SimpleMove, all validate the Move ba
 CheckAllJumpMove, CheckSimpleMove, and CheckOneJumpMove, those classes review whether a multi-jump move, a simple move, or
 a force jump move are available, respectively.
 ![Model Tier UML](model.png)
+Shows the UML diagram for the Model Tier
 ![The WebCheckers Web Interface KingJumpMoveValidationStateChart](KingJumpMoveValidationStateChart1.png)
 The KingJumpMoveValidation() Statechart demonstrates how the method processes on determining whether
 or not the current move is a valid King Jump Move. It initially is called by MoveProcessor and then the
