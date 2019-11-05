@@ -129,7 +129,7 @@ moves and the page updates after each move is made. Once the game is over, the p
 > a flow or "story line" that the reader can follow._
 
 The user begins by connecting to the web page by invoking GetHomeRoute in which they are prompted with a sign in link. When the user signs in,
-GetSignInRoute is called. When the user enters a name, PostSignInRoute is called; if the name is valid, the user will
+GetSignInRoute is called. When the user enters a name, PostSignInRoute is called; if the name is valid, the user will be
 directed home, otherwise the page displays an error message and the user can try again. Back home, the user can see and
 click on other online players. If another player is clicked on, GetGameRoute is invoked; if the clicked on player is
 already in a game, the user is sent home with and error message, otherwise a game is created between the two players and
@@ -143,10 +143,21 @@ the user can press the exit button, in which ExitGameRoute is invoked, which rem
 and redirects them back home. At home, a user can hit the sign out link, which invokes PostSignOutRoute, which removes
 the user from the PlayerLobby. A player cannot sign out during a game.
 
+<<<<<<< HEAD
 A state diagram that shows the overall states of playing a game. The PostSubmitTurn and PostCheckTurn routes are used to
 change the turns during the game. GetGameRoute is used to load the game page. PostExitGame is used to go back to the home
 page.
 ![The WebCheckers Web Interface Statechart](GameStateDiagram.png)
+=======
+![UI Tier uml](UI Tier UML.png)
+Shows the UML diagram of the UI tier classes.
+
+![checkTurn State Diagram](CheckTurnRouteStateDiagram.png)
+Shows the state diagram of the player waiting for their turn.
+
+![Game Route Sequence Diagram](GameRouteSequence.png)
+Shows the sequence diagram of the GetGameRoute
+>>>>>>> c62a083084abda26361243de13fce145cb03e0d1
 
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class structure or object diagrams) with some
@@ -190,6 +201,15 @@ which is an abstract class being extended in a variety of move validating model 
 JumpMove, KingSimpleMove, KingJumpMove, and SimpleMove, all validate the Move based on its positions and piece status. For
 CheckAllJumpMove, CheckSimpleMove, and CheckOneJumpMove, those classes review whether a multi-jump move, a simple move, or
 a force jump move are available, respectively.
+
+![The WebCheckers Web Interface KingJumpMoveValidationStateChart](KingJumpMoveValidationStateChart1.png)
+The KingJumpMoveValidation() Statechart demonstrates how the method processes on determining whether
+or not the current move is a valid King Jump Move. It initially is called by MoveProcessor and then the 
+current move is retrieved and analyzed. The variable "one" is based off of the piece color, in which it is
+either 1 if its red or -1 if the piece is white. This is due to the fact that red and white players moves are
+inverted compared to one another as they start on different sides of the board. Then our the KingJumpValidation() method
+proceeds to check for a backwards right jump and then a backwards left jump, returning true if the conditions pass or 
+false if neither pass.
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
@@ -248,7 +268,8 @@ this current sprint.
 Our strategy for unit testing was to test as we went to prevent having to do all the tests at the end of the sprint. 
 This allowed us to determine if we could continue with the MVP. However, we were not able to do this for the majority
 of the tests since we were making continuous changes as we went leading to us having to do a lot of the testing at
-the end of the spring. During testing, our goal was to get above 90% code coverage for all the tests. We did not 
+the end of the sprint. During testing, our goal was to get above 90% code coverage for all the tests. We did not 
 focus much on branching and focused mainly on missed instructions. We set this goal since it is a possible percentage to
 get and by setting it higher would almost be impossible for many of the classes when testing.We were able to reach this 
-goal by having an overall code coverage above 90%. The only class we were unable to test was the Application class. 
+goal by having a total code coverage of 95%. We were able to get branching to 81% which is quite high given that we did not
+focus on it.The only class we were unable to test was the Application class. 
