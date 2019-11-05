@@ -195,7 +195,7 @@ JumpMove, KingSimpleMove, KingJumpMove, and SimpleMove, all validate the Move ba
 CheckAllJumpMove, CheckSimpleMove, and CheckOneJumpMove, those classes review whether a multi-jump move, a simple move, or
 a force jump move are available, respectively.
 
-![The WebCheckers Web Interface KingJumpMoveValidationStateChart](KingJumpMoveValidationStateChart.png)
+![The WebCheckers Web Interface KingJumpMoveValidationStateChart](KingJumpMoveValidationStateChart1.png)
 The KingJumpMoveValidation() Statechart demonstrates how the method processes on determining whether
 or not the current move is a valid King Jump Move. It initially is called by MoveProcessor and then the 
 current move is retrieved and analyzed. The variable "one" is based off of the piece color, in which it is
