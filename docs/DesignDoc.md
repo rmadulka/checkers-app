@@ -83,7 +83,11 @@ includes the ftl, CSS and JavaScript. The controller consists of the two applica
 GameLobby which are invoked by most of the UI tier handler classes. The model contains most of the move validation and stores the
 information related to players and the positions on the board. We designed the board using a 2d array so we could iterate
 <<<<<<< HEAD
+<<<<<<< HEAD
 through to find specific pieces and to validate the moves of a piece. Furthermore, we implemented an iterator to populate the 
+=======
+through to find specific pieces and to validate the moves of a piece. Furthermore, we implemented iterator to populate the
+>>>>>>> 4aafcb013ce7464edd8b09f2d07c717cfdb63305
 =======
 through to find specific pieces and to validate the moves of a piece. Furthermore, we implemented iterator to populate the
 >>>>>>> 4aafcb013ce7464edd8b09f2d07c717cfdb63305
