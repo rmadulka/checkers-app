@@ -1,0 +1,147 @@
+@startuml model
+class MoveProcessor {
+  +rules: ArrayList<Rules>
+  +allJumpRule: CheckAllJumpMove
+  +oneJumpRule: CheckOneJumpMove
+  +allSimpleMoveRule: CheckSimpleMove
+  +temporaryBoard: Board
+  +{static}validateTurn(): boolean
+  +{static}validateMove(): boolean
+  +{static}processMoves(): void
+  +{static}refreshTempBoard: void
+}
+
+class Player {
+  -name: String
+  -inGame: boolean
+  -turnStack: Stack<Move>
+  +add(move): void
+  +setInGame(boolean): void
+}
+
+class Board {
+  -{static}SIZE: int
+  -redPlayer: Player
+  -whitePlayer: Player
+  -board: Space[][]
+  -activePlayer: Piece.pieceColor
+  +getBoard(): Space[][]
+  +makeMove(Move)
+  +switchTurn()
+  +reverseRow(): Space[]
+}
+
+class Row {
+  -index: int
+  -spaceSequence: ArrayList<Space>
+  +getIndex(): int
+  +iterator(): Iterator<Space>
+}
+
+class Space {
+  -cellIdx: int
+  -isDark: boolean
+  -piece: Piece
+  +getCellIdx(): int
+  +isValid(): boolean
+  +place(Piece): boolean
+  +copyPiece(): Piece
+}
+
+class Piece {
+  -type: pieceType
+  -color: pieceColor
+  +getSpace(Position): Space
+  +getColor(): Piece.pieceColor
+  +convertToKing()
+}
+
+class Move {
+  -start: Position
+  -end: Position
+  getStart(): Position
+  getEnd(): Position
+}
+
+class Position {
+  -row: int
+  -cell: int
+  +getRow(): int
+  +getCell(): int
+}
+
+class Rules {
+  +{abstract}checkMoves(Move, Board): boolean
+}
+
+class SimpleMove {
+  +checkMoves(Move, Board): boolean
+  -validateSimpleMove(Move, Board): boolean
+}
+
+class JumpMove {
+  +checkMoves(Move, Board): boolean
+  -validateJumpMove(Move, Board): boolean
+}
+
+class KingSimpleMove {
+  +checkMoves(Move, Board): boolean
+  -validateKingSimpleMove(Move, Board): boolean
+}
+
+class KingJumpMove {
+  +checkMoves(Move, Board): boolean
+  -validateKingJumpMove(Move, Board): boolean
+}
+
+class CheckSimpleMove {
+  +checkMoves(Move, Board): boolean
+  -checkForSimpleMove(Board): boolean
+}
+
+class CheckOneJumpMove {
+  +checkMoves(Move, Board): boolean
+  -checkForMultiJump(Board): boolean
+}
+
+class CheckAllJumpMove {
+  +checkMoves(Move, Board): boolean
+  -checkForJumpMove(Board): boolean
+}
+
+together {
+  class Board
+  class CheckAllJumpMove
+  class CheckOneJumpMove
+  class CheckSimpleMove
+  class JumpMove
+  class KingJumpMove
+  class KingSimpleMove
+  class Move
+  class Piece
+  class Player
+  class Position
+  class Row
+  class Rules
+  class SimpleMove
+  class Space
+}
+
+Row --> Space
+MoveProcessor --> Rules
+MoveProcessor -> Board
+
+Rules <|-up- SimpleMove
+Rules <|-up- JumpMove
+Rules <|-down- KingSimpleMove
+Rules <|-down- KingJumpMove
+Rules <|-up- CheckSimpleMove
+Rules <|-up- CheckOneJumpMove
+Rules <|-- CheckAllJumpMove
+Player <-- Board
+Board --> Space
+Board --> Move
+Space --> Piece
+Move --> Position
+
+@enduml

@@ -1,0 +1,93 @@
+@startuml ui
+class PostCheckTurnRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostExitGameRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostSignInRoute {
+  -playerLobby: PlayerLobby
+  -templateEngine: TemplateEngine
+  +handle(Response,Request): Object
+  -error(Map<String, Object>, String): ModelAndView
+}
+
+class BackUpMoveRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostProposedMoveRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class GetSigninRoute {
+  -templateEngine: TemplateEngine
+  -LOG: Logger
+  +handle(Response, Request): Object
+}
+
+class PostResignRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostSubmitTurnRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class GetGameRoute {
+  -playerLobby: PlayerLobby
+  -templateEngine: TemplateEngine
+  -LOG: Logger
+  +handle(Response, Request): Object
+}
+
+class BoardView {
+  -rows: ArrayList<Row>
+  -redPlayer: Player
+  -whitePlayer: Player
+  +getColor(Player, Board): Piece.pieceColor
+  +iterator(): Iterator<Row>
+  +getRed(): Player
+  +getWhite(): Player
+}
+
+together {
+  class BackUpMoveRoute
+  class BoardView
+  class GetGameRoute
+  class GetSigninRoute
+  class PostCheckTurnRoute
+  class PostExitGameRoute
+  class PostProposedMoveRoute
+  class PostResignRoute
+  class PostSubmitTurnRoute
+}
+
+class PlayerLobby {
+  -players: HashSet<Player>
+  -currentGames: ArrayList<GameLobby>
+  +startGame(Player, Player): GameLobby
+  +checkUsername(String):signinErrors
+  +removeGameLobby(GameLobby): GameLobby
+}
+
+PostCheckTurnRoute -up-> PlayerLobby
+PostExitGameRoute --> PlayerLobby
+PostSignInRoute --> PlayerLobby
+PostProposedMoveRoute --> PlayerLobby
+BackUpMoveRoute --> PlayerLobby
+GetSigninRoute -up-> PlayerLobby
+PostResignRoute -up-> PlayerLobby
+PostSubmitTurnRoute --> PlayerLobby
+GetGameRoute -up-> PlayerLobby
+GetGameRoute -up-> BoardView
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml appl
+
+class PlayerLobby {
+  -players: HashSet<Player>
+  -currentGames: ArrayList<GameLobby>
+  +startGame(Player, Player): GameLobby
+  +checkUsername(String):signinErrors
+  +removeGameLobby(GameLobby): GameLobby
+}
+
+class GameLobby {
+  -redPlayer: Player
+  -whitePlayer: Player
+  -board: Board
+  +getOpponent(Player): void
+  +removeOpponent(Player): void
+  +endGame(Message): void
+}
+
+class Player {
+  -name: String
+  -inGame: boolean
+  -turnStack: Stack<Move>
+  +add(move): void
+  +setInGame(boolean): void
+}
+
+class Board {
+  -{static}SIZE: int
+  -redPlayer: Player
+  -whitePlayer: Player
+  -board: Space[][]
+  -activePlayer: Piece.pieceColor
+  +getBoard(): Space[][]
+  +makeMove(Move)
+  +switchTurn()
+  +reverseRow(): Space[]
+}
+
+together {
+  class GameLobby
+  class PlayerLobby
+  class Player
+  class Board
+}
+
+PlayerLobby --> GameLobby
+Player <- GameLobby
+GameLobby --> Board
+Board --> Player
+@enduml
