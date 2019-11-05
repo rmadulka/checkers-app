@@ -141,14 +141,13 @@ player can resign, in which PostResignRoute is invoked, which ends the game and 
 tries to resign after a game has ended, the PostResignRoute will not allow resignation. When the exit page is displayed,
 the user can press the exit button, in which ExitGameRoute is invoked, which removes the player from the GameLobby
 and redirects them back home. At home, a user can hit the sign out link, which invokes PostSignOutRoute, which removes
-the user from the PlayerLobby. A player cannot sign out during a game.
-
-<<<<<<< HEAD
-A state diagram that shows the overall states of playing a game. The PostSubmitTurn and PostCheckTurn routes are used to
+the user from the PlayerLobby. A player cannot sign out during a game. The PostSubmitTurn and PostCheckTurn routes are used to
 change the turns during the game. GetGameRoute is used to load the game page. PostExitGame is used to go back to the home
 page.
+
 ![The WebCheckers Web Interface Statechart](GameStateDiagram.png)
-=======
+A state diagram that shows the overall states of playing a game.
+
 ![UI Tier uml](UI Tier UML.png)
 Shows the UML diagram of the UI tier classes.
 
@@ -157,7 +156,6 @@ Shows the state diagram of the player waiting for their turn.
 
 ![Game Route Sequence Diagram](GameRouteSequence.png)
 Shows the sequence diagram of the GetGameRoute
->>>>>>> c62a083084abda26361243de13fce145cb03e0d1
 
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class structure or object diagrams) with some
