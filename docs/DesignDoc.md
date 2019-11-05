@@ -3,11 +3,6 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
 * Team name: Checkm8
 * Team members
@@ -30,7 +25,6 @@ checkers rules and providing a fully functional server-client connection.
 
 
 ### Glossary and Acronyms
-> _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
@@ -123,10 +117,6 @@ chooses to play an online user, they will both be sent to the game screen. On th
 moves and the page updates after each move is made. Once the game is over, the player will be sent back to the homepage.
 
 ### UI Tier
-> _Provide a summary of the Server-side UI tier of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
 
 The user begins by connecting to the web page by invoking GetHomeRoute in which they are prompted with a sign in link. When the user signs in,
 GetSignInRoute is called. When the user enters a name, PostSignInRoute is called; if the name is valid, the user will be
@@ -145,8 +135,6 @@ the user from the PlayerLobby. A player cannot sign out during a game.
 
 
 
-
-
 ![The WebCheckers Web Interface Statechart](GameStateDiagram.png)
 A state diagram that shows the overall states of playing a game. The PostSubmitTurn and PostCheckTurn routes are used to
 change the turns during the game. GetGameRoute is used to load the game page. PostExitGame is used to go back to the home
@@ -161,24 +149,6 @@ Shows the state diagram of the player waiting for their turn.
 ![Game Route Sequence Diagram](GameRouteSequence.png)
 Shows the sequence diagram of the GetGameRoute
 
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class structure or object diagrams) with some
-> details such as critical attributes and methods._
-
-> _You must also provide any dynamic models, such as statechart and
-> sequence diagrams, as is relevant to a particular aspect of the design
-> that you are describing.  For example, in WebCheckers you might create
-> a sequence diagram of the `POST /validateMove` HTTP request processing
-> or you might show a statechart diagram if the Game component uses a
-> state machine to manage the game._
-
-> _If a dynamic model, such as a statechart describes a feature that is
-> not mostly in this tier and cuts across multiple tiers, you can
-> consider placing the narrative description of that feature in a
-> separate section for describing significant features. Place this after
-> you describe the design of the three tiers._
-
-
 ### Application Tier
 Our application tier consists of two classes that are both intended to manage board logic along with providing
 services to the UI tier. PlayerLobby directly manages all online users and GameLobby manages users that are both
@@ -190,9 +160,6 @@ Shows the UML diagram for a Application tier
 
 Both application classes include information such as the board, players, moves, and game statuses,
 allowing the UI classes to extract that data and have it visible to both users.
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
 
 
 ### Model Tier
@@ -208,8 +175,10 @@ which is an abstract class being extended in a variety of move validating model 
 JumpMove, KingSimpleMove, KingJumpMove, and SimpleMove, all validate the Move based on its positions and piece status. For
 CheckAllJumpMove, CheckSimpleMove, and CheckOneJumpMove, those classes review whether a multi-jump move, a simple move, or
 a force jump move are available, respectively.
+
 ![Model Tier UML](model.png)
 Shows the UML diagram for the Model Tier
+
 ![The WebCheckers Web Interface KingJumpMoveValidationStateChart](KingJumpMoveValidationStateChart1.png)
 The KingJumpMoveValidation() Statechart demonstrates how the method processes on determining whether
 or not the current move is a valid King Jump Move. It initially is called by MoveProcessor and then the
@@ -218,19 +187,9 @@ either 1 if its red or -1 if the piece is white. This is due to the fact that re
 inverted compared to one another as they start on different sides of the board. Then our the KingJumpValidation() method
 proceeds to check for a backwards right jump and then a backwards left jump, returning true if the conditions pass or
 false if neither pass.
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
+
 
 ### Design Improvements
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements. After completion of the Code metrics exercise, you
-> will also discuss the resulting metric measurements.  Indicate the
-> hot spots the metrics identified in your code base, and your
-> suggested design improvements to address those hot spots._
 
 For the next sprint, we should focus on fixing law of demeter violations in our code. There are some places in our code
 that use too much coupling to access information about an object. For example, in order to get the color of a piece, we use
@@ -249,8 +208,6 @@ especially when reviewing our temporary board and finalized board implementation
 of fully validated moves. We developed a printBoard() class within Board in order to review moves on the temporary
 board so we can review how the board is being updated. With those techniques, we were able to create a specific
 condition to better our testing efficiency.
-> _This section will provide information about the testing performed
-> and the results of the testing._
 
 
 ### Acceptance Testing
@@ -260,18 +217,10 @@ in which we had a plethora of bugs involving forcing jump moves for both simple 
 comments were left mentioning bugs occurring within the Acceptance Testing sheet and it was later updated once
 those code fixes were made. Overall, all of our user stories have been thoroughly tested and approved for
 this current sprint.
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
+
 
 ### Unit Testing and Code Coverage
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
+
 
 Our strategy for unit testing was to test as we went to prevent having to do all the tests at the end of the sprint.
 This allowed us to determine if we could continue with the MVP. However, we were not able to do this for the majority
