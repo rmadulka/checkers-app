@@ -14,7 +14,7 @@ public class CheckOneJumpMove extends Rules {
         if (board.getActiveColor() == Piece.pieceColor.WHITE) {
             negOne = -1;
         }
-        if (((move.getEndRow() > gameBoard.length - 2 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED) ||
+        if (((move.getEndRow() >= gameBoard.length - 2 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED) ||
                 (move.getEndRow() - 2 < 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE)) &&
                 gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getType() == Piece.pieceType.SINGLE) {
             return false;
