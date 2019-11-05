@@ -1,0 +1,47 @@
+@startuml moveproc
+
+class MoveProcessor {
+  +rules: ArrayList<Rules>
+  +allJumpRule: CheckAllJumpMove
+  +oneJumpRule: CheckOneJumpMove
+  +allSimpleMoveRule: CheckSimpleMove
+  +temporaryBoard: Board
+  +{static}validateTurn(): boolean
+  +{static}validateMove(): boolean
+  +{static}processMoves(): void
+  +{static}refreshTempBoard: void
+}
+
+class Rules {
+  +{abstract}checkMoves(Move, Board): boolean
+}
+
+class BackUpMoveRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostProposedMoveRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostSubmitTurnRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+together {
+  class MoveProcessor
+  class Rules
+  class BackUpMoveRoute
+  class PostProposedMoveRoute
+  class PostSubmitTurnRoute
+}
+
+BackUpMoveRoute --> MoveProcessor
+PostProposedMoveRoute --> MoveProcessor
+PostSubmitTurnRoute --> MoveProcessor
+Rules -up-> MoveProcessor
+
+@enduml

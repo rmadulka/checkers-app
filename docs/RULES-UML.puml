@@ -1,0 +1,60 @@
+@startuml rules
+class Rules {
+  +{abstract}checkMoves(Move, Board): boolean
+}
+
+class SimpleMove {
+  +checkMoves(Move, Board): boolean
+  -validateSimpleMove(Move, Board): boolean
+}
+
+class JumpMove {
+  +checkMoves(Move, Board): boolean
+  -validateJumpMove(Move, Board): boolean
+}
+
+class KingSimpleMove {
+  +checkMoves(Move, Board): boolean
+  -validateKingSimpleMove(Move, Board): boolean
+}
+
+class KingJumpMove {
+  +checkMoves(Move, Board): boolean
+  -validateKingJumpMove(Move, Board): boolean
+}
+
+class CheckSimpleMove {
+  +checkMoves(Move, Board): boolean
+  -checkForSimpleMove(Board): boolean
+}
+
+class CheckOneJumpMove {
+  +checkMoves(Move, Board): boolean
+  -checkForMultiJump(Board): boolean
+}
+
+class CheckAllJumpMove {
+  +checkMoves(Move, Board): boolean
+  -checkForJumpMove(Board): boolean
+}
+
+together {
+  class Rules
+  class SimpleMove
+  class JumpMove
+  class KingSimpleMove
+  class KingJumpMove
+  class CheckSimpleMove
+  class CheckOneJumpMove
+  class CheckAllJumpMove
+}
+
+Rules <|- SimpleMove
+Rules <|-left JumpMove
+Rules <|-up- KingSimpleMove
+Rules <|-up- KingJumpMove
+Rules <|-down- CheckSimpleMove
+Rules <|-down- CheckOneJumpMove
+Rules <|-down- CheckAllJumpMove
+
+@enduml

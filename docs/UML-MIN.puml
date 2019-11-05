@@ -1,0 +1,55 @@
+@startuml uml-min
+
+MoveProcessor -down-> Rules
+SimpleMove -right-|> Rules
+JumpMove -up-|> Rules
+KingSimpleMove -up-|> Rules
+KingJumpMove -up-|> Rules
+CheckSimpleMove -left-|> Rules
+CheckOneJump --|> Rules
+CheckAllJump --|> Rules
+
+together {
+  class MoveProcessor
+  class SimpleMove
+  class JumpMove
+  class KingSimpleMove
+  class KingJumpMove
+  class CheckSimpleMove
+  class CheckOneJump
+  class CheckAllJump
+}
+
+together {
+  class Board
+  class Space
+  class Piece
+  class Move
+  class Position
+}
+MoveProcessor -up-> Board
+Board --> Space
+Space --> Piece
+Board --> Move
+Move --> Position
+
+Board -up-> Player
+GameLobby -left-> Player
+GameLobby --> Board
+PlayerLobby --> GameLobby
+
+Row --> Space
+BoardView --> Row
+GetGameRoute --> BoardView
+PlayerLobby -left-> GetGameRoute
+
+PostCheckTurnRoute --> PlayerLobby
+PostExitGameRoute --> PlayerLobby
+PostSigninRoute --> PlayerLobby
+GetSigninRoute --> PlayerLobby
+PostResignRoute --> PlayerLobby
+BackUpMoveRoute --> PlayerLobby
+BackUpMoveRoute --> MoveProcessor
+PostSubmitTurnRoute --> PlayerLobby
+PostSubmitTurnRoute --> MoveProcessor
+@enduml
