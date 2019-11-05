@@ -47,9 +47,7 @@ public class PostSubmitTurnRoute implements Route {
             //EndGame Conditions
             if(board.checkNoAvailiablePieces()){
                 gameLobby.endGame(Message.info(String.format("%s has no remaining pieces",board.getActiveColor().toString())));
-            }
-
-            if(!board.checkAvailableMove()){
+            } else if(!board.checkAvailableMove()){
                 gameLobby.endGame(Message.info(String.format("%s has no available moves",board.getActiveColor().toString())));
             }
 

@@ -143,6 +143,11 @@ the user can press the exit button, in which ExitGameRoute is invoked, which rem
 and redirects them back home. At home, a user can hit the sign out link, which invokes PostSignOutRoute, which removes
 the user from the PlayerLobby. A player cannot sign out during a game.
 
+A state diagram that shows the overall states of playing a game. The PostSubmitTurn and PostCheckTurn routes are used to
+change the turns during the game. GetGameRoute is used to load the game page. PostExitGame is used to go back to the home
+page.
+![The WebCheckers Web Interface Statechart](GameStateDiagram.png)
+
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class structure or object diagrams) with some
 > details such as critical attributes and methods._
