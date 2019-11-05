@@ -1,0 +1,221 @@
+@startuml webcheckers
+skinparam groupInheritance 3
+BackUpMoveRoute --> MoveProcessor
+PostProposedMoveRoute --> MoveProcessor
+PostSubmitTurnRoute --> MoveProcessor
+PostCheckTurnRoute --> PlayerLobby
+PostExitGameRoute --> PlayerLobby
+PostSignInRoute --> PlayerLobby
+PostProposedMoveRoute --> PlayerLobby
+BackUpMoveRoute --> PlayerLobby
+GetSigninRoute --> PlayerLobby
+PostResignRoute --> PlayerLobby
+PostSubmitTurnRoute --> PlayerLobby
+GetGameRoute --> PlayerLobby
+GetGameRoute --> BoardView
+BoardView -> Row
+Row -> Space
+MoveProcessor -----> Rules
+MoveProcessor --> Board
+PlayerLobby --> GameLobby
+Player <- GameLobby
+GameLobby --> Board
+Rules <|-- SimpleMove
+Rules <|-- JumpMove
+Rules <|-- KingSimpleMove
+Rules <|-- KingJumpMove
+Rules <|-- CheckSimpleMove
+Rules <|-- CheckOneJumpMove
+Rules <|-- CheckAllJumpMove
+Player <-- Board
+Board --> Space
+Board -> Move
+Space -> Piece
+Move -> Position
+class PostCheckTurnRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostExitGameRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostSignInRoute {
+  -playerLobby: PlayerLobby
+  -templateEngine: TemplateEngine
+  +handle(Response,Request): Object
+  -error(Map<String, Object>, String): ModelAndView
+}
+
+class BackUpMoveRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostProposedMoveRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class GetSigninRoute {
+  -templateEngine: TemplateEngine
+  -LOG: Logger
+  +handle(Response, Request): Object
+}
+
+class PostResignRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class PostSubmitTurnRoute {
+  -playerLobby: PlayerLobby
+  +handle(Response, Request): Object
+}
+
+class GetGameRoute {
+  -playerLobby: PlayerLobby
+  -templateEngine: TemplateEngine
+  -LOG: Logger
+  +handle(Response, Request): Object
+}
+
+class BoardView {
+  -rows: ArrayList<Row>
+  -redPlayer: Player
+  -whitePlayer: Player
+  +getColor(Player, Board): Piece.pieceColor
+  +iterator(): Iterator<Row>
+  +getRed(): Player
+  +getWhite(): Player
+}
+
+class Row {
+  -index: int
+  -spaceSequence: ArrayList<Space>
+  +getIndex(): int
+  +iterator(): Iterator<Space>
+}
+
+class MoveProcessor {
+  +rules: ArrayList<Rules>
+  +allJumpRule: CheckAllJumpMove
+  +oneJumpRule: CheckOneJumpMove
+  +allSimpleMoveRule: CheckSimpleMove
+  +temporaryBoard: Board
+  +{static}validateTurn(): boolean
+  +{static}validateMove(): boolean
+  +{static}processMoves(): void
+  +{static}refreshTempBoard: void
+}
+
+class PlayerLobby {
+  -players: HashSet<Player>
+  -currentGames: ArrayList<GameLobby>
+  +startGame(Player, Player): GameLobby
+  +checkUsername(String):signinErrors
+  +removeGameLobby(GameLobby): GameLobby
+}
+
+class GameLobby {
+  -redPlayer: Player
+  -whitePlayer: Player
+  -board: Board
+  +getOpponent(Player): void
+  +removeOpponent(Player): void
+  +endGame(Message): void
+}
+
+class Player {
+  -name: String
+  -inGame: boolean
+  -turnStack: Stack<Move>
+  +add(move): void
+  +setInGame(boolean): void
+}
+
+class Board {
+  -{static}SIZE: int
+  -redPlayer: Player
+  -whitePlayer: Player
+  -board: Space[][]
+  -activePlayer: Piece.pieceColor
+  +getBoard(): Space[][]
+  +makeMove(Move)
+  +switchTurn()
+  +reverseRow(): Space[]
+}
+
+class Space {
+  -cellIdx: int
+  -isDark: boolean
+  -piece: Piece
+  +getCellIdx(): int
+  +isValid(): boolean
+  +place(Piece): boolean
+  +copyPiece(): Piece
+}
+
+class Piece {
+  -type: pieceType
+  -color: pieceColor
+  +getSpace(Position): Space
+  +getColor(): Piece.pieceColor
+  +convertToKing()
+}
+
+class Move {
+  -start: Position
+  -end: Position
+  getStart(): Position
+  getEnd(): Position
+}
+
+class Position {
+  -row: int
+  -cell: int
+  +getRow(): int
+  +getCell(): int
+}
+
+class Rules {
+  +{abstract}checkMoves(Move, Board): boolean
+}
+
+class SimpleMove {
+  +checkMoves(Move, Board): boolean
+  -validateSimpleMove(Move, Board): boolean
+}
+
+class JumpMove {
+  +checkMoves(Move, Board): boolean
+  -validateJumpMove(Move, Board): boolean
+}
+
+class KingSimpleMove {
+  +checkMoves(Move, Board): boolean
+  -validateKingSimpleMove(Move, Board): boolean
+}
+
+class KingJumpMove {
+  +checkMoves(Move, Board): boolean
+  -validateKingJumpMove(Move, Board): boolean
+}
+
+class CheckSimpleMove {
+  +checkMoves(Move, Board): boolean
+  -checkForSimpleMove(Board): boolean
+}
+
+class CheckOneJumpMove {
+  +checkMoves(Move, Board): boolean
+  -checkForMultiJump(Board): boolean
+}
+
+class CheckAllJumpMove {
+  +checkMoves(Move, Board): boolean
+  -checkForJumpMove(Board): boolean
+}
+@enduml
