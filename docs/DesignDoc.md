@@ -145,9 +145,12 @@ the user from the PlayerLobby. A player cannot sign out during a game.
 
 
 A state diagram that shows the overall states of playing a game. The PostSubmitTurn and PostCheckTurn routes are used to
-change the turns during the game. GetGameRoute is used to load the game page. PostExitGame is used to go back to the home
-page.
+the user from the PlayerLobby. A player cannot sign out during a game. The PostSubmitTurn and PostCheckTurn routes are used to
+
+
 ![The WebCheckers Web Interface Statechart](GameStateDiagram.png)
+
+A state diagram that shows the overall states of playing a game.
 
 ![UI Tier uml](UI Tier UML.png)
 Shows the UML diagram of the UI tier classes.
