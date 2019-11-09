@@ -89,7 +89,7 @@ public class GetGameRouteTest {
     public void user_in_game(){
         player1 = new Player("Joe mama");
         player2 = new Player("Mike hawk");
-        player1.setInGame(false);
+        player1.removeInGameStatus();
         GameLobby gl = new GameLobby(player1,player2);
         gl.removePlayer(player1);
         final TemplateEngineTester testHelper = new TemplateEngineTester();

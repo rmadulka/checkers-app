@@ -14,9 +14,9 @@ public class GameLobby {
     /** represents the player who moves the white checker pieces **/
     public Player whitePlayer;
 
-    private boolean redPlayerPresent;
+    private Boolean redPlayerPresent;
 
-    private boolean whitePlayerPresent;
+    private Boolean whitePlayerPresent;
     /** represents the checkerboard model**/
     private Board board;
 
@@ -36,7 +36,6 @@ public class GameLobby {
         this.whitePlayer = whitePlayer;
         this.board = new Board(whitePlayer, redPlayer);
         this.isGameOver = false;
-        init();
         LOG.config("GameLobby created for [" + redPlayer.getName() + "] [" + whitePlayer.getName() + "]" );
     }
 
@@ -44,10 +43,8 @@ public class GameLobby {
      * Sets the statuses of both players to be in game
      */
     public void init(){
-        this.redPlayer.setInGame(true);
-        this.whitePlayer.setInGame(true);
-        this.redPlayerPresent = true;
-        this.whitePlayerPresent = true;
+        redPlayerPresent = this.redPlayer.addInGameStatus();
+        whitePlayerPresent = this.whitePlayer.addInGameStatus();
     }
 
     //TODO Fix to have multiple reasons along with winner/Loser
@@ -135,12 +132,13 @@ public class GameLobby {
      * @param player specified player to remove
      */
     public void removePlayer(Player player){
+
         if (player.equals(redPlayer)) {
-            redPlayer.setInGame(false);
+            redPlayer.removeInGameStatus();
             redPlayerPresent = false;
             LOG.finer("redPlayer removed from GameLobby");
         } else if (player.equals(whitePlayer)) {
-            whitePlayer.setInGame(false);
+            whitePlayer.removeInGameStatus();
             whitePlayerPresent = false;
             LOG.finer("whitePlayer removed from GameLobby");
         }
