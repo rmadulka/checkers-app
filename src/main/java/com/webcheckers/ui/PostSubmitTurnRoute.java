@@ -5,6 +5,7 @@ import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Space;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.MoveProcessor;
 import spark.Request;
@@ -38,6 +39,7 @@ public class PostSubmitTurnRoute implements Route {
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
+        Space[][] currentBoard = board.getBoard();
 
         Message message;
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
@@ -53,7 +55,8 @@ public class PostSubmitTurnRoute implements Route {
 
             //Not needed but for safety
             player.getTurnStack().removeAllElements();
-            gameLobby.addGameMove(board);
+            System.out.println(board);
+            gameLobby.addGameMove(board.getBoard());
         } else {
             //TODO more than one error message
             message = Message.error("Invalid: There is a jump move available");

@@ -2,6 +2,7 @@ package com.webcheckers.appl;
 
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Space;
 import com.webcheckers.ui.GetHomeRoute;
 import com.webcheckers.util.Message;
 
@@ -25,7 +26,7 @@ public class GameLobby {
 
     private Message gameOverMessage = null;
 
-    private ArrayList<Board> gameMoves;
+    private ArrayList<Space[][]> gameMoves = new ArrayList<>();
 
     /**
      * Constructs a GameLobby to keep track of the players in a current game
@@ -69,11 +70,12 @@ public class GameLobby {
     }
 
 
-    public ArrayList<Board> getGameMoves(){
+    public ArrayList<Space[][]> getGameMoves(){
         return gameMoves;
     }
 
-    public void addGameMove(Board board){
+    public void addGameMove(Space[][] board){
+        System.out.println(board);
         gameMoves.add(board);
     }
     /**
