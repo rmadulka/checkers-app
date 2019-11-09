@@ -23,8 +23,7 @@ public class GetGameRoute implements Route {
      */
     public enum viewMode {
         PLAY,
-        SPECTATOR,
-        AI
+        REPLAY
     }
 
     /** Names of the view model values */
@@ -121,7 +120,11 @@ public class GetGameRoute implements Route {
         vm.put(GetHomeRoute.CURRENT_USER, player);
         vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
         vm.put(BOARD_VIEW, boardView);
-        vm.put(VIEW_MODE, viewMode.PLAY);
+        if(gameLobby.getIsGameOver()) {
+            vm.put(VIEW_MODE, viewMode.REPLAY);
+        } else {
+            vm.put(VIEW_MODE, viewMode.PLAY);
+        }
         vm.put(ACTIVE_COLOR, checkersBoard.getActiveColor());
 
         final Map<String, Object> modeOptions = new HashMap<>(2);
