@@ -26,7 +26,7 @@ public class GameLobby {
 
     private Message gameOverMessage = null;
 
-    private ArrayList<Space[][]> gameMoves = new ArrayList<>();
+    private ArrayList<Board> gameMoves = new ArrayList<>();
 
     /**
      * Constructs a GameLobby to keep track of the players in a current game
@@ -70,12 +70,11 @@ public class GameLobby {
     }
 
 
-    public ArrayList<Space[][]> getGameMoves(){
+    public ArrayList<Board> getGameMoves(){
         return gameMoves;
     }
 
-    public void addGameMove(Space[][] board){
-        System.out.println(board);
+    public void addGameMove(Board board){
         gameMoves.add(board);
     }
     /**

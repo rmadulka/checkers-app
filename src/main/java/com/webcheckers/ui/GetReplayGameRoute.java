@@ -4,6 +4,7 @@ import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Space;
 import spark.*;
 
 import java.util.ArrayList;

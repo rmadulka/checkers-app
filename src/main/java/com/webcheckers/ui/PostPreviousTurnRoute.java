@@ -26,7 +26,7 @@ public class PostPreviousTurnRoute implements Route{
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
-        ArrayList<Space[][]> gameMoves = gameLobby.getGameMoves();
+        ArrayList<Board> gameMoves = gameLobby.getGameMoves();
         return null;
     }
 }
