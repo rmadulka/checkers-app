@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
-import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.Request;
@@ -14,7 +13,7 @@ import spark.Session;
 
 import java.util.ArrayList;
 
-public class PostPreviousTurnRoute {
+public class PostPreviousTurnRoute implements Route{
 
     private PlayerLobby playerLobby;
 
@@ -27,6 +26,6 @@ public class PostPreviousTurnRoute {
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         ArrayList<Board> gameMoves = gameLobby.getGameMoves();
-        if()
+        return null;
     }
 }

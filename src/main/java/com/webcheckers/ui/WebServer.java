@@ -58,6 +58,7 @@ public class WebServer {
   public static final String SIGNIN_URL = "/signin";
   public static final String GAME_URL = "/game";
   public static final String SIGNOUT_URL = "/signout";
+  public static final String REPLAY_URL = "/replay/game";
 
   //
   // Attributes
@@ -152,6 +153,8 @@ public class WebServer {
 
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby ));
 
+    get(REPLAY_URL, new GetReplayGameRoute(templateEngine, playerLobby));
+
     post(SIGNOUT_URL, new PostSignoutRoute(playerLobby));
 
     //TODO Fix names
@@ -169,7 +172,10 @@ public class WebServer {
 
     get("/replay/stopWatching", new PostExitReplayRoute(playerLobby));
 
-    //
+    post("/replay/nextTurn", new PostNextTurnRoute(playerLobby));
+
+    post("/replay/previousTurn", new PostPreviousTurnRoute(playerLobby));
+
     LOG.config("WebServer is initialized.");
   }
 
