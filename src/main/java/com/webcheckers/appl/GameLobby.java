@@ -5,6 +5,7 @@ import com.webcheckers.model.Player;
 import com.webcheckers.ui.GetHomeRoute;
 import com.webcheckers.util.Message;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class GameLobby {
@@ -23,6 +24,8 @@ public class GameLobby {
     private boolean isGameOver;
 
     private Message gameOverMessage = null;
+
+    private ArrayList<Board> gameMoves;
 
     /**
      * Constructs a GameLobby to keep track of the players in a current game
@@ -65,6 +68,14 @@ public class GameLobby {
         return this.board;
     }
 
+
+    public ArrayList<Board> getGameMoves(){
+        return gameMoves;
+    }
+
+    public void addGameMove(Board board){
+        gameMoves.add(board);
+    }
     /**
      * Sets the board to a new value (used for testing purposes)
      * @param board updated board layout

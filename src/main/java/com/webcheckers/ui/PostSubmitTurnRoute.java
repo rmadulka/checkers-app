@@ -53,6 +53,7 @@ public class PostSubmitTurnRoute implements Route {
 
             //Not needed but for safety
             player.getTurnStack().removeAllElements();
+            gameLobby.addGameMove(board);
         } else {
             //TODO more than one error message
             message = Message.error("Invalid: There is a jump move available");
