@@ -85,7 +85,6 @@ public class GetGameRoute implements Route {
 
         //If a player clicks on someone in the list
         if(!player.getInGame()) {
-            System.out.println(AIPlayer);
             if(AIPlayer != null){
                 opponent = new AIPlayer(playerLobby);
             } else {

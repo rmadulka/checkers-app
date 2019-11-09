@@ -47,8 +47,8 @@ public class AIPlayer extends Player implements Runnable{
     private void makeTurn(){
         System.out.println("AI Makes a Move");
 
-        int endRow = (int)(Math.random()*7);
-        int endCell = (int)(Math.random()*7);
+        int endRow = (int)(Math.random()*8);
+        int endCell = (int)(Math.random()*8);
 
         Position start = findPiece();
         Position end = new Position(endRow, endCell);
