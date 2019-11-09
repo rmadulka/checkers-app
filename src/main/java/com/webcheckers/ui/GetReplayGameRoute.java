@@ -12,7 +12,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-public class GetReplayGameRoute {
+public class GetReplayGameRoute implements Route{
+
+
     static final String VIEW_NAME = "game.ftl";
     static final String BOARD_VIEW = "board";
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
@@ -26,7 +28,7 @@ public class GetReplayGameRoute {
         LOG.config("GetReplayMode is initialized.");
     }
 
-    public Object handle(Response response, Request request){
+    public Object handle(Request request, Response response){
         Session httpSession = request.session();
         Map<String, Object> vm = new HashMap<>();
         Player player = httpSession.attribute("currentUser");
