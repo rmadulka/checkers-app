@@ -36,9 +36,7 @@ public class PostExitReplayRoute implements Route {
         if (gameLobby.playersEmpty()){
             playerLobby.removeGameLobby(gameLobby);
         }
-
         Message message = Message.info("Exiting Game");
-
         return new Gson().toJson(message);
     }
 }

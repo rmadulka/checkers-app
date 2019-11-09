@@ -10,8 +10,6 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
-import static spark.Spark.halt;
-
 public class PostExitGameRoute implements Route {
 
     /** represents the players online, able to manage users **/
@@ -32,7 +30,7 @@ public class PostExitGameRoute implements Route {
      * @return exiting message
      */
     public Object handle(Request request, Response response){
-        /*Session httpSession = request.session();
+        Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
 
@@ -42,9 +40,9 @@ public class PostExitGameRoute implements Route {
             playerLobby.removeGameLobby(gameLobby);
         }
 
-        response.redirect("/");
-        halt();*/
-        return null;
+        Message message = Message.info("Exiting Game");
+
+        return new Gson().toJson(message);
     }
 
 }

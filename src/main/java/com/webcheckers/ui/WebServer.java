@@ -170,7 +170,7 @@ public class WebServer {
 
     post("/checkTurn", new PostCheckTurnRoute(playerLobby));
 
-    get("/replay/stopWatching", new PostExitReplayRoute(playerLobby));
+    post("/replay/stopWatching", new PostExitReplayRoute(playerLobby));
 
     post("/replay/nextTurn", new PostNextTurnRoute(playerLobby));
 
