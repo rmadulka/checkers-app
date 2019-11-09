@@ -4,6 +4,8 @@ import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.util.MoveProcessor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 
@@ -103,5 +105,145 @@ public class AIPlayer extends Player implements Runnable{
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns an arraylist containing a move chosen randomly from a list of valid moves
+     * @param board the board model
+     * @return an arraylist of valid moves
+     */
+    private List<Move> getRandomMove(Board board) {
+        ArrayList<Move> moves = new ArrayList<>();
+        for (int row = 0; row < 8; row++) {
+            for (int col =0; col < 8; col++) {
+                Position pos = new Position(row, col);
+                Space space = board.getSpace(pos);
+                Piece aiPiece = space.getPiece();
+                if (aiPiece != null && aiPiece.getColor() == Piece.pieceColor.WHITE) {
+                    moves.addAll(getValidSimpleMoves(board, pos));
+                    moves.addAll(getValidJumpMoves(board,pos));
+                }
+            }
+        }
+        int randMove = (int)(Math.random() * moves.size());
+        ArrayList<Move> move = new ArrayList<>();
+        move.add(moves.get(randMove));
+        return move;
+    }
+
+    /**
+     * returns an arraylist of all valid simple moves
+     * @param board the board model
+     * @param pos position on board
+     * @return an arraylist of valid simple moves
+     */
+    private List<Move> getValidSimpleMoves(Board board, Position pos) {
+        ArrayList<Move> validSimpleMoves = new ArrayList<>();
+        Space[][] gameBoard = board.getBoard();
+        int negOne = 1;
+        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+            negOne = -1;
+        }
+        for (int row = 0; row < gameBoard.length; row ++) {
+            for (int col = 0; col < gameBoard.length; col++) {
+                if (!(row + negOne > gameBoard.length - 1 || row + negOne < 0)) {
+                    //check that this is the moving player's piece
+                    if (gameBoard[row][col].getPiece() != null &&
+                            gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                        //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
+                        //TODO Fix law of demeter here
+                        if (!(col + 1 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() == null) {
+                            validSimpleMoves.add(new Move(new Position(row, col), new Position(row + 1, col + 1)));
+                        }
+                        //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
+                        //TODO Fix law of demeter here
+                        if (col - 1 >= 0 && gameBoard[row + negOne][col - 1].getPiece() == null) {
+                            validSimpleMoves.add(new Move(new Position(row, col), new Position(row + 1, col - 1)));
+                        }
+                    }
+                }
+                if (gameBoard[row][col].getPiece() != null && gameBoard[row][col].getPiece().getType() == Piece.pieceType.KING) {
+                    if (!(row - negOne > gameBoard.length - 1 || row - negOne < 0)) {
+                        //check that this is the moving player's piece
+                        if (gameBoard[row][col].getPiece() != null &&
+                                gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                            //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
+                            //TODO Fix law of demeter here
+                            if (!(col + 1 > gameBoard.length - 1) && gameBoard[row - negOne][col + 1].getPiece() == null) {
+                                validSimpleMoves.add(new Move(new Position(row, col), new Position(row - 1, col + 1)));
+                            }
+                            //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
+                            //TODO Fix law of demeter here
+                            if (col - 1 >= 0 && gameBoard[row - negOne][col - 1].getPiece() == null) {
+                                validSimpleMoves.add(new Move(new Position(row, col), new Position(row - 1, col - 1)));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return validSimpleMoves;
+    }
+
+    /**
+     * Returns an arraylist of all valid jump moves.
+     * @param board the board model
+     * @param pos position on board
+     * @return an arraylist of jump moves
+     */
+    private List<Move> getValidJumpMoves(Board board, Position pos) {
+        ArrayList<Move> validJumpMoves = new ArrayList<>();
+        Space[][] gameBoard = board.getBoard();
+        int negOne = 1;
+        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
+            negOne = -1;
+        }
+        for (int row = 0; row < gameBoard.length; row ++) {
+            for (int col = 0; col < gameBoard.length; col++) {
+                if (!(row + negOne * 2 > gameBoard.length - 1 || row + negOne * 2 < 0)) {
+                    //check that this is the moving player's piece
+                    if (gameBoard[row][col].getPiece() != null &&
+                            gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                        //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
+                        //TODO Fix law of demeter here
+                        if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() != null &&
+                                gameBoard[row + negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row + negOne * 2][col + 2].getPiece() == null) {
+                            validJumpMoves.add(new Move(new Position(row, col), new Position(row + 2, col + 2)));
+                        }
+                        //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
+                        //TODO Fix law of demeter here
+                        if (col - 2 >= 0 && gameBoard[row + negOne][col - 1].getPiece() != null &&
+                                gameBoard[row + negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row + negOne * 2][col - 2].getPiece() == null) {
+                            validJumpMoves.add(new Move(new Position(row, col), new Position(row + 2, col - 2)));
+                        }
+                    }
+                }
+                if (gameBoard[row][col].getPiece() != null && gameBoard[row][col].getPiece().getType() == Piece.pieceType.KING) {
+                    if (!(row - negOne * 2 > gameBoard.length - 1 || row - negOne * 2 < 0)) {
+                        //check that this is the moving player's piece
+                        if (gameBoard[row][col].getPiece() != null &&
+                                gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                            //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
+                            //TODO Fix law of demeter here
+                            if (!(col + 2 > gameBoard.length - 1) && gameBoard[row - negOne][col + 1].getPiece() != null &&
+                                    gameBoard[row - negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                    gameBoard[row - negOne * 2][col + 2].getPiece() == null) {
+                                validJumpMoves.add(new Move(new Position(row, col), new Position(row - 2, col + 2)));
+                            }
+                            //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
+                            //TODO Fix law of demeter here
+                            if (col - 2 >= 0 && gameBoard[row - negOne][col - 1].getPiece() != null &&
+                                    gameBoard[row - negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                    gameBoard[row - negOne * 2][col - 2].getPiece() == null) {
+                                validJumpMoves.add(new Move(new Position(row, col), new Position(row - 2, col - 2)));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return validJumpMoves;
     }
 }
