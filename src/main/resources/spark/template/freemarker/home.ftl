@@ -34,8 +34,15 @@
   <!-- create a <ul> for players online -->
     <div class = "players">
       <#if currentUser??>
+          <ul>
+          <li>
+              <form id="AIform" action="./game" method="GET">
+                  <input type="hidden" name="AIPlayer" value="AIPlayer" />
+                  <a href="javascript:;" onclick="document.getElementById('AIform').submit();"> AIPlayer </a>
+              </form>
+          </li>
           <#if playersOnline??>
-              <ul>
+
                 <#list playersOnline as p>
                     <#if !(p.name == currentUser.name)>
                         <li>

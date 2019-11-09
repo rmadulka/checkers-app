@@ -10,13 +10,13 @@ import java.util.Stack;
 public class Player {
 
     /** The unique identifier for a player */
-    private String name;
+    protected String name;
 
     /** Determines if the player is supposed to be in a game */
-    private boolean inGame;
+    protected boolean inGame;
 
     /** The stack of moves */
-    private Stack<Move> turnStack = null;
+    protected Stack<Move> turnStack = null;
 
     /**
      * Creates a new instance of a player
@@ -44,12 +44,20 @@ public class Player {
     }
 
     /**
-     * Sets the game status of the player
-     * @param inGame Boolean that determines if a player is in a game
+     * Adds the player to a game
+     * @return - boolean to determine of the player should be in a GameLobby
      */
-    public void setInGame(boolean inGame) {
+    public boolean addInGameStatus(){
         this.turnStack = new Stack<>();
-        this.inGame = inGame;
+        this.inGame = true;
+        return true;
+    }
+
+    /**
+     * removes the player from the game
+     */
+    public void removeInGameStatus(){
+        this.inGame = false;
     }
 
     /**

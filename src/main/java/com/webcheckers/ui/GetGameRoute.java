@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.AIPlayer;
 import com.webcheckers.model.Board;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.model.Player;
@@ -67,7 +68,11 @@ public class GetGameRoute implements Route {
 
         //Get Session and Parameters
         final String receiverName = request.queryParams("receiver");
+        final String AIPlayer = request.queryParams("AIPlayer");
         final Session httpSession = request.session();
+
+        //System.out.println(receiverName);
+
         GameLobby gameLobby;
         Board checkersBoard;
 
@@ -79,7 +84,11 @@ public class GetGameRoute implements Route {
 
         //If a player clicks on someone in the list
         if(!player.getInGame()) {
-            opponent = playerLobby.getPlayer(receiverName);
+            if(AIPlayer != null){
+                opponent = new AIPlayer(playerLobby);
+            } else {
+                opponent = playerLobby.getPlayer(receiverName);
+            }
 
             //If the opponent is in a game, return home w/ error message
             if (opponent.getInGame()) {

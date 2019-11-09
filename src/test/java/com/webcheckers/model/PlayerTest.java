@@ -46,7 +46,7 @@ public class PlayerTest {
      */
     public void test_set_in_game_different_statuses() {
         Player newPlayer = new Player("j");
-        newPlayer.setInGame(true);
+        newPlayer.addInGameStatus();
         assertNotEquals(newPlayer.getInGame(), CuT.getInGame());
     }
 
@@ -56,7 +56,7 @@ public class PlayerTest {
      */
     public void test_set_in_game_same_statuses() {
         Player newPlayer = new Player("j");
-        newPlayer.setInGame(false);
+        newPlayer.removeInGameStatus();
         assertEquals(newPlayer.getInGame(), CuT.getInGame());
     }
 
@@ -92,7 +92,7 @@ public class PlayerTest {
      */
     public void testGetTurnStack() {
         assertNull(CuT.getTurnStack());
-        CuT.setInGame(true);
+        CuT.addInGameStatus();
         assertNotNull(CuT.getTurnStack());
     }
 
