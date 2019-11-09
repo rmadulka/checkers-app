@@ -120,16 +120,18 @@ public class GetGameRoute implements Route {
         vm.put(GetHomeRoute.CURRENT_USER, player);
         vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
         vm.put(BOARD_VIEW, boardView);
+        final Map<String, Object> modeOptions = new HashMap<>(2);
         if(gameLobby.getIsGameOver()) {
             vm.put(VIEW_MODE, viewMode.REPLAY);
+            modeOptions.put("hasNext", true);
+            modeOptions.put("hasPrevious", true);
         } else {
             vm.put(VIEW_MODE, viewMode.PLAY);
+            modeOptions.put("isGameOver", gameLobby.getIsGameOver());
+            modeOptions.put("gameOverMessage", gameLobby.getGameOverMessageAsString());
         }
         vm.put(ACTIVE_COLOR, checkersBoard.getActiveColor());
 
-        final Map<String, Object> modeOptions = new HashMap<>(2);
-        modeOptions.put("isGameOver", gameLobby.getIsGameOver());
-        modeOptions.put("gameOverMessage", gameLobby.getGameOverMessageAsString());
         vm.put("modeOptionsAsJSON", new Gson().toJson(modeOptions));
 
         Message.displayMessage(httpSession, vm,null, "messageSignout");
