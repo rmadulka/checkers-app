@@ -8,18 +8,29 @@ import java.util.Stack;
 
 
 public class AIPlayer extends Player implements Runnable{
+
+    /** Id to ensure each AIPlayer is Unique */
     private static int id = 0;
 
+    /** Playerlobby to access gameLobbies */
     private PlayerLobby playerLobby;
 
+    /** GameLobby that AIPlayer is a part of */
     private GameLobby gameLobby;
 
+    /** AIPlayer Constructor */
     public AIPlayer(PlayerLobby playerLobby){
         super("Joe Mama" + id);
         id++;
         this.playerLobby = playerLobby;
     }
 
+    /**
+     * Adds the AI Player to the gameLobby but sets its inGame status to false
+     * This allows multiple players to click on an AIPlayer and when
+     * the User leaves the game, the AI Player also leaves, thus closing the gameLobby
+     * @return inGameLobby status
+     */
     @Override
     public boolean addInGameStatus(){
         turnStack = new Stack<>();
@@ -29,6 +40,9 @@ public class AIPlayer extends Player implements Runnable{
         return false;
     }
 
+    /**
+     * Checks for a turn every 5 seconds and makes a turn
+     */
     public void run(){
         //TODO - when game is running
         while(true){
@@ -44,7 +58,11 @@ public class AIPlayer extends Player implements Runnable{
         }
     }
 
+    /**
+     * Makes a turn on the board
+     */
     private void makeTurn(){
+        //TODO Fix valid turns
         System.out.println("AI Makes a Move");
 
         int endRow = (int)(Math.random()*8);
@@ -58,6 +76,9 @@ public class AIPlayer extends Player implements Runnable{
         MoveProcessor.processMoves(this, gameLobby.getBoard());
     }
 
+    /**
+     * Helper funciton for makeMove()
+     */
     private Position findPiece(){
         boolean foundPiece = false;
         int startRow = 0;
@@ -71,6 +92,10 @@ public class AIPlayer extends Player implements Runnable{
         return new Position(startRow, startCell);
     }
 
+    /**
+     * Checks to see if it is the AI Player's turn
+     * @return - boolean to determine the players turn
+     */
     private boolean checkMyTurn(){
         if ((gameLobby.getRedPlayer().equals(this) && gameLobby.getBoard().getActiveColor() == Piece.pieceColor.RED) ||
                 (gameLobby.getWhitePlayer().equals(this) && gameLobby.getBoard().getActiveColor() == Piece.pieceColor.WHITE)){

@@ -13,15 +13,15 @@ public class GameLobby {
     public Player redPlayer;
     /** represents the player who moves the white checker pieces **/
     public Player whitePlayer;
-
-    private Boolean redPlayerPresent;
-
-    private Boolean whitePlayerPresent;
+    /** whether or not the red player is in the GameLobby */
+    private boolean redPlayerPresent;
+    /** whether or not the white player is in the GameLobby */
+    private boolean whitePlayerPresent;
     /** represents the checkerboard model**/
     private Board board;
-
+    /** determines if the game is over */
     private boolean isGameOver;
-
+    /** game over message */
     private Message gameOverMessage = null;
 
     /**

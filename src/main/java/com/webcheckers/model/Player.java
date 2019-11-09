@@ -43,21 +43,19 @@ public class Player {
         return inGame;
     }
 
-//    /**
-//     * Sets the game status of the player
-//     * @param inGame Boolean that determines if a player is in a game
-//     */
-//    public void setInGame(boolean inGame) {
-//        this.turnStack = new Stack<>();
-//        this.inGame = inGame;
-//    }
-
+    /**
+     * Adds the player to a game
+     * @return - boolean to determine of the player should be in a GameLobby
+     */
     public boolean addInGameStatus(){
         this.turnStack = new Stack<>();
         this.inGame = true;
         return true;
     }
 
+    /**
+     * removes the player from the game
+     */
     public void removeInGameStatus(){
         this.inGame = false;
     }
