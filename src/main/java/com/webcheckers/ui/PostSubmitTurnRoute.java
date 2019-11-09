@@ -39,7 +39,6 @@ public class PostSubmitTurnRoute implements Route {
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
-        Space[][] currentBoard = board.getBoard();
 
         Message message;
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
@@ -55,7 +54,6 @@ public class PostSubmitTurnRoute implements Route {
 
             //Not needed but for safety
             player.getTurnStack().removeAllElements();
-            System.out.println(board);
             gameLobby.addGameMove(board);
         } else {
             //TODO more than one error message

@@ -121,15 +121,17 @@ public class GetGameRoute implements Route {
         vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
         vm.put(BOARD_VIEW, boardView);
         final Map<String, Object> modeOptions = new HashMap<>(2);
-        if(gameLobby.getIsGameOver()) {
-            vm.put(VIEW_MODE, viewMode.REPLAY);
-            modeOptions.put("hasNext", true);
-            modeOptions.put("hasPrevious", true);
-        } else {
+//        if(gameLobby.getIsGameOver()) {           //this if statement is flawed as it bypasses the entire gameover screen,
+//            modeOptions.put("hasNext", true);     //have the replay vm attached to a button directing the user to the replaymode
+//            modeOptions.put("hasPrevious", true);
+//            response.redirect("/replay/game");
+//            halt();
+//            return null;
+        //} else {
             vm.put(VIEW_MODE, viewMode.PLAY);
             modeOptions.put("isGameOver", gameLobby.getIsGameOver());
             modeOptions.put("gameOverMessage", gameLobby.getGameOverMessageAsString());
-        }
+        //}
         vm.put(ACTIVE_COLOR, checkersBoard.getActiveColor());
 
         vm.put("modeOptionsAsJSON", new Gson().toJson(modeOptions));
