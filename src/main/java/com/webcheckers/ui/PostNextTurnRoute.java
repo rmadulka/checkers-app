@@ -27,7 +27,6 @@ public class PostNextTurnRoute implements Route {
     public Object handle(Request request, Response response){
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
-        GameLobby gameLobby = playerLobby.getGameLobby(player);
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
         Game game = replayLobby.getGames().get(0); //hard coded for now
         //TODO review the boardStates and write conditions on if we can go backwards or forwards w/out OOB error
