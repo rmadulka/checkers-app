@@ -41,6 +41,7 @@ public class PostSubmitTurnRoute implements Route {
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
+        BoardState boardState = new BoardState(board.getActiveColor());
         Game game = gameLobby.getGame();
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
         Message message;
@@ -60,9 +61,11 @@ public class PostSubmitTurnRoute implements Route {
             //Not needed but for safety
 
             player.getTurnStack().removeAllElements();
-            BoardState boardState = new BoardState();
             boardState.constructState(board);
             game.addGameState(boardState);
+            //for(int i = 0 ;i < game.getBoardStates().size(); i++){        //used for testing purposes
+                //System.out.println(game.getBoardStates().get(i);
+            //}
 
         } else {
             //TODO more than one error message
