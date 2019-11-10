@@ -4,17 +4,13 @@ import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
-import com.webcheckers.model.BoardState;
 import com.webcheckers.model.Player;
-import com.webcheckers.model.Space;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.MoveProcessor;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Session;
-
-import java.util.ArrayList;
 
 import static spark.Spark.halt;
 
@@ -58,9 +54,7 @@ public class PostSubmitTurnRoute implements Route {
             //Not needed but for safety
 
             player.getTurnStack().removeAllElements();
-            BoardState bs = new BoardState(board);
-            bs.getBoardState();
-            gameLobby.addGameMove(bs.getBoardState());
+            gameLobby.addGameMove(board);
             System.out.println(board);
             for(int i = 0; gameLobby.getGameMoves().size() > i; i++){
                gameLobby.getGameMoves().get(i).printBoard(gameLobby.getGameMoves().get(i));
