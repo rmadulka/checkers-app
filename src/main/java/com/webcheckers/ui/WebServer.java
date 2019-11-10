@@ -59,6 +59,7 @@ public class WebServer {
   public static final String GAME_URL = "/game";
   public static final String SIGNOUT_URL = "/signout";
   public static final String REPLAY_URL = "/replay/game";
+    public static final String REPLAY_SCREEN_URL = "/replay";
 
   //
   // Attributes
@@ -154,6 +155,8 @@ public class WebServer {
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby ));
 
     get(REPLAY_URL, new GetReplayGameRoute(templateEngine, playerLobby));
+
+    get(REPLAY_SCREEN_URL, new GetReplayRoute(templateEngine));
 
     post(SIGNOUT_URL, new PostSignoutRoute(playerLobby));
 

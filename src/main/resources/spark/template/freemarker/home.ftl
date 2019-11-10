@@ -24,17 +24,19 @@
             spectating active games,
             or replay archived games
     -->
+
     <#if userInGame??>
         <p>
           ${userInGame}
         </p>
     </#if>
   </div>
-    <h2 style="padding-left: 10px">Players Online</h2>
   <!-- create a <ul> for players online -->
     <div class = "players">
       <#if currentUser??>
           <#if playersOnline??>
+              <a href="/replay" onclick="getReplayScreen()"> Replays </a>
+              <h2 style="padding-left: 10px">Players Online</h2>
               <ul>
                 <#list playersOnline as p>
                     <#if !(p.name == currentUser.name)>
@@ -57,3 +59,8 @@
 </body>
 
 </html>
+<script>
+    function getReplayScreen() {
+        window.location = '/replay';
+    }
+</script>
