@@ -105,36 +105,40 @@ public class AIPlayer extends Player implements Runnable{
      * @return an arraylist of valid moves
      */
     private Move getRandomMove(Board board) {
+//        ArrayList<Move> moves = new ArrayList<>();
+//        for (int row = 0; row < 8; row++) {
+//            for (int col =0; col < 8; col++) {
+//                Position pos = new Position(row, col);
+//                Space space = board.getSpace(pos);
+//                Piece aiPiece = space.getPiece();
+//                if (aiPiece != null && aiPiece.getColor() == Piece.pieceColor.WHITE) {
+//                    moves.addAll(getValidSimpleMoves(board, pos));
+//                    moves.addAll(getValidJumpMoves(board,pos));
+//                }
+//            }
+//        }
+//        int randMove = (int)(Math.random() * moves.size());
+//        Move move = moves.get(randMove);
+//        return move;
         ArrayList<Move> moves = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col =0; col < 8; col++) {
-                Position pos = new Position(row, col);
-                Space space = board.getSpace(pos);
-                Piece aiPiece = space.getPiece();
-                if (aiPiece != null && aiPiece.getColor() == Piece.pieceColor.WHITE) {
-                    moves.addAll(getValidSimpleMoves(board, pos));
-                    moves.addAll(getValidJumpMoves(board,pos));
-                }
-            }
+        List<Move> jumps = getValidJumpMoves(board);
+        if(jumps.size() == 0) {
+            moves.addAll(getValidSimpleMoves(board));
         }
+        moves.addAll(jumps);
         int randMove = (int)(Math.random() * moves.size());
-        Move move = moves.get(randMove);
-        return move;
+        return moves.get(randMove);
     }
 
     /**
      * returns an arraylist of all valid simple moves
      * @param board the board model
-     * @param pos position on board
      * @return an arraylist of valid simple moves
      */
-    private List<Move> getValidSimpleMoves(Board board, Position pos) {
+    private List<Move> getValidSimpleMoves(Board board) {
         ArrayList<Move> validSimpleMoves = new ArrayList<>();
         Space[][] gameBoard = board.getBoard();
-        int negOne = 1;
-        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
-            negOne = -1;
-        }
+        int negOne = -1;
         for (int row = 0; row < gameBoard.length; row ++) {
             for (int col = 0; col < gameBoard.length; col++) {
                 if (!(row + negOne > gameBoard.length - 1 || row + negOne < 0)) {
@@ -144,12 +148,12 @@ public class AIPlayer extends Player implements Runnable{
                         //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
                         //TODO Fix law of demeter here
                         if (!(col + 1 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() == null) {
-                            validSimpleMoves.add(new Move(new Position(row, col), new Position(row + 1, col + 1)));
+                            validSimpleMoves.add(new Move(new Position(row, col), new Position(row + negOne, col + 1)));
                         }
                         //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
                         //TODO Fix law of demeter here
                         if (col - 1 >= 0 && gameBoard[row + negOne][col - 1].getPiece() == null) {
-                            validSimpleMoves.add(new Move(new Position(row, col), new Position(row + 1, col - 1)));
+                            validSimpleMoves.add(new Move(new Position(row, col), new Position(row + negOne, col - 1)));
                         }
                     }
                 }
@@ -161,12 +165,12 @@ public class AIPlayer extends Player implements Runnable{
                             //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
                             //TODO Fix law of demeter here
                             if (!(col + 1 > gameBoard.length - 1) && gameBoard[row - negOne][col + 1].getPiece() == null) {
-                                validSimpleMoves.add(new Move(new Position(row, col), new Position(row - 1, col + 1)));
+                                validSimpleMoves.add(new Move(new Position(row, col), new Position(row - negOne, col + 1)));
                             }
                             //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
                             //TODO Fix law of demeter here
                             if (col - 1 >= 0 && gameBoard[row - negOne][col - 1].getPiece() == null) {
-                                validSimpleMoves.add(new Move(new Position(row, col), new Position(row - 1, col - 1)));
+                                validSimpleMoves.add(new Move(new Position(row, col), new Position(row - negOne, col - 1)));
                             }
                         }
                     }
@@ -179,16 +183,12 @@ public class AIPlayer extends Player implements Runnable{
     /**
      * Returns an arraylist of all valid jump moves.
      * @param board the board model
-     * @param pos position on board
      * @return an arraylist of jump moves
      */
-    private List<Move> getValidJumpMoves(Board board, Position pos) {
+    private List<Move> getValidJumpMoves(Board board) {
         ArrayList<Move> validJumpMoves = new ArrayList<>();
         Space[][] gameBoard = board.getBoard();
-        int negOne = 1;
-        if(board.getActiveColor() == Piece.pieceColor.WHITE) {
-            negOne = -1;
-        }
+        int negOne = -1;
         for (int row = 0; row < gameBoard.length; row ++) {
             for (int col = 0; col < gameBoard.length; col++) {
                 if (!(row + negOne * 2 > gameBoard.length - 1 || row + negOne * 2 < 0)) {
@@ -200,14 +200,14 @@ public class AIPlayer extends Player implements Runnable{
                         if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() != null &&
                                 gameBoard[row + negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
                                 gameBoard[row + negOne * 2][col + 2].getPiece() == null) {
-                            validJumpMoves.add(new Move(new Position(row, col), new Position(row + 2, col + 2)));
+                            validJumpMoves.add(new Move(new Position(row, col), new Position(row + negOne*2, col + 2)));
                         }
                         //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
                         //TODO Fix law of demeter here
                         if (col - 2 >= 0 && gameBoard[row + negOne][col - 1].getPiece() != null &&
                                 gameBoard[row + negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
                                 gameBoard[row + negOne * 2][col - 2].getPiece() == null) {
-                            validJumpMoves.add(new Move(new Position(row, col), new Position(row + 2, col - 2)));
+                            validJumpMoves.add(new Move(new Position(row, col), new Position(row + negOne*2, col - 2)));
                         }
                     }
                 }
@@ -221,14 +221,14 @@ public class AIPlayer extends Player implements Runnable{
                             if (!(col + 2 > gameBoard.length - 1) && gameBoard[row - negOne][col + 1].getPiece() != null &&
                                     gameBoard[row - negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
                                     gameBoard[row - negOne * 2][col + 2].getPiece() == null) {
-                                validJumpMoves.add(new Move(new Position(row, col), new Position(row - 2, col + 2)));
+                                validJumpMoves.add(new Move(new Position(row, col), new Position(row - negOne*2, col + 2)));
                             }
                             //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
                             //TODO Fix law of demeter here
                             if (col - 2 >= 0 && gameBoard[row - negOne][col - 1].getPiece() != null &&
                                     gameBoard[row - negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
                                     gameBoard[row - negOne * 2][col - 2].getPiece() == null) {
-                                validJumpMoves.add(new Move(new Position(row, col), new Position(row - 2, col - 2)));
+                                validJumpMoves.add(new Move(new Position(row, col), new Position(row - negOne*2, col - 2)));
                             }
                         }
                     }
