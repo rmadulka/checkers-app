@@ -22,6 +22,8 @@ public class PlayerLobby {
     /** An array list of GameLobbies */
     private ArrayList<GameLobby> currentGames;
 
+    private ReplayLobby replayGames;
+
     /**
      * Creates a new instance of a PlayerLobby
      */
@@ -90,6 +92,10 @@ public class PlayerLobby {
             }
         }
         return null;
+    }
+
+    public ReplayLobby getReplayLobby(){
+        return replayGames;
     }
 
     /**

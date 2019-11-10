@@ -1,6 +1,7 @@
 package com.webcheckers.appl;
 
 import com.webcheckers.model.Board;
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.Space;
 import com.webcheckers.ui.GetHomeRoute;
@@ -26,7 +27,8 @@ public class GameLobby {
 
     private Message gameOverMessage = null;
 
-    private ArrayList<Board> gameMoves = new ArrayList<>();
+    private Game game;
+
 
     /**
      * Constructs a GameLobby to keep track of the players in a current game
@@ -40,6 +42,7 @@ public class GameLobby {
         this.whitePlayer = whitePlayer;
         this.board = new Board(whitePlayer, redPlayer);
         this.isGameOver = false;
+        this.game = new Game(redPlayer, whitePlayer, 0); //TODO 0 is a placeholder, find a way to create game ids
         init();
         LOG.config("GameLobby created for [" + redPlayer.getName() + "] [" + whitePlayer.getName() + "]" );
     }
@@ -69,14 +72,11 @@ public class GameLobby {
         return this.board;
     }
 
-
-    public ArrayList<Board> getGameMoves(){
-        return gameMoves;
+    public Game getGame(){
+        return game;
     }
 
-    public void addGameMove(Board board){
-        gameMoves.add(board);
-    }
+
     /**
      * Sets the board to a new value (used for testing purposes)
      * @param board updated board layout

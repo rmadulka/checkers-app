@@ -3,6 +3,8 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.appl.ReplayLobby;
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.Request;
@@ -14,6 +16,8 @@ public class PostExitGameRoute implements Route {
 
     /** represents the players online, able to manage users **/
     private final PlayerLobby playerLobby;
+
+    private ReplayLobby replayLobby;
 
     /**
      * Used to give functionality to the "Exit" button
@@ -33,7 +37,6 @@ public class PostExitGameRoute implements Route {
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
-
         gameLobby.removePlayer(player);
 
         if (gameLobby.playersEmpty()){

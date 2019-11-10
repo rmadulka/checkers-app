@@ -3,7 +3,10 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.appl.ReplayLobby;
 import com.webcheckers.model.Board;
+import com.webcheckers.model.BoardState;
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.MoveProcessor;
@@ -38,7 +41,8 @@ public class PostSubmitTurnRoute implements Route {
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
-
+        Game game = gameLobby.getGame();
+        ReplayLobby replayLobby = playerLobby.getReplayLobby();
         Message message;
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
             MoveProcessor.processMoves(player, board);
@@ -46,20 +50,19 @@ public class PostSubmitTurnRoute implements Route {
 
             //EndGame Conditions
             if(board.checkNoAvailiablePieces()){
+                replayLobby.addGame(game);
                 gameLobby.endGame(Message.info(String.format("%s has no remaining pieces",board.getActiveColor().toString())));
             } else if(!board.checkAvailableMove()){
+                replayLobby.addGame(game);
                 gameLobby.endGame(Message.info(String.format("%s has no available moves",board.getActiveColor().toString())));
             }
 
             //Not needed but for safety
 
             player.getTurnStack().removeAllElements();
-            gameLobby.addGameMove(board);
-            System.out.println(board);
-            for(int i = 0; gameLobby.getGameMoves().size() > i; i++){
-               gameLobby.getGameMoves().get(i).printBoard(gameLobby.getGameMoves().get(i));
-                System.out.println("\n");
-            }
+            BoardState boardState = new BoardState();
+            boardState.constructState(board);
+            game.addGameState(boardState);
 
         } else {
             //TODO more than one error message

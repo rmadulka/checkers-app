@@ -34,8 +34,6 @@ public class GetReplayGameRoute implements Route{
         Map<String, Object> vm = new HashMap<>();
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
-        ArrayList<Board> gameMoves = gameLobby.getGameMoves();
-        BoardView boardView = new BoardView(player, gameMoves.get(0));
 
         vm.put(VIEW_MODE, GetGameRoute.viewMode.REPLAY);
         vm.put(GetHomeRoute.CURRENT_USER, player);
@@ -43,7 +41,7 @@ public class GetReplayGameRoute implements Route{
         vm.put(GetGameRoute.RED_PLAYER, gameLobby.getRedPlayer());
         vm.put(GetGameRoute.WHITE_PLAYER, gameLobby.getWhitePlayer());
         vm.put(GetGameRoute.ACTIVE_COLOR, gameLobby.getBoard().getActiveColor());
-        vm.put(BOARD_VIEW, boardView);
+
 
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
 
