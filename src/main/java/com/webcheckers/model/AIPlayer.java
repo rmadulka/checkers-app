@@ -46,8 +46,7 @@ public class AIPlayer extends Player implements Runnable{
      * Checks for a turn every 5 seconds and makes a turn
      */
     public void run(){
-        //TODO - when game is running
-        while(true){
+        while(!gameLobby.getIsGameOver()){
             if(checkMyTurn()){
                 makeTurn();
             } else {
