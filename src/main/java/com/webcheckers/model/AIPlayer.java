@@ -22,7 +22,7 @@ public class AIPlayer extends Player implements Runnable{
 
     /** AIPlayer Constructor */
     public AIPlayer(PlayerLobby playerLobby){
-        super("Joe Mama" + id);
+        super("Joseph 'Joe' Mama" + id);
         id++;
         this.playerLobby = playerLobby;
     }
@@ -66,14 +66,7 @@ public class AIPlayer extends Player implements Runnable{
     private void makeTurn(){
         //TODO Fix valid turns
         System.out.println("AI Makes a Move");
-
-        int endRow = (int)(Math.random()*8);
-        int endCell = (int)(Math.random()*8);
-
-        Position start = findPiece();
-        Position end = new Position(endRow, endCell);
-
-        Move move = new Move(start, end);
+        Move move = getRandomMove(gameLobby.getBoard());
         turnStack.push(move);
         MoveProcessor.processMoves(this, gameLobby.getBoard());
     }
@@ -112,7 +105,7 @@ public class AIPlayer extends Player implements Runnable{
      * @param board the board model
      * @return an arraylist of valid moves
      */
-    private List<Move> getRandomMove(Board board) {
+    private Move getRandomMove(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
             for (int col =0; col < 8; col++) {
@@ -126,8 +119,7 @@ public class AIPlayer extends Player implements Runnable{
             }
         }
         int randMove = (int)(Math.random() * moves.size());
-        ArrayList<Move> move = new ArrayList<>();
-        move.add(moves.get(randMove));
+        Move move = moves.get(randMove);
         return move;
     }
 
