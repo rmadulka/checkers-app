@@ -35,7 +35,7 @@
     <div class = "players">
       <#if currentUser??>
           <#if playersOnline??>
-              <a href="/replay" onclick="getReplayScreen()"> Replays </a>
+              <a href="/replay"> Replays </a>
               <h2 style="padding-left: 10px">Players Online</h2>
               <ul>
                 <#list playersOnline as p>
@@ -59,8 +59,3 @@
 </body>
 
 </html>
-<script>
-    function getReplayScreen() {
-        window.location = '/replay';
-    }
-</script>

@@ -1,6 +1,5 @@
 package com.webcheckers.appl;
 import com.webcheckers.model.Player;
-import com.webcheckers.ui.GetHomeRoute;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -133,6 +132,4 @@ public class PlayerLobby {
         this.currentGames.remove(gameLobby);
         LOG.finer("Removed GameLobby from PlayerLobby");
     }
-
-
 }
