@@ -41,10 +41,10 @@ import com.webcheckers.util.MoveProcessor;
         this.redPlayer = redPlayer;
         activeColor = Piece.pieceColor.RED;
         init();
-        //populate();
-        //customPopulate();
-        endGameTestOne();
-        //endGameTestTwo();
+        populate();
+//        customPopulate();
+//        endGameTestOne();
+//        endGameTestTwo();
     }
 
     /**
@@ -293,18 +293,18 @@ import com.webcheckers.util.MoveProcessor;
      *
      * @param board - board to be printed
      */
-//    public void printBoard(Board board) {
-//        for (int row = 0; row < SIZE; row++) {
-//            for (int col = 0; col < SIZE; col++) {
-//                if (board.getBoard()[row][col].getPiece() != null) {
-//                    System.out.print("1");
-//                } else {
-//                    System.out.print("0");
-//                }
-//            }
-//            System.out.println("");
-//        }
-//    }
+    public void printBoard(Board board) {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (board.getBoard()[row][col].getPiece() != null) {
+                    System.out.print("1");
+                } else {
+                    System.out.print("0");
+                }
+            }
+            System.out.println("");
+        }
+    }
 
     /**
      * Determines if a checkers piece reaches the end of the board
