@@ -11,7 +11,6 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
-import java.util.ArrayList;
 
 public class PostPreviousTurnRoute implements Route{
 
@@ -22,7 +21,8 @@ public class PostPreviousTurnRoute implements Route{
     }
 
     public Object handle(Request request, Response response){
-        String gameId = request.queryParams("id");
+        Session httpSession = request.session();
+        String gameId = request.queryParams("gameID");
         int gameIdInt = Integer.parseInt(gameId);
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
         Game game = replayLobby.getGame(gameIdInt);

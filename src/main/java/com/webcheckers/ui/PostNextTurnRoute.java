@@ -21,7 +21,9 @@ public class PostNextTurnRoute implements Route {
     }
 
     public Object handle(Request request, Response response){
-        String gameId = request.queryParams("id");
+        Session httpSession = request.session();
+        String gameId = request.queryParams("gameID");
+        System.out.println(gameId);
         int gameIdInt = Integer.parseInt(gameId);
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
         Game game = replayLobby.getGame(gameIdInt);
