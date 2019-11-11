@@ -41,19 +41,19 @@ public class GetReplayRoute implements Route {
      * @param request An http request
      * @param response An http response
      * @return The template engine
-     * @throws Exception
      */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response){
         LOG.finer("GetReplayRoute is invoked.");
         Session session = request.session();
         Player player = session.attribute("currentUser");
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
-        ArrayList<Game> gameList = replayLobby.getGames();
         Map<String, Object> vm = new HashMap<>();
-
+        if(replayLobby.getGames() != null) {
+            ArrayList<Game> gameList = replayLobby.getGames();
+            vm.put(GAMES, gameList);
+        }
         vm.put(TITLE, TITLE_ATTR);
-        vm.put(GAMES, gameList);
         vm.put(CURRENT_USER, player);
 
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));

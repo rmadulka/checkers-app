@@ -31,6 +31,7 @@ public class PlayerLobby {
         this.players = new HashSet<>();
         this.currentGames = new ArrayList<>();
         LOG.config("PlayerLobby Initialized");
+        replayGames = new ReplayLobby();
     }
 
     /**

@@ -8,13 +8,13 @@ import java.util.ArrayList;
 public class ReplayLobby {
 
     /** Stores all of the completed games **/
-    ArrayList<Game> games;
+    private ArrayList<Game> games;
 
     /**
      * Maintains all of the completed Games that are available to be replayed on the Replay page
      */
     public ReplayLobby() {
-
+        this.games = new ArrayList<>();
     }
 
     /**
