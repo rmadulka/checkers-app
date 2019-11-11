@@ -76,6 +76,11 @@ public class Game {
         currentState += i;
     }
 
+
+    public void resetState(){
+        currentState = 0;
+    }
+
     /**
      * gets the currentState index value
      * @return currentState

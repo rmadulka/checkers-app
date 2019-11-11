@@ -21,10 +21,10 @@ public class PostNextTurnRoute implements Route {
     }
 
     public Object handle(Request request, Response response){
-        Session httpSession = request.session();
+        String gameId = request.queryParams("id");
+        int gameIdInt = Integer.parseInt(gameId);
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
-        //TODO implement gameId so that the game being replayed can be retrieved within the game arrayList
-        Game game = replayLobby.getGames().get(0); //hard coded for now
+        Game game = replayLobby.getGame(gameIdInt);
         ArrayList<BoardState> boardStates = game.getBoardStates();
         Message message;
         if(game.getCurrentState() + 1 < boardStates.size()){
