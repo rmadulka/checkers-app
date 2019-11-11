@@ -45,6 +45,7 @@ import com.webcheckers.util.MoveProcessor;
         //customPopulate();
         //endGameTestOne();
         //endGameTestTwo();
+        //multijumpTest();
     }
 
     /**
@@ -136,6 +137,11 @@ import com.webcheckers.util.MoveProcessor;
 //        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
 //        board[3][4].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
 //    }
+    private void multijumpTest() {
+        board[1][2].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+        board[2][3].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+        board[4][5].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    }
 
     /**
      * gets current positions of the board

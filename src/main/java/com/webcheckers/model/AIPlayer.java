@@ -63,15 +63,20 @@ public class AIPlayer extends Player implements Runnable{
      * Makes a turn on the board
      */
     private void makeTurn(){
-        //TODO Fix valid turns
         System.out.println("AI Makes a Move");
         Move move = getRandomMove(gameLobby.getBoard());
         turnStack.push(move);
+        while (!(MoveProcessor.validateTurn(turnStack, gameLobby.getBoard()))) {
+            System.out.println("got here");
+            gameLobby.getBoard().makeMove(move);
+            move = getMultijump(move, gameLobby.getBoard());
+            turnStack.push(move);
+        }
         MoveProcessor.processMoves(this, gameLobby.getBoard());
     }
 
     /**
-     * Helper funciton for makeMove()
+     * Helper function for makeMove()
      */
     private Position findPiece(){
         boolean foundPiece = false;
@@ -91,12 +96,8 @@ public class AIPlayer extends Player implements Runnable{
      * @return - boolean to determine the players turn
      */
     private boolean checkMyTurn(){
-        if ((gameLobby.getRedPlayer().equals(this) && gameLobby.getBoard().getActiveColor() == Piece.pieceColor.RED) ||
-                (gameLobby.getWhitePlayer().equals(this) && gameLobby.getBoard().getActiveColor() == Piece.pieceColor.WHITE)){
-            return true;
-        } else {
-            return false;
-        }
+        return (gameLobby.getRedPlayer().equals(this) && gameLobby.getBoard().getActiveColor() == Piece.pieceColor.RED) ||
+                (gameLobby.getWhitePlayer().equals(this) && gameLobby.getBoard().getActiveColor() == Piece.pieceColor.WHITE);
     }
 
     /**
@@ -105,21 +106,6 @@ public class AIPlayer extends Player implements Runnable{
      * @return an arraylist of valid moves
      */
     private Move getRandomMove(Board board) {
-//        ArrayList<Move> moves = new ArrayList<>();
-//        for (int row = 0; row < 8; row++) {
-//            for (int col =0; col < 8; col++) {
-//                Position pos = new Position(row, col);
-//                Space space = board.getSpace(pos);
-//                Piece aiPiece = space.getPiece();
-//                if (aiPiece != null && aiPiece.getColor() == Piece.pieceColor.WHITE) {
-//                    moves.addAll(getValidSimpleMoves(board, pos));
-//                    moves.addAll(getValidJumpMoves(board,pos));
-//                }
-//            }
-//        }
-//        int randMove = (int)(Math.random() * moves.size());
-//        Move move = moves.get(randMove);
-//        return move;
         ArrayList<Move> moves = new ArrayList<>();
         List<Move> jumps = getValidJumpMoves(board);
         if(jumps.size() == 0) {
@@ -236,5 +222,36 @@ public class AIPlayer extends Player implements Runnable{
             }
         }
         return validJumpMoves;
+    }
+
+    public Move getMultijump(Move move, Board board) {
+        Space[][] gameBoard = board.getBoard();
+        int negOne = -1;
+        if(move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE) {
+            //checks out of bounds, if next piece is an enemy piece and the space after is empty
+            if (!(move.getEndCell() - 2 < 0) &&
+                    gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece() != null &&
+                    gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() + negOne * 2][move.getEndCell() - 2].getPiece() == null) {
+                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() + negOne*2, move.getEndCell() - 2));
+            }
+            //checks out of bounds, if next piece is an enemy piece and the space after is empty
+            if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
+                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece() != null &&
+                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() + negOne * 2][move.getEndCell() + 2].getPiece() == null) {
+                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() + negOne*2, move.getEndCell() + 2));
+            }
+        }
+        if (gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getType().equals(Piece.pieceType.KING) &&
+                ((move.getEndRow() <= gameBoard.length - 2))) {
+            if (!(move.getEndCell() - 2 < 0) &&
+                    gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece() != null &&
+                    gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() - negOne * 2][move.getEndCell() - 2].getPiece() == null) {
+                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() - negOne*2, move.getEndCell() - 2));
+            }
+        }
+        return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() - negOne*2, move.getEndCell() + 2));
     }
 }
