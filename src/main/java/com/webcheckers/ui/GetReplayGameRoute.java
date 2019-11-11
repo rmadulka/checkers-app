@@ -39,14 +39,14 @@ public class GetReplayGameRoute implements Route{
         Game game = replayLobby.getGame(gameIdInt);
         ArrayList<BoardState> boardState = game.getBoardStates();
         BoardView boardView = new BoardView(player, new Board(game.getWhitePlayer(), game.getRedPlayer()));
-
+        System.out.println(boardState.get(0).getActiveColor());
         vm.put(VIEW_MODE, GetGameRoute.viewMode.REPLAY);
         vm.put(GetHomeRoute.CURRENT_USER, player);
         vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
         vm.put(GetGameRoute.RED_PLAYER, game.getRedPlayer());
         vm.put(GetGameRoute.WHITE_PLAYER, game.getWhitePlayer());
         vm.put(GetGameRoute.ACTIVE_COLOR, boardState.get(game.getCurrentState()).getActiveColor());
-        vm.put(BOARD_VIEW, boardState);
+        vm.put(BOARD_VIEW, boardView);
 
 
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
