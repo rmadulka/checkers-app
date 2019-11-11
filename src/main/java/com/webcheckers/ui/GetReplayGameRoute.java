@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.appl.ReplayLobby;
@@ -47,6 +48,11 @@ public class GetReplayGameRoute implements Route{
         vm.put(GetGameRoute.WHITE_PLAYER, game.getWhitePlayer());
         vm.put(GetGameRoute.ACTIVE_COLOR, boardState.get(game.getCurrentState()).getActiveColor());
         vm.put(BOARD_VIEW, boardView);
+
+        final Map<String, Object> modeOptions = new HashMap<>(2);
+        modeOptions.put("hasNext", true);
+        modeOptions.put("hasPrevious", true);
+        vm.put("modeOptionsAsJSON", new Gson().toJson(modeOptions));
 
 
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
