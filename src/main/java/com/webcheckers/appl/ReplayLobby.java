@@ -32,4 +32,18 @@ public class ReplayLobby {
     public void addGame(Game game){
         games.add(game);
     }
+
+    /**
+     * Gets the game based on the game id
+     * @param id The game id
+     * @return The game
+     */
+    public Game getGame(int id) {
+        for (Game game : games) {
+            if(game.getId() == id){
+                return game;
+            }
+        }
+        return null;
+    }
 }
