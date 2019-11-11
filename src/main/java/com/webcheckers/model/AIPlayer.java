@@ -2,6 +2,7 @@ package com.webcheckers.model;
 
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.util.Message;
 import com.webcheckers.util.MoveProcessor;
 
 import java.util.ArrayList;
@@ -60,35 +61,23 @@ public class AIPlayer extends Player implements Runnable{
     }
 
     /**
-     * Makes a turn on the board
+     * AI makes a turn on the board
+     * Also determines if the ai has won or lost at the end of the game
      */
     private void makeTurn(){
-        System.out.println("AI Makes a Move");
         Move move = getRandomMove(gameLobby.getBoard());
         turnStack.push(move);
         while (!(MoveProcessor.validateTurn(turnStack, gameLobby.getBoard()))) {
-            System.out.println("got here");
             gameLobby.getBoard().makeMove(move);
             move = getMultijump(move, gameLobby.getBoard());
             turnStack.push(move);
         }
         MoveProcessor.processMoves(this, gameLobby.getBoard());
-    }
-
-    /**
-     * Helper function for makeMove()
-     */
-    private Position findPiece(){
-        boolean foundPiece = false;
-        int startRow = 0;
-        int startCell = 0;
-        while (!foundPiece){
-            startRow = (int)(Math.random()*8);
-            startCell = (int)(Math.random()*8);
-            foundPiece = gameLobby.getBoard().getBoard()[startRow][startCell].getPiece() != null &&
-                    gameLobby.getBoard().getBoard()[startRow][startCell].getPiece().getColor() == Piece.pieceColor.WHITE;
+        if(gameLobby.getBoard().checkNoAvailiablePieces()){
+            gameLobby.endGame(Message.info(String.format("%s has no remaining pieces",gameLobby.getBoard().getActiveColor().toString())));
+        } else if(!gameLobby.getBoard().checkAvailableMove()){
+            gameLobby.endGame(Message.info(String.format("%s has no available moves",gameLobby.getBoard().getActiveColor().toString())));
         }
-        return new Position(startRow, startCell);
     }
 
     /**
@@ -174,47 +163,46 @@ public class AIPlayer extends Player implements Runnable{
     private List<Move> getValidJumpMoves(Board board) {
         ArrayList<Move> validJumpMoves = new ArrayList<>();
         Space[][] gameBoard = board.getBoard();
-        int negOne = -1;
         for (int row = 0; row < gameBoard.length; row ++) {
             for (int col = 0; col < gameBoard.length; col++) {
-                if (!(row + negOne * 2 > gameBoard.length - 1 || row + negOne * 2 < 0)) {
+                if (!(row - 2 > gameBoard.length - 1 || row - 2 < 0)) {
                     //check that this is the moving player's piece
                     if (gameBoard[row][col].getPiece() != null &&
                             gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
                         //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
                         //TODO Fix law of demeter here
-                        if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() != null &&
-                                gameBoard[row + negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
-                                gameBoard[row + negOne * 2][col + 2].getPiece() == null) {
-                            validJumpMoves.add(new Move(new Position(row, col), new Position(row + negOne*2, col + 2)));
+                        if (!(col + 2 > gameBoard.length - 1) && gameBoard[row - 1][col + 1].getPiece() != null &&
+                                gameBoard[row - 1][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row - 2][col + 2].getPiece() == null) {
+                            validJumpMoves.add(new Move(new Position(row, col), new Position(row - 2, col + 2)));
                         }
                         //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
                         //TODO Fix law of demeter here
-                        if (col - 2 >= 0 && gameBoard[row + negOne][col - 1].getPiece() != null &&
-                                gameBoard[row + negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
-                                gameBoard[row + negOne * 2][col - 2].getPiece() == null) {
-                            validJumpMoves.add(new Move(new Position(row, col), new Position(row + negOne*2, col - 2)));
+                        if (col - 2 >= 0 && gameBoard[row - 1][col - 1].getPiece() != null &&
+                                gameBoard[row - 1][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row - 2][col - 2].getPiece() == null) {
+                            validJumpMoves.add(new Move(new Position(row, col), new Position(row - 2, col - 2)));
                         }
                     }
                 }
                 if (gameBoard[row][col].getPiece() != null && gameBoard[row][col].getPiece().getType() == Piece.pieceType.KING) {
-                    if (!(row - negOne * 2 > gameBoard.length - 1 || row - negOne * 2 < 0)) {
+                    if (!(row + 2 > gameBoard.length - 1 || row + 2 < 0)) {
                         //check that this is the moving player's piece
                         if (gameBoard[row][col].getPiece() != null &&
                                 gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
                             //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
                             //TODO Fix law of demeter here
-                            if (!(col + 2 > gameBoard.length - 1) && gameBoard[row - negOne][col + 1].getPiece() != null &&
-                                    gameBoard[row - negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
-                                    gameBoard[row - negOne * 2][col + 2].getPiece() == null) {
-                                validJumpMoves.add(new Move(new Position(row, col), new Position(row - negOne*2, col + 2)));
+                            if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + 1][col + 1].getPiece() != null &&
+                                    gameBoard[row + 1][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                    gameBoard[row + 2][col + 2].getPiece() == null) {
+                                validJumpMoves.add(new Move(new Position(row, col), new Position(row + 2, col + 2)));
                             }
                             //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
                             //TODO Fix law of demeter here
-                            if (col - 2 >= 0 && gameBoard[row - negOne][col - 1].getPiece() != null &&
-                                    gameBoard[row - negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
-                                    gameBoard[row - negOne * 2][col - 2].getPiece() == null) {
-                                validJumpMoves.add(new Move(new Position(row, col), new Position(row - negOne*2, col - 2)));
+                            if (col - 2 >= 0 && gameBoard[row + 1][col - 1].getPiece() != null &&
+                                    gameBoard[row + 1][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                    gameBoard[row + 2][col - 2].getPiece() == null) {
+                                validJumpMoves.add(new Move(new Position(row, col), new Position(row + 2, col - 2)));
                             }
                         }
                     }
@@ -224,34 +212,39 @@ public class AIPlayer extends Player implements Runnable{
         return validJumpMoves;
     }
 
+    /**
+     * Finds the multijump move after the ai performs a jump
+     * @param move a jump move
+     * @param board The board
+     * @return the move that the ai must perform
+     */
     public Move getMultijump(Move move, Board board) {
         Space[][] gameBoard = board.getBoard();
-        int negOne = -1;
         if(move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE) {
             //checks out of bounds, if next piece is an enemy piece and the space after is empty
             if (!(move.getEndCell() - 2 < 0) &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
-                    gameBoard[move.getEndRow() + negOne * 2][move.getEndCell() - 2].getPiece() == null) {
-                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() + negOne*2, move.getEndCell() - 2));
+                    gameBoard[move.getEndRow() -1 ][move.getEndCell() - 1].getPiece() != null &&
+                    gameBoard[move.getEndRow() - 1][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() - 2][move.getEndCell() - 2].getPiece() == null) {
+                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() - 2, move.getEndCell() - 2));
             }
             //checks out of bounds, if next piece is an enemy piece and the space after is empty
             if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
-                    gameBoard[move.getEndRow() + negOne * 2][move.getEndCell() + 2].getPiece() == null) {
-                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() + negOne*2, move.getEndCell() + 2));
+                    gameBoard[move.getEndRow() - 1][move.getEndCell() + 1].getPiece() != null &&
+                    gameBoard[move.getEndRow() - 1][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() - 2][move.getEndCell() + 2].getPiece() == null) {
+                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() - 2, move.getEndCell() + 2));
             }
         }
         if (gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getType().equals(Piece.pieceType.KING) &&
                 ((move.getEndRow() <= gameBoard.length - 2))) {
             if (!(move.getEndCell() - 2 < 0) &&
-                    gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
-                    gameBoard[move.getEndRow() - negOne * 2][move.getEndCell() - 2].getPiece() == null) {
-                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() - negOne*2, move.getEndCell() - 2));
+                    gameBoard[move.getEndRow() + 1][move.getEndCell() - 1].getPiece() != null &&
+                    gameBoard[move.getEndRow() + 1][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() + 2][move.getEndCell() - 2].getPiece() == null) {
+                return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() + 2, move.getEndCell() - 2));
             }
         }
-        return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() - negOne*2, move.getEndCell() + 2));
+        return new Move(new Position(move.getEndRow(), move.getEndCell()), new Position(move.getEndRow() + 2, move.getEndCell() + 2));
     }
 }

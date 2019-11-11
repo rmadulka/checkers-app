@@ -41,11 +41,11 @@ import com.webcheckers.util.MoveProcessor;
         this.redPlayer = redPlayer;
         activeColor = Piece.pieceColor.RED;
         init();
-        populate();
+        //populate();
         //customPopulate();
         //endGameTestOne();
         //endGameTestTwo();
-        //multijumpTest();
+        multijumpTest();
     }
 
     /**
