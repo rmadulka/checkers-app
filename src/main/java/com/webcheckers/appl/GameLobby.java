@@ -42,7 +42,7 @@ public class GameLobby {
         this.whitePlayer = whitePlayer;
         this.board = new Board(whitePlayer, redPlayer);
         this.isGameOver = false;
-        this.game = new Game(redPlayer, whitePlayer, 0); //TODO 0 is a placeholder, find a way to create game ids
+        this.game = new Game(redPlayer, whitePlayer, 0);
         init();
         LOG.config("GameLobby created for [" + redPlayer.getName() + "] [" + whitePlayer.getName() + "]" );
     }

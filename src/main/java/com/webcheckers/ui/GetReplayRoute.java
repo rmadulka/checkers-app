@@ -51,6 +51,7 @@ public class GetReplayRoute implements Route {
         Map<String, Object> vm = new HashMap<>();
         if(replayLobby.getGames() != null) {
             ArrayList<Game> gameList = replayLobby.getGames();
+            gameList.add(new Game(new Player("Joe"), new Player("Mama"), 0));
             vm.put(GAMES, gameList);
         }
         vm.put(TITLE, TITLE_ATTR);

@@ -22,7 +22,7 @@
           <#list games as g>
               <li>
                 <form id="form" action="./replay/game" method="GET">
-                  <input type="hidden" name="receiver" value="${g.id}" />
+                  <input type="hidden" name="id" value="${g.id}" />
                   <a href="javascript:;" onclick="document.getElementById('form').submit();"> [${g.id}] </a>
                 </form>
               </li>
