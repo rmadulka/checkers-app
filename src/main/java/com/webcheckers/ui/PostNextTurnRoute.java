@@ -27,8 +27,8 @@ public class PostNextTurnRoute implements Route {
         Game game = replayLobby.getGames().get(0); //hard coded for now
         ArrayList<BoardState> boardStates = game.getBoardStates();
         Message message;
-        if(game.getCurrentState() - 1 >= 0){
-            game.changeState(-1);
+        if(game.getCurrentState() + 1 < boardStates.size()){
+            game.changeState(1);
             message = Message.info("true");
         }else{
             message = Message.info("false");
