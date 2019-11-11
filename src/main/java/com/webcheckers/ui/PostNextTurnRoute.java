@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.appl.ReplayLobby;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Game;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.Space;
+import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import spark.Request;
 import spark.Response;
@@ -23,14 +20,20 @@ public class PostNextTurnRoute implements Route {
         this.playerLobby = playerLobby;
     }
 
-    //TODO find a way to specify which game is being reviewed
     public Object handle(Request request, Response response){
         Session httpSession = request.session();
-        Player player = httpSession.attribute("currentUser");
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
+        //TODO implement gameId so that the game being replayed can be retrieved within the game arrayList
         Game game = replayLobby.getGames().get(0); //hard coded for now
-        //TODO review the boardStates and write conditions on if we can go backwards or forwards w/out OOB error
-        //(SAME APPLIES TO POSTPREVIOUSTURNROUTE)
-        return null;
+        ArrayList<BoardState> boardStates = game.getBoardStates();
+        Message message;
+        if(game.getCurrentState() - 1 >= 0){
+            game.changeState(-1);
+            message = Message.info("true");
+        }else{
+            message = Message.info("false");
+        }
+        Gson gson = new Gson();
+        return gson.toJson(message);
     }
 }

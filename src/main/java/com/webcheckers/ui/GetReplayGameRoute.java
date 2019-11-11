@@ -42,7 +42,8 @@ public class GetReplayGameRoute implements Route{
         vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
         //vm.put(GetGameRoute.RED_PLAYER, game.getRedPlayer());
         //vm.put(GetGameRoute.WHITE_PLAYER, game.getWhitePlayer());
-        //vm.put(GetGameRoute.ACTIVE_COLOR, game.getActiveColor());
+        //vm.put(GetGameRoute.ACTIVE_COLOR, boardState.get(game.getCurrentState()).getActiveColor());
+        //vm.put(BOARD_VIEW, '(need to implement boardView object)')
 
 
         return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
