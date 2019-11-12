@@ -34,15 +34,12 @@ public class PostProposedMoveRoute implements Route {
     public Object handle(Request request, Response response) {
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
-
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
-
         String data = request.queryParams("actionData");
         Gson gson = new Gson();
         Move move = gson.fromJson(data, Move.class);
         Message message;
-
 
         if(MoveProcessor.validateMove(move, board, player)){
             player.addMove(move);

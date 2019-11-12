@@ -15,7 +15,6 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
-import static spark.Spark.halt;
 
 public class PostSubmitTurnRoute implements Route {
 
@@ -48,7 +47,7 @@ public class PostSubmitTurnRoute implements Route {
         Message message;
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
             MoveProcessor.processMoves(player, board);
-            boardState.constructState(board);
+            boardState.constructState(board);   //used to record board for a replay
             game.addGameState(boardState);
             message = Message.info("Valid Turn");
             //EndGame Conditions
