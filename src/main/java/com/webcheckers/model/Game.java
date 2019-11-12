@@ -13,12 +13,10 @@ public class Game {
     private ArrayList<BoardState> boardStates = new ArrayList<>();
     /** unique game id */
     private int id;
-
+    /** used to given a unique id for each Game */
     private static int idCount = 0;
     /** acts as an index for the boardStates array, tracking what boardState is currently on display **/
     private int currentState;
-
-    private Date endDate = null;
 
     /**
      * Represents a recorded game that is ready to be replayed
@@ -82,6 +80,10 @@ public class Game {
     }
 
 
+    /**
+     * Once the user exits their replay, currentState returns back to zero so that when the user returns to a replay they
+     * start off the first boardState
+     */
     public void resetState(){
         currentState = 0;
     }
@@ -94,11 +96,5 @@ public class Game {
         return currentState;
     }
 
-    public void setEndDate(Date date){
-        this.endDate = date;
-    }
 
-    public String getEndDate(){
-        return endDate.toString();
-    }
 }

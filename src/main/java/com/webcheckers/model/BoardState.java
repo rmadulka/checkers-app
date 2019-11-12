@@ -8,9 +8,9 @@ public class BoardState implements Iterable<Row>{
     /** Contains the piece placement for a completed turn */
     private Piece.pieceColor activeColor;
 
+    /** holds all of the row data for a specific board */
     private ArrayList<Row> rows;
 
-    private Space[][] spaces;
 
     /**
      * Intended to save a user's turn for replay uses
@@ -31,6 +31,12 @@ public class BoardState implements Iterable<Row>{
         }
     }
 
+    /**
+     * Helper function that fills out a single row of spaces and pieces
+     * @param rowInd specified row index
+     * @param board current board
+     * @return a singular row of board
+     */
     public Space[] constructSpaces(int rowInd, Board board) {
         Space[] row = new Space[8];
         for (int c = 0; c < 8; c++) {
@@ -43,10 +49,18 @@ public class BoardState implements Iterable<Row>{
         return row;
     }
 
+    /**
+     * retrieves the active color for a given board
+     * @return activeColor
+     */
     public Piece.pieceColor getActiveColor(){
         return activeColor;
     }
 
+    /**
+     * Gets the given board positions organized by row
+     * @return rows
+     */
     public Iterator<Row> iterator() {
         return rows.iterator();
     }
