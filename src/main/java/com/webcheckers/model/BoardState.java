@@ -40,10 +40,14 @@ public class BoardState implements Iterable<Row>{
     public Space[] constructSpaces(int rowInd, Board board) {
         Space[] row = new Space[8];
         for (int c = 0; c < 8; c++) {
+            Piece piece = null;
+            if(board.getBoard()[rowInd][c].getPiece() != null) {
+                piece = new Piece(board.getBoard()[rowInd][c].getPiece().getType(), board.getBoard()[rowInd][c].getPiece().getColor());
+            }
             if(rowInd + c % 2 == 0) {
-                row[c] = new Space(c, true, board.getBoard()[rowInd][c].getPiece());
+                row[c] = new Space(c, true, piece);
             } else {
-                row[c] = new Space(c, false, board.getBoard()[rowInd][c].getPiece());
+                row[c] = new Space(c, false, piece);
             }
         }
         return row;
