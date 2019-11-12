@@ -73,6 +73,13 @@ public class AIPlayer extends Player implements Runnable{
             turnStack.push(move);
         }
         MoveProcessor.processMoves(this, gameLobby.getBoard());
+
+        Game game = gameLobby.getGame();
+        Board board = gameLobby.getBoard();
+        BoardState boardState = new BoardState(board.getActiveColor());
+        boardState.constructState(board);
+        game.addGameState(boardState);
+
         if(gameLobby.getBoard().checkNoAvailiablePieces()){
             gameLobby.endGame(Message.info(String.format("%s has no remaining pieces",gameLobby.getBoard().getActiveColor().toString())));
         } else if(!gameLobby.getBoard().checkAvailableMove()){

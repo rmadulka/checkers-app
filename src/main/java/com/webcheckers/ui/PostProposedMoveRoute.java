@@ -3,9 +3,7 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Move;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.MoveProcessor;
 import spark.Request;
@@ -43,7 +41,6 @@ public class PostProposedMoveRoute implements Route {
         String data = request.queryParams("actionData");
         Gson gson = new Gson();
         Move move = gson.fromJson(data, Move.class);
-
         Message message;
 
 
