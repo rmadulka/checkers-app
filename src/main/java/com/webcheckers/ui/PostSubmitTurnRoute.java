@@ -57,14 +57,10 @@ public class PostSubmitTurnRoute implements Route {
                 gameLobby.endGame(Message.info(String.format("%s has no available moves",board.getActiveColor().toString())));
             }
 
-            //Not needed but for safety
-
             player.getTurnStack().removeAllElements();
             boardState.constructState(board);
+            System.out.println(board);
             game.addGameState(boardState);
-            //for(int i = 0 ;i < game.getBoardStates().size(); i++){        //used for testing purposes
-                //System.out.println(game.getBoardStates().get(i);
-            //}
 
         } else {
             //TODO more than one error message

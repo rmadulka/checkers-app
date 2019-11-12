@@ -1,17 +1,22 @@
 package com.webcheckers.model;
 
-public class BoardState {
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class BoardState implements Iterable<Row>{
 
     /** Contains the piece placement for a completed turn */
-    private Space[][] state;
-
     private Piece.pieceColor activeColor;
+
+    private ArrayList<Row> rows;
 
     /**
      * Intended to save a user's turn for replay uses
      */
     public BoardState(Piece.pieceColor activeColor){
         this.activeColor = activeColor;
+        this.rows = new ArrayList<>();
+
     }
 
     /**
@@ -19,20 +24,18 @@ public class BoardState {
      * @param board submitted board
      */
     public void constructState(Board board) {
-        state = board.copyBoard(board);
+        for(int r = 0; r < 8; r++){
+            rows.add(new Row(r, board.getRow(r)));
+        }
 
-    }
-
-    /**
-     * gets the board layout
-     * @return state
-     */
-    public Space[][] getState() {
-        return state;
     }
 
     public Piece.pieceColor getActiveColor(){
         return activeColor;
+    }
+
+    public Iterator<Row> iterator() {
+        return rows.iterator();
     }
 
 
