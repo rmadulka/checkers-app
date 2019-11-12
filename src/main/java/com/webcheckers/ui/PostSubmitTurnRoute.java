@@ -48,6 +48,8 @@ public class PostSubmitTurnRoute implements Route {
         Message message;
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
             MoveProcessor.processMoves(player, board);
+            boardState.constructState(board);
+            game.addGameState(boardState);
             message = Message.info("Valid Turn");
             //EndGame Conditions
             if(board.checkNoAvailiablePieces()){
@@ -57,8 +59,7 @@ public class PostSubmitTurnRoute implements Route {
                 replayLobby.addGame(game);
                 gameLobby.endGame(Message.info(String.format("%s has no available moves",board.getActiveColor().toString())));
             }
-            boardState.constructState(board);
-            game.addGameState(boardState);
+
             player.getTurnStack().removeAllElements();
 
 

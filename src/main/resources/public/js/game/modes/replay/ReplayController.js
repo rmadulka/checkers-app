@@ -140,7 +140,7 @@ define(function(require){
    */
   ReplayController.prototype.exitGame = function exitGame() {
     //window.location = '/replay/stopWatching?gameID=' + this.getGameID();
-    AjaxUtils.callServer('/exitGame',handleResponse, this)
+    AjaxUtils.callServer('/replay/stopWatching',handleResponse, this)
 
     function handleResponse(message) {
       if (message.type === 'INFO') {

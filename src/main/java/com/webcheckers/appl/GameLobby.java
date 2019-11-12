@@ -60,6 +60,7 @@ public class GameLobby {
     //TODO perhaps an enum with RESIGN, NO MOVES, NO PIECES
     public void endGame(Message reason){
         LOG.finer("Game over");
+        game.setEndDate(new Date());
         isGameOver = true;
         gameOverMessage = reason;
     }
