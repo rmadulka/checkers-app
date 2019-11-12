@@ -24,13 +24,13 @@
             spectating active games,
             or replay archived games
     -->
+
     <#if userInGame??>
         <p>
           ${userInGame}
         </p>
     </#if>
   </div>
-    <h2 style="padding-left: 10px">Players Online</h2>
   <!-- create a <ul> for players online -->
     <div class = "players">
       <#if currentUser??>
@@ -42,13 +42,15 @@
               </form>
           </li>
           <#if playersOnline??>
-
+              <a href="/replay"> Replays </a>
+              <h2 style="padding-left: 10px">Players Online</h2>
+              <ul>
                 <#list playersOnline as p>
                     <#if !(p.name == currentUser.name)>
                         <li>
-                            <form id="form" action="./game" method="GET">
+                            <form id="opponent${p.name}" action="./game" method="GET">
                                 <input type="hidden" name="receiver" value="${p.name}" />
-                                <a href="javascript:;" onclick="document.getElementById('form').submit();"> [${p.name}] </a>
+                                <a href="javascript:;" onclick="document.getElementById('opponent${p.name}').submit();"> [${p.name}] </a>
                             </form>
                         </li>
                     </#if>

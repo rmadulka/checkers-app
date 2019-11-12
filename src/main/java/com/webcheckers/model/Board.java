@@ -42,9 +42,9 @@ import com.webcheckers.util.MoveProcessor;
         activeColor = Piece.pieceColor.RED;
         init();
         populate();
-        //customPopulate();
-        //endGameTestOne();
-        //endGameTestTwo();
+//        customPopulate();
+//        endGameTestOne();
+//        endGameTestTwo();
     }
 
     /**
@@ -99,43 +99,43 @@ import com.webcheckers.util.MoveProcessor;
     /**
      * A Testing board that is used to test moves without replaying an entire game of checkers
      */
-//    private void customPopulate() {
-//        for (int row = 0; row < SIZE; row++) {
-//            for (int col = 0; col < SIZE; col++) {
-//                if (row == 4) { // these rows need to have red pieces on black spaces
-//                    if (board[row][col].isValid()) {
-//                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
-//                    }
-//                } else if (row == 6) { // these rows need to have white pieces on black spaces
-//                    if (board[row][col].isValid()) {
-//                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-//                    }
-//                } else if (row == 0) { // these rows need to have red pieces on black spaces
-//                    if (board[row][col].isValid()) {
-//                        board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
-//                    }
-//                } else if (row == 2) { // these rows need to have white pieces on black spaces
-//                    if (board[row][col].isValid()) {
-//                        board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    private void endGameTestOne() {
-//        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
-//        board[2][3].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
-//
-//        board[3][0].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
-//        board[4][1].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-//        board[5][2].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-//    }
-//
-//    private void endGameTestTwo() {
-//        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
-//        board[3][4].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
-//    }
+    private void customPopulate() {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (row == 4) { // these rows need to have red pieces on black spaces
+                    if (board[row][col].isValid()) {
+                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+                    }
+                } else if (row == 6) { // these rows need to have white pieces on black spaces
+                    if (board[row][col].isValid()) {
+                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+                    }
+                } else if (row == 0) { // these rows need to have red pieces on black spaces
+                    if (board[row][col].isValid()) {
+                        board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+                    }
+                } else if (row == 2) { // these rows need to have white pieces on black spaces
+                    if (board[row][col].isValid()) {
+                        board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+                    }
+                }
+            }
+        }
+    }
+
+    private void endGameTestOne() {
+        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+        board[2][3].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+
+        board[3][0].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+        board[4][1].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+        board[5][2].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+    }
+
+    private void endGameTestTwo() {
+        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+        board[3][4].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+    }
 
     /**
      * gets current positions of the board
@@ -293,18 +293,18 @@ import com.webcheckers.util.MoveProcessor;
      *
      * @param board - board to be printed
      */
-//    public void printBoard(Board board) {
-//        for (int row = 0; row < SIZE; row++) {
-//            for (int col = 0; col < SIZE; col++) {
-//                if (board.getBoard()[row][col].getPiece() != null) {
-//                    System.out.print("1");
-//                } else {
-//                    System.out.print("0");
-//                }
-//            }
-//            System.out.println("");
-//        }
-//    }
+    public void printBoard(Board board) {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (board.getBoard()[row][col].getPiece() != null) {
+                    System.out.print("1");
+                } else {
+                    System.out.print("0");
+                }
+            }
+            System.out.println("");
+        }
+    }
 
     /**
      * Determines if a checkers piece reaches the end of the board

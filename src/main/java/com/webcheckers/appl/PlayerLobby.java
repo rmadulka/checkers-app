@@ -1,7 +1,6 @@
 package com.webcheckers.appl;
 import com.webcheckers.model.AIPlayer;
 import com.webcheckers.model.Player;
-import com.webcheckers.ui.GetHomeRoute;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,6 +23,8 @@ public class PlayerLobby {
     /** An array list of GameLobbies */
     private ArrayList<GameLobby> currentGames;
 
+    private ReplayLobby replayGames;
+
     /**
      * Creates a new instance of a PlayerLobby
      */
@@ -31,6 +32,7 @@ public class PlayerLobby {
         this.players = new HashSet<>();
         this.currentGames = new ArrayList<>();
         LOG.config("PlayerLobby Initialized");
+        replayGames = new ReplayLobby();
     }
 
     /**
@@ -92,6 +94,10 @@ public class PlayerLobby {
         return null;
     }
 
+    public ReplayLobby getReplayLobby(){
+        return replayGames;
+    }
+
     /**
      * Adds a player to the list of signed-in players
      * @param player A successfully signed-in player
@@ -132,6 +138,4 @@ public class PlayerLobby {
         this.currentGames.remove(gameLobby);
         LOG.info("Removed GameLobby from PlayerLobby");
     }
-
-
 }
