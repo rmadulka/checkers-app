@@ -22,39 +22,35 @@ public class CheckAllJumpMove extends Rules{
                 if (!(row + negOne * 2 > gameBoard.length - 1 || row + negOne * 2 < 0)) {
                     //check that this is the moving player's piece
                     if (gameBoard[row][col].getPiece() != null &&
-                            gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                            gameBoard[row][col].getPieceColor() == board.getActiveColor()) {
                         //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
-                        //TODO Fix law of demeter here
                         if (!(col + 2 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() != null &&
-                                gameBoard[row + negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row + negOne][col + 1].getPieceColor() != board.getActiveColor() &&
                                 gameBoard[row + negOne * 2][col + 2].getPiece() == null) {
                             return true;
                         }
                         //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
-                        //TODO Fix law of demeter here
                         if (col - 2 >= 0 && gameBoard[row + negOne][col - 1].getPiece() != null &&
-                                gameBoard[row + negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                gameBoard[row + negOne][col - 1].getPieceColor() != board.getActiveColor() &&
                                 gameBoard[row + negOne * 2][col - 2].getPiece() == null) {
                             return true;
                         }
                     }
                 }
-                if (gameBoard[row][col].getPiece() != null && gameBoard[row][col].getPiece().getType() == Piece.pieceType.KING) {
+                if (gameBoard[row][col].getPiece() != null && gameBoard[row][col].getPieceType() == Piece.pieceType.KING) {
                     if (!(row - negOne * 2 > gameBoard.length - 1 || row - negOne * 2 < 0)) {
                         //check that this is the moving player's piece
                         if (gameBoard[row][col].getPiece() != null &&
-                                gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                                gameBoard[row][col].getPieceColor() == board.getActiveColor()) {
                             //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
-                            //TODO Fix law of demeter here
                             if (!(col + 2 > gameBoard.length - 1) && gameBoard[row - negOne][col + 1].getPiece() != null &&
-                                    gameBoard[row - negOne][col + 1].getPiece().getColor() != board.getActiveColor() &&
+                                    gameBoard[row - negOne][col + 1].getPieceColor() != board.getActiveColor() &&
                                     gameBoard[row - negOne * 2][col + 2].getPiece() == null) {
                                 return true;
                             }
                             //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
-                            //TODO Fix law of demeter here
                             if (col - 2 >= 0 && gameBoard[row - negOne][col - 1].getPiece() != null &&
-                                    gameBoard[row - negOne][col - 1].getPiece().getColor() != board.getActiveColor() &&
+                                    gameBoard[row - negOne][col - 1].getPieceColor() != board.getActiveColor() &&
                                     gameBoard[row - negOne * 2][col - 2].getPiece() == null) {
                                 return true;
                             }
@@ -67,6 +63,12 @@ public class CheckAllJumpMove extends Rules{
         return false;
     }
 
+    /**
+     * Determines if there is a jump move available on the board
+     * @param move The move the player made
+     * @param board The board
+     * @return True if there is an available jump move
+     */
     public boolean checkMoves(Move move, Board board){
         return checkForJumpMove(board);
     }

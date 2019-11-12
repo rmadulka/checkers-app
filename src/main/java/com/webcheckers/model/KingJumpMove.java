@@ -26,14 +26,14 @@ public class KingJumpMove extends Rules{
             if(!(move.getEndCell() - 2 < 0) &&
                     gameBoard[move.getEndRow() + one * 2][move.getEndCell() - 2] == gameBoard[move.getStartRow()][move.getStartCell()] &&
                     gameBoard[move.getEndRow() + one][move.getEndCell() - 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() + one][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor()){
+                    gameBoard[move.getEndRow() + one][move.getEndCell() - 1].getPieceColor() != board.getActiveColor()){
                 return true;
             }
             //checks backwards left diagonal jump moves
             if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
                     gameBoard[move.getEndRow() + one * 2][move.getEndCell() + 2] == gameBoard[move.getStartRow()][move.getStartCell()] &&
                     gameBoard[move.getEndRow() + one][move.getEndCell() + 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() + one][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor()) {
+                    gameBoard[move.getEndRow() + one][move.getEndCell() + 1].getPieceColor() != board.getActiveColor()) {
                 return true;
             }
 

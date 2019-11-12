@@ -84,6 +84,22 @@ public class Space {
         return new Piece(piece.getType(), piece.getColor());
     }
 
+    /**
+     * Gets the color the piece on this space
+     * @return The piece color
+     */
+    public Piece.pieceColor getPieceColor() {
+        return this.piece.getColor();
+    }
+
+    /**
+     * The type of the piece on this space
+     * @return The piece type
+     */
+    public Piece.pieceType getPieceType() {
+        return this.piece.getType();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Space) {

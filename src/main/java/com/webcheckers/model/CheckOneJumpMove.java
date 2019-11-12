@@ -14,41 +14,41 @@ public class CheckOneJumpMove extends Rules {
         if (board.getActiveColor() == Piece.pieceColor.WHITE) {
             negOne = -1;
         }
-        if (((move.getEndRow() >= gameBoard.length - 2 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED) ||
-                (move.getEndRow() - 2 < 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE)) &&
-                gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getType() == Piece.pieceType.SINGLE) {
+        if (((move.getEndRow() >= gameBoard.length - 2 && gameBoard[move.getEndRow()][move.getEndCell()].getPieceColor() == Piece.pieceColor.RED) ||
+                (move.getEndRow() - 2 < 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPieceColor() == Piece.pieceColor.WHITE)) &&
+                gameBoard[move.getEndRow()][move.getEndCell()].getPieceType() == Piece.pieceType.SINGLE) {
             return false;
         }
-        if((move.getEndRow() <= gameBoard.length - 2 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED) ||
-                (move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE)) {
+        if((move.getEndRow() <= gameBoard.length - 2 && gameBoard[move.getEndRow()][move.getEndCell()].getPieceColor() == Piece.pieceColor.RED) ||
+                (move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPieceColor() == Piece.pieceColor.WHITE)) {
             //checks out of bounds, if next piece is an enemy piece and the space after is empty
             if (!(move.getEndCell() - 2 < 0) &&
                     gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() + negOne][move.getEndCell() - 1].getPieceColor() != board.getActiveColor() &&
                     gameBoard[move.getEndRow() + negOne * 2][move.getEndCell() - 2].getPiece() == null) {
                 return true;
             }
             //checks out of bounds, if next piece is an enemy piece and the space after is empty
             if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
                     gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() + negOne][move.getEndCell() + 1].getPieceColor() != board.getActiveColor() &&
                     gameBoard[move.getEndRow() + negOne * 2][move.getEndCell() + 2].getPiece() == null) {
                 return true;
             }
         }
-        if (gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getType().equals(Piece.pieceType.KING) &&
+        if (gameBoard[move.getEndRow()][move.getEndCell()].getPieceType().equals(Piece.pieceType.KING) &&
                 ((move.getEndRow() <= gameBoard.length - 2 &&
-                gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.WHITE) ||
-                (move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPiece().getColor() == Piece.pieceColor.RED))) {
+                gameBoard[move.getEndRow()][move.getEndCell()].getPieceColor() == Piece.pieceColor.WHITE) ||
+                (move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPieceColor() == Piece.pieceColor.RED))) {
             if (!(move.getEndCell() - 2 < 0) &&
                     gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() - negOne][move.getEndCell() - 1].getPieceColor() != board.getActiveColor() &&
                     gameBoard[move.getEndRow() - negOne * 2][move.getEndCell() - 2].getPiece() == null) {
                 return true;
             }
             if (!(move.getEndCell() + 2 > gameBoard.length - 1) &&
                     gameBoard[move.getEndRow() - negOne][move.getEndCell() + 1].getPiece() != null &&
-                    gameBoard[move.getEndRow() - negOne][move.getEndCell() + 1].getPiece().getColor() != board.getActiveColor() &&
+                    gameBoard[move.getEndRow() - negOne][move.getEndCell() + 1].getPieceColor() != board.getActiveColor() &&
                     gameBoard[move.getEndRow() - negOne * 2][move.getEndCell() + 2].getPiece() == null) {
                 return true;
             }
@@ -56,6 +56,12 @@ public class CheckOneJumpMove extends Rules {
         return false;
     }
 
+    /**
+     * Determines if there is an available multijump
+     * @param move The move the player made
+     * @param board The board
+     * @return True if there is a multijump move
+     */
     public boolean checkMoves(Move move, Board board){
         return checkMultiJump(move, board);
     }
