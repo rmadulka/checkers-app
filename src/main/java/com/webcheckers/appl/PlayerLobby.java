@@ -1,4 +1,5 @@
 package com.webcheckers.appl;
+import com.webcheckers.model.AIPlayer;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
@@ -71,13 +72,11 @@ public class PlayerLobby {
      * @return The board both players are playing on
      */
     public GameLobby startGame(Player redPlayer, Player whitePlayer){
-        if (players.contains(redPlayer) && players.contains(whitePlayer)) {
-            GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
-            currentGames.add(gameLobby);
-            LOG.finer("GameLobby added to PlayerLobby");
-            return gameLobby;
-        }
-        return null;
+        GameLobby gameLobby = new GameLobby(redPlayer, whitePlayer);
+        currentGames.add(gameLobby);
+        gameLobby.init();
+        LOG.finer("GameLobby added to PlayerLobby");
+        return gameLobby;
     }
 
     /**
@@ -137,6 +136,6 @@ public class PlayerLobby {
      */
     public void removeGameLobby(GameLobby gameLobby) {
         this.currentGames.remove(gameLobby);
-        LOG.finer("Removed GameLobby from PlayerLobby");
+        LOG.info("Removed GameLobby from PlayerLobby");
     }
 }

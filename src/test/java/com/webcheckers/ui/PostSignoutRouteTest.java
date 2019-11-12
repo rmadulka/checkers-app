@@ -46,7 +46,7 @@ public class PostSignoutRouteTest {
         player = new Player("Joseph Mama");
         playerLobby.addPlayer(player);
         Player p1 = new Player("lol");
-        p1.setInGame(false);
+        p1.removeInGameStatus();
         when(request.queryParams("currentUser")).thenReturn(p1.getName());
         when(playerLobby.getPlayer(p1.getName())).thenReturn(p1);
 
@@ -66,7 +66,7 @@ public class PostSignoutRouteTest {
     public void invalid_in_game_signout(){
         player = new Player("Joseph Mama");
         Player p1 = new Player("lol");
-        p1.setInGame(true);
+        p1.addInGameStatus();
         when(request.queryParams("currentUser")).thenReturn(p1.getName());
         when(playerLobby.getPlayer(p1.getName())).thenReturn(p1);
         when(session.attribute(GetHomeRoute.MESSAGE_ATR)).thenReturn(Message.error("Cannot sign-out mid game"));
