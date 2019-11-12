@@ -52,7 +52,7 @@ public class GetReplayGameRoute implements Route{
         final Map<String, Object> modeOptions = new HashMap<>(2);
         modeOptions.put("hasNext", true);
         modeOptions.put("hasPrevious", true);
-        if(currentIndex + 1 >= boardState.size() - 1) {
+        if(currentIndex + 1 >= boardState.size()) {
             modeOptions.put("hasNext", false);
         }
         if(currentIndex - 1 < 0) {
