@@ -1,9 +1,6 @@
 package com.webcheckers.appl;
 
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Game;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.Space;
+import com.webcheckers.model.*;
 import com.webcheckers.ui.GetHomeRoute;
 import com.webcheckers.util.Message;
 
@@ -44,6 +41,9 @@ public class GameLobby {
         this.board = new Board(whitePlayer, redPlayer);
         this.isGameOver = false;
         this.game = new Game(redPlayer, whitePlayer);
+        BoardState boardState = new BoardState(board.getActiveColor());
+        boardState.constructState(board);
+        game.addGameState(boardState);
         init();
         LOG.config("GameLobby created for [" + redPlayer.getName() + "] [" + whitePlayer.getName() + "]" );
     }

@@ -40,10 +40,6 @@ public class PostResignRoute implements Route {
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Game game = gameLobby.getGame();
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
-        Board board = gameLobby.getBoard();
-        BoardState boardState = new BoardState(board.getActiveColor());
-        boardState.constructState(board);
-        game.addGameState(boardState);
         Message message;
 
         //Will fail if game is over
