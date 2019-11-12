@@ -12,18 +12,17 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
-public class PostExitGameRoute implements Route {
+import static spark.Spark.halt;
 
+public class PostExitReplayRoute implements Route {
     /** represents the players online, able to manage users **/
     private final PlayerLobby playerLobby;
 
-    private ReplayLobby replayLobby;
-
     /**
-     * Used to give functionality to the "Exit" button
-     * @param playerLobby
+     * Used to let the user return back to the home screen when in on the replay page
+     * @param playerLobby represents the players online, able to manage users
      */
-    public PostExitGameRoute(PlayerLobby playerLobby){
+    public PostExitReplayRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
     }
 
@@ -37,15 +36,17 @@ public class PostExitGameRoute implements Route {
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
         GameLobby gameLobby = playerLobby.getGameLobby(player);
+        String gameId = request.queryParams("id");
+        int gameIdInt = Integer.parseInt(gameId);
+        ReplayLobby replayLobby = playerLobby.getReplayLobby();
+        Game game = replayLobby.getGame(gameIdInt);
+        game.resetState();
         gameLobby.removePlayer(player);
 
         if (gameLobby.playersEmpty()){
             playerLobby.removeGameLobby(gameLobby);
         }
-
         Message message = Message.info("Exiting Game");
-
         return new Gson().toJson(message);
     }
-
 }

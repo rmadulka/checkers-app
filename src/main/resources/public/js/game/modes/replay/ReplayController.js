@@ -16,7 +16,9 @@ define(function(require){
   const StatePatternMixin = require('../../util/StatePatternMixin');
   const ControlsToolbarMixin = require('../../util/ControlsToolbarMixin');
   const ReplayModeConstants = require('./ReplayModeConstants');
-  
+  const AjaxUtils = require('../../util/AjaxUtils');
+
+
   // import REPLAY mode states
   const StartingReplayModeState = require('./StartingReplayModeState');
   const WaitingForUserActionState = require('./WaitingForUserActionState');
@@ -137,7 +139,16 @@ define(function(require){
    * Backup a single move.  This message has state-specific behavior.
    */
   ReplayController.prototype.exitGame = function exitGame() {
-    window.location = '/replay/stopWatching?gameID=' + this.getGameID();
+    //window.location = '/replay/stopWatching?gameID=' + this.getGameID();
+    AjaxUtils.callServer('/exitGame',handleResponse, this)
+
+    function handleResponse(message) {
+      if (message.type === 'INFO') {
+        window.location = '/'
+      } else {
+        this.displayMessage(message)
+      }
+    }
   };
 
   // export class constructor

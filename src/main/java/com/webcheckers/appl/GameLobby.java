@@ -1,10 +1,11 @@
 package com.webcheckers.appl;
 
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import com.webcheckers.ui.GetHomeRoute;
 import com.webcheckers.util.Message;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class GameLobby {
@@ -24,6 +25,9 @@ public class GameLobby {
     /** game over message */
     private Message gameOverMessage = null;
 
+    private Game game;
+
+
     /**
      * Constructs a GameLobby to keep track of the players in a current game
      * @param redPlayer
@@ -36,6 +40,11 @@ public class GameLobby {
         this.whitePlayer = whitePlayer;
         this.board = new Board(whitePlayer, redPlayer);
         this.isGameOver = false;
+        this.game = new Game(redPlayer, whitePlayer);
+        BoardState boardState = new BoardState(board.getActiveColor());
+        boardState.constructState(board);
+        game.addGameState(boardState);
+        init();
         LOG.config("GameLobby created for [" + redPlayer.getName() + "] [" + whitePlayer.getName() + "]" );
     }
 
@@ -61,6 +70,11 @@ public class GameLobby {
     public Board getBoard(){
         return this.board;
     }
+
+    public Game getGame(){
+        return game;
+    }
+
 
     /**
      * Sets the board to a new value (used for testing purposes)
