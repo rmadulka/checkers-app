@@ -34,7 +34,7 @@ public class GetReplayGameRoute implements Route{
         Session httpSession = request.session();
         Map<String, Object> vm = new HashMap<>();
         Player player = httpSession.attribute("currentUser");
-        String gameId = request.queryParams("id");
+        String gameId = request.queryParams("gameID");
         int gameIdInt = Integer.parseInt(gameId);
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
         Game game = replayLobby.getGame(gameIdInt);
