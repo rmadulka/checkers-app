@@ -21,31 +21,27 @@ public class CheckSimpleMove extends Rules {
                 if (!(row + negOne > gameBoard.length - 1 || row + negOne < 0)) {
                     //check that this is the moving player's piece
                     if (gameBoard[row][col].getPiece() != null &&
-                            gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                            gameBoard[row][col].getPieceColor() == board.getActiveColor()) {
                         //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
-                        //TODO Fix law of demeter here
                         if (!(col + 1 > gameBoard.length - 1) && gameBoard[row + negOne][col + 1].getPiece() == null) {
                             return true;
                         }
                         //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
-                        //TODO Fix law of demeter here
                         if (col - 1 >= 0 && gameBoard[row + negOne][col - 1].getPiece() == null) {
                             return true;
                         }
                     }
                 }
-                if (gameBoard[row][col].getPiece() != null && gameBoard[row][col].getPiece().getType() == Piece.pieceType.KING) {
+                if (gameBoard[row][col].getPiece() != null && gameBoard[row][col].getPieceType() == Piece.pieceType.KING) {
                     if (!(row - negOne > gameBoard.length - 1 || row - negOne < 0)) {
                         //check that this is the moving player's piece
                         if (gameBoard[row][col].getPiece() != null &&
-                                gameBoard[row][col].getPiece().getColor() == board.getActiveColor()) {
+                                gameBoard[row][col].getPieceColor() == board.getActiveColor()) {
                             //check out of bounds, adjacent diagonal right piece is opponent and there is an empty space after
-                            //TODO Fix law of demeter here
                             if (!(col + 1 > gameBoard.length - 1) && gameBoard[row - negOne][col + 1].getPiece() == null) {
                                 return true;
                             }
                             //check out of bounds, adjacent diagonal left piece is opponent and there is an empty space after
-                            //TODO Fix law of demeter here
                             if (col - 1 >= 0 && gameBoard[row - negOne][col - 1].getPiece() == null) {
                                 return true;
                             }
