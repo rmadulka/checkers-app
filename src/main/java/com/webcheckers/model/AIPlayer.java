@@ -2,6 +2,7 @@ package com.webcheckers.model;
 
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.appl.ReplayLobby;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.MoveProcessor;
 
@@ -81,8 +82,12 @@ public class AIPlayer extends Player implements Runnable{
         game.addGameState(boardState);
 
         if(gameLobby.getBoard().checkNoAvailiablePieces()){
+            ReplayLobby replayLobby = playerLobby.getReplayLobby();
+            replayLobby.addGame(game);
             gameLobby.endGame(Message.info(String.format("%s has no remaining pieces",gameLobby.getBoard().getActiveColor().toString())));
         } else if(!gameLobby.getBoard().checkAvailableMove()){
+            ReplayLobby replayLobby = playerLobby.getReplayLobby();
+            replayLobby.addGame(game);
             gameLobby.endGame(Message.info(String.format("%s has no available moves",gameLobby.getBoard().getActiveColor().toString())));
         }
     }
