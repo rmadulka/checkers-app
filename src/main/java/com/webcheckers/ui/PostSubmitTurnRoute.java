@@ -31,7 +31,8 @@ public class PostSubmitTurnRoute implements Route {
     }
 
     /**
-     * Calls validation methods in order to output the correct invalid or valid message
+     * Calls validation methods in order to output the correct invalid or valid message, also adds validated moves into
+     * a Game object to be recorded and later replayed
      * @param request the HTTP request
      * @param response the HTTP response
      * @return valid/invalid message

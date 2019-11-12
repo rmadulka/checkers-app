@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 
 public class GetReplayGameRoute implements Route{
 
-    static final String GAMES = "games";
     static final String VIEW_MODE = "viewMode";
     static final String VIEW_NAME = "game.ftl";
     static final String BOARD_VIEW = "board";
@@ -23,13 +22,24 @@ public class GetReplayGameRoute implements Route{
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
 
+    /**
+     * Used to set up a replay page for a selected game
+     * @param templateEngine the HTML template rendering engine
+     * @param playerLobby A player lobby
+     */
     public GetReplayGameRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby){
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         this.playerLobby = playerLobby;
         //
-        LOG.config("GetReplayMode is initialized.");
+        LOG.config("GetReplayGameMode is initialized.");
     }
 
+    /**
+     * Develops the selected replay game and updates accordingly when the "Next" and "Previous" buttons are pressed
+     * @param request An http request
+     * @param response An http response
+     * @return The template engine
+     */
     public Object handle(Request request, Response response){
         Session httpSession = request.session();
         Map<String, Object> vm = new HashMap<>();
