@@ -2,7 +2,6 @@ package com.webcheckers.appl;
 
 import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
-
 import java.util.Date;
 import java.util.logging.Logger;
 
