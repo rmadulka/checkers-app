@@ -12,6 +12,8 @@ public class Game {
     private ArrayList<BoardState> boardStates = new ArrayList<>();
     /** unique game id */
     private int id;
+
+    private static int idCount = 0;
     /** acts as an index for the boardStates array, tracking what boardState is currently on display **/
     private int currentState;
 
@@ -19,12 +21,12 @@ public class Game {
      * Represents a recorded game that is ready to be replayed
      * @param redPlayer player who controls the red pieces
      * @param whitePlayer player who controls the white pieces
-     * @param id unique game id
      */
-    public Game(Player redPlayer, Player whitePlayer, int id){
+    public Game(Player redPlayer, Player whitePlayer){
         this.redPlayer = redPlayer;
         this.whitePlayer = whitePlayer;
-        this.id = id;
+        this.id = idCount;
+        idCount++;
         this.currentState = 0;
     }
 
