@@ -3,8 +3,6 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.appl.ReplayLobby;
-import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.Request;
@@ -17,11 +15,9 @@ public class PostExitGameRoute implements Route {
     /** represents the players online, able to manage users **/
     private final PlayerLobby playerLobby;
 
-    private ReplayLobby replayLobby;
-
     /**
      * Used to give functionality to the "Exit" button
-     * @param playerLobby
+     * @param playerLobby The playerLobby
      */
     public PostExitGameRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;

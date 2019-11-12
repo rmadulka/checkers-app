@@ -1,5 +1,4 @@
 package com.webcheckers.appl;
-import com.webcheckers.model.AIPlayer;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;

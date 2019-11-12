@@ -422,6 +422,11 @@ import com.webcheckers.util.MoveProcessor;
         return false;
     }
 
+    /**
+     * Checks if there any available moves left on the board
+     * Game ends if there are no moves
+     * @return True if there is a move on the board
+     */
     public boolean checkAvailableMove(){
         return MoveProcessor.allJumpRule.checkMoves(null, this) || MoveProcessor.allSimpleMoveRule.checkMoves(null, this);
     }
