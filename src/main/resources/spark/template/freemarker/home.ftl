@@ -19,11 +19,10 @@
 
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
-    <!-- TODO: future content on the Home:
-            to start games,
-            spectating active games,
-            or replay archived games
-    -->
+
+      <#if currentUser??>
+        <a class="Replay" style="text-align: center" href="/replay"> Replays </a>
+      </#if>
 
     <#if userInGame??>
         <p>
@@ -31,31 +30,24 @@
         </p>
     </#if>
   </div>
-  <!-- create a <ul> for players online -->
     <div class = "players">
       <#if currentUser??>
-          <ul>
-          <li>
-              <form id="AIform" action="./game" method="GET">
-                  <input type="hidden" name="AIPlayer" value="AIPlayer" />
-                  <a href="javascript:;" onclick="document.getElementById('AIform').submit();"> AIPlayer </a>
-              </form>
-          </li>
           <#if playersOnline??>
-              <a href="/replay"> Replays </a>
-              <h2 style="padding-left: 10px">Players Online</h2>
-              <ul>
-                <#list playersOnline as p>
-                    <#if !(p.name == currentUser.name)>
-                        <li>
-                            <form id="opponent${p.name}" action="./game" method="GET">
-                                <input type="hidden" name="receiver" value="${p.name}" />
-                                <a href="javascript:;" onclick="document.getElementById('opponent${p.name}').submit();"> [${p.name}] </a>
-                            </form>
-                        </li>
-                    </#if>
-                </#list>
-              </ul>
+              <h2>Joe the AI</h2>
+                  <form id="AIform" action="./game" method="GET">
+                      <input type="hidden" name="AIPlayer" value="AIPlayer" />
+                      <a class="players" href="javascript:;" onclick="document.getElementById('AIform').submit();">JoeTheAI</a>
+                  </form>
+              <h2>Players Online</h2>
+              <#list playersOnline as p>
+                 <#if !(p.name == currentUser.name)>
+                      <form id="opponent${p.name}" action="./game" method="GET">
+                          <input type="hidden" name="receiver" value="${p.name}" />
+                          <a class="players" href="javascript:;" onclick="document.getElementById('opponent${p.name}').submit();"> ${p.name} </a>
+                      </form>
+                      &nbsp;
+                 </#if>
+              </#list>
           </#if>
       </#if>
       <#if !currentUser??>

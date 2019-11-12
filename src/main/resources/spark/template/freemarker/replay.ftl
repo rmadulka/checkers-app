@@ -15,8 +15,8 @@
 
   <div class="body">
 
-    <h4>Replays</h4>
-    <div class="Games">
+    <div class="players">
+      <h2>Replays</h2>
       <#if games??>
         <ul>
           <#list games as g>
