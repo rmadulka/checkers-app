@@ -149,29 +149,29 @@ button.game {
 a.Replay {
   border: 2px solid black;
   float: none;
-  display: inline-block;
+  display: table-cell;
   width: auto;
-  height: 10px;
+  height: 6px;
   background: #F9B9FF;
   padding: 10px;
   text-align: center;
   color: black;
-  font-weight: bold;
   text-decoration: none;
+  vertical-align: middle;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 16px 0 rgba(0, 0, 0, 0.19);
 }
 
 a.players {
   border: 2px solid black;
   float: none;
-  display: inline-block;
+  display: table-cell;
   width: auto;
-  height: 7px;
+  height: 6px;
   background: #7AFFD9;
   padding: 10px;
   text-align: center;
   color: black;
-  font-weight: bold;
   text-decoration: none;
+  vertical-align: middle;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 16px 0 rgba(0, 0, 0, 0.19);
 }
