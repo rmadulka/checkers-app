@@ -41,9 +41,9 @@
                 <#list playersOnline as p>
                     <#if !(p.name == currentUser.name)>
                         <li>
-                            <form id="form" action="./game" method="GET">
+                            <form id="opponent${p.name}" action="./game" method="GET">
                                 <input type="hidden" name="receiver" value="${p.name}" />
-                                <a href="javascript:;" onclick="document.getElementById('form').submit();"> [${p.name}] </a>
+                                <a href="javascript:;" onclick="document.getElementById('opponent${p.name}').submit();"> [${p.name}] </a>
                             </form>
                         </li>
                     </#if>
