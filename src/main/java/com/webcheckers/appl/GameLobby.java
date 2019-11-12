@@ -8,6 +8,7 @@ import com.webcheckers.ui.GetHomeRoute;
 import com.webcheckers.util.Message;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class GameLobby {
@@ -63,6 +64,7 @@ public class GameLobby {
         LOG.finer("Game over");
         isGameOver = true;
         gameOverMessage = reason;
+        game.setEndDate(new Date());
     }
     /**
      * Gets the current board

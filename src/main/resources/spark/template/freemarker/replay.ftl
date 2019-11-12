@@ -23,7 +23,7 @@
               <li>
                 <form id="form" action="./replay/game" method="GET">
                   <input type="hidden" name="gameID" value="${g.id}" />
-                  <a href="javascript:;" onclick="document.getElementById('form').submit();"> [${g.id}] </a>
+                  <a href="javascript:;" onclick="document.getElementById('form').submit();"> ${g.redPlayer.name}[Red] vs ${g.whitePlayer.name}[White] - ${g.endDate} </a>
                 </form>
               </li>
           </#list>

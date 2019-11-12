@@ -1,6 +1,7 @@
 package com.webcheckers.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Game {
 
@@ -16,6 +17,8 @@ public class Game {
     private static int idCount = 0;
     /** acts as an index for the boardStates array, tracking what boardState is currently on display **/
     private int currentState;
+
+    private Date endDate = null;
 
     /**
      * Represents a recorded game that is ready to be replayed
@@ -89,5 +92,13 @@ public class Game {
      */
     public int getCurrentState(){
         return currentState;
+    }
+
+    public void setEndDate(Date date){
+        this.endDate = date;
+    }
+
+    public String getEndDate(){
+        return endDate.toString();
     }
 }
