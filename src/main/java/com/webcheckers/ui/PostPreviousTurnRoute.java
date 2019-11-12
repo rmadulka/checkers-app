@@ -1,7 +1,6 @@
 package com.webcheckers.ui;
 import com.google.gson.Gson;
 
-import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.appl.ReplayLobby;
 import com.webcheckers.model.*;
@@ -9,19 +8,28 @@ import com.webcheckers.util.Message;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.Session;
 
 
 public class PostPreviousTurnRoute implements Route{
 
+    /** A playerLobby object */
     private PlayerLobby playerLobby;
 
+    /**
+     * Creates a new instance of PostPreviousTurnRoute
+     * @param playerLobby A playerlobby
+     */
     public PostPreviousTurnRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
     }
 
+    /**
+     * When in replay mode, when a player selects previous, the previous game state will appear
+     * @param request An http request
+     * @param response An http response
+     * @return A gson message
+     */
     public Object handle(Request request, Response response){
-        Session httpSession = request.session();
         String gameId = request.queryParams("gameID");
         int gameIdInt = Integer.parseInt(gameId);
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
