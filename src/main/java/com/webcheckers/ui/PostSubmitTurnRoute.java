@@ -46,6 +46,8 @@ public class PostSubmitTurnRoute implements Route {
         ReplayLobby replayLobby = playerLobby.getReplayLobby();
         Message message;
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
+            boardState.constructState(board);
+            game.addGameState(boardState);
             MoveProcessor.processMoves(player, board);
             message = Message.info("Valid Turn");
             //EndGame Conditions
@@ -58,9 +60,7 @@ public class PostSubmitTurnRoute implements Route {
             }
 
             player.getTurnStack().removeAllElements();
-            boardState.constructState(board);
-            System.out.println(board);
-            game.addGameState(boardState);
+
 
         } else {
             //TODO more than one error message
