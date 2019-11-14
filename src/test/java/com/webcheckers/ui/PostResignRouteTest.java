@@ -47,14 +47,14 @@ public class PostResignRouteTest {
     /**
      * Tests that a game has ended properly after a resign
      */
-    @Test
-    public void testNewResignRoute() {
-        when(session.attribute("currentUser")).thenReturn(playerRed);
-        when(playerLobby.getGameLobby(playerRed)).thenReturn(gameLobby);
-        when(gameLobby.getIsGameOver()).thenReturn(false);
-        Message m = Message.info("Game has ended");
-        assertEquals(CuT.handle(request, response), new Gson().toJson(m));
-    }
+//    @Test
+//    public void testNewResignRoute() {
+//        when(session.attribute("currentUser")).thenReturn(playerRed);
+//        when(playerLobby.getGameLobby(playerRed)).thenReturn(gameLobby);
+//        when(gameLobby.getIsGameOver()).thenReturn(false);
+//        Message m = Message.info("Game has ended");
+//        assertEquals(CuT.handle(request, response), new Gson().toJson(m));
+//    }
 
     /**
      * Tests that a game improperly ended after a player resigns

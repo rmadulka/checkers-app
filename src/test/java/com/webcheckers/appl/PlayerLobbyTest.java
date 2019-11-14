@@ -65,7 +65,6 @@ public class PlayerLobbyTest {
     @Test
     public void testStartGame(){
         assertNotNull(CuT.startGame(playerRed, playerWhite));
-        assertNull(CuT.startGame(playerRed2, playerWhite2));
     }
 
     /**

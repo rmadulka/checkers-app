@@ -36,7 +36,7 @@ public class CheckOneJumpMove extends Rules {
                 return true;
             }
         }
-        if (gameBoard[move.getEndRow()][move.getEndCell()].getPieceType().equals(Piece.pieceType.KING) &&
+        if (gameBoard[move.getEndRow()][move.getEndCell()].getPieceType() == Piece.pieceType.KING &&
                 ((move.getEndRow() <= gameBoard.length - 2 &&
                 gameBoard[move.getEndRow()][move.getEndCell()].getPieceColor() == Piece.pieceColor.WHITE) ||
                 (move.getEndRow() - 2 >= 0 && gameBoard[move.getEndRow()][move.getEndCell()].getPieceColor() == Piece.pieceColor.RED))) {
