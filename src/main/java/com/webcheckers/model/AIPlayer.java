@@ -65,10 +65,12 @@ public class AIPlayer extends Player implements Runnable {
      * AI makes a turn on the board
      * Also determines if the ai has won or lost at the end of the game
      */
-    private void makeTurn(){
+    public void makeTurn(){
         Move move = getRandomMove(gameLobby.getBoard());
-        turnStack.push(move);
-        while (!(MoveProcessor.validateTurn(turnStack, gameLobby.getBoard()))) {
+        if (move != null) {
+            turnStack.push(move);
+        }
+        while (!turnStack.empty() && !(MoveProcessor.validateTurn(turnStack, gameLobby.getBoard()))) {
             gameLobby.getBoard().makeMove(move);
             move = getMultijump(move, gameLobby.getBoard());
             turnStack.push(move);
@@ -80,16 +82,18 @@ public class AIPlayer extends Player implements Runnable {
         BoardState boardState = new BoardState(board.getActiveColor());
         boardState.constructState(board);
         game.addGameState(boardState);
-
-        if(gameLobby.getBoard().checkNoAvailiablePieces()){
+        if(board.checkNoAvailiablePieces()){
             ReplayLobby replayLobby = playerLobby.getReplayLobby();
             replayLobby.addGame(game);
             gameLobby.endGame(Message.info(String.format("%s has no remaining pieces",gameLobby.getBoard().getActiveColor().toString())));
-        } else if(!gameLobby.getBoard().checkAvailableMove()){
+        }
+        board.switchTurn();
+        if(!board.checkAvailableMove()){
             ReplayLobby replayLobby = playerLobby.getReplayLobby();
             replayLobby.addGame(game);
             gameLobby.endGame(Message.info(String.format("%s has no available moves",gameLobby.getBoard().getActiveColor().toString())));
         }
+        board.switchTurn();
     }
 
     /**
@@ -114,7 +118,10 @@ public class AIPlayer extends Player implements Runnable {
         }
         moves.addAll(jumps);
         int randMove = (int)(Math.random() * moves.size());
-        return moves.get(randMove);
+        if (moves.size() > 0) {
+            return moves.get(randMove);
+        }
+        return null;
     }
 
     /**
