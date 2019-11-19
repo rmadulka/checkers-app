@@ -2,15 +2,17 @@ package com.webcheckers.model;
 
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
-import org.junit.jupiter.api.BeforeAll;
+import com.webcheckers.appl.ReplayLobby;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
+@Tag("Model-tier")
 public class AIPlayerTest {
 
     /** Friendly Object */
@@ -21,17 +23,31 @@ public class AIPlayerTest {
     private static Player red;
     private static Player white;
     private static Board board;
+    private static GameLobby realGameLobby;
 
-    private static GameLobby gameLobby;
+    /** Mock objects */
+    private GameLobby gameLobby;
+    private Board mockBoard;
+    private Player mockRed;
+    private Player mockWhite;
+    private ReplayLobby mockReplay;
 
+    /**
+     * Sets up the mock and friendly objects before each test
+     */
     @BeforeEach
     public void setUp() {
-        playerLobby = new PlayerLobby();
+        playerLobby = mock(PlayerLobby.class);
         red = new Player("Foo");
         //this needs to be the name of the AI
         white = new Player("Joseph 'Joe' Mama 0");
         board = new Board(red, white);
         this.CuT = new AIPlayer(playerLobby);
+        this.gameLobby = mock(GameLobby.class);
+        this.mockBoard = mock(Board.class);
+        this.mockRed = mock(Player.class);
+        this.mockWhite = mock(Player.class);
+        this.mockReplay = mock(ReplayLobby.class);
     }
 
     /**
@@ -50,18 +66,93 @@ public class AIPlayerTest {
     }
 
     /**
+     * Tests that a single move turn can be made
+     */
+    @Test
+    public void testMakeTurn() {
+        realGameLobby = new GameLobby(red, white);
+        when(playerLobby.getGameLobby(CuT)).thenReturn(realGameLobby);
+        realGameLobby.getBoard().switchTurn();
+        CuT.addInGameStatus();
+        CuT.makeTurn();
+        assertEquals(0, CuT.turnStack.size());
+    }
+
+    /**
+     * Tests the inner while loop of the makeTurn method
+     */
+    @Test
+    public void testInvalidTurn() {
+        realGameLobby = new GameLobby(red, white);
+        when(playerLobby.getGameLobby(CuT)).thenReturn(realGameLobby);
+        realGameLobby.getBoard().switchTurn();
+        clearBoard(realGameLobby.getBoard());
+        Piece red = new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED);
+        Piece white = new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE);
+        Space[][] game = realGameLobby.getBoard().getBoard();
+        game[4][1].place(red);
+        game[2][1].place(red);
+        game[6][6].place(red);
+        game[5][0].place(white);
+        CuT.addInGameStatus();
+        CuT.makeTurn();
+        assertEquals(0, CuT.turnStack.size());
+    }
+
+    /**
+     * Tests the end game condition when there are no remaining pieces in the makeTurn method
+     */
+    @Test
+    public void testEndGameNoPieces() {
+        realGameLobby = new GameLobby(red, white);
+        when(playerLobby.getGameLobby(CuT)).thenReturn(realGameLobby);
+        when(playerLobby.getReplayLobby()).thenReturn(mockReplay);
+        realGameLobby.getBoard().switchTurn();
+        clearBoard(realGameLobby.getBoard());
+        Piece red = new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED);
+        Piece white = new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE);
+        Space[][] game = realGameLobby.getBoard().getBoard();
+        game[4][1].place(red);
+        game[5][0].place(white);
+        CuT.addInGameStatus();
+        CuT.makeTurn();
+        assertEquals(0, CuT.turnStack.size());
+    }
+
+    /**
+     * Tests end game condition where there are no moves for the AI
+     */
+    @Test
+    public void testEndGameNoMoves() {
+        realGameLobby = new GameLobby(red, white);
+        when(playerLobby.getGameLobby(CuT)).thenReturn(realGameLobby);
+        when(playerLobby.getReplayLobby()).thenReturn(mockReplay);
+        realGameLobby.getBoard().switchTurn();
+        clearBoard(realGameLobby.getBoard());
+        Piece red = new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED);
+        Piece white = new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE);
+        Space[][] game = realGameLobby.getBoard().getBoard();
+        game[6][7].place(white);
+        game[5][6].place(red);
+        game[4][5].place(red);
+        CuT.addInGameStatus();
+        CuT.makeTurn();
+        assertEquals(0, CuT.turnStack.size());
+    }
+
+    /**
      * Checks that the AI knows when it is their turn
      */
-//    @Test
-//    public void testCheckMyTurn() {
-//        gameLobby = playerLobby.startGame(red, white);
-//        gameLobby.setIsGameOver(false);
-//        board = gameLobby.getBoard();
-//        CuT.addInGameStatus();
-//        assertFalse(CuT.checkMyTurn());
-//        board.switchTurn();
-//        assertTrue(CuT.checkMyTurn());
-//    }
+    @Test
+    public void testCheckMyTurn() {
+        when(playerLobby.getGameLobby(CuT)).thenReturn(gameLobby);
+        when(gameLobby.getRedPlayer()).thenReturn(mockRed);
+        when(gameLobby.getWhitePlayer()).thenReturn(mockWhite);
+        when(gameLobby.getBoard()).thenReturn(mockBoard);
+        when(mockBoard.getActiveColor()).thenReturn(Piece.pieceColor.RED);
+        CuT.addInGameStatus();
+        assertFalse(CuT.checkMyTurn());
+    }
 
     /**
      * Tests that a single and a jump move can be selected
@@ -158,8 +249,26 @@ public class AIPlayerTest {
         assertEquals(1, move.getEndRow());
     }
 
+    /**
+     * Tests that a king piece can perform a multijump backwards
+     */
     @Test
     public void testKingMultiJump() {
-
+        Piece red = new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED);
+        Piece white = new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE);
+        Space[][] game = clearBoard(board);
+        game[4][1].place(red);
+        game[3][2].place(white);
+        game[3][0].place(white);
+        board.switchTurn();
+        Move jump = new Move (new Position(1, 0), new Position(3, 2));
+        Move move;
+        move = CuT.getMultijump(jump, board);
+        assertEquals(0, move.getEndCell());
+        assertEquals(5, move.getEndRow());
+        Move jump2 = new Move (new Position(1, 2), new Position(3, 0));
+        move = CuT.getMultijump(jump2, board);
+        assertEquals(2, move.getEndCell());
+        assertEquals(5, move.getEndRow());
     }
 }

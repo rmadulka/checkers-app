@@ -146,4 +146,12 @@ public class PlayerLobbyTest {
         CuT.removeGameLobby(CuT.getGameLobby(playerRed));
         assertNull(CuT.getGameLobby(playerRed));
     }
+
+    /**
+     * Tests that we can get the replay lobby
+     */
+    @Test
+    public void testGetReplayLobby () {
+        assertNotNull(CuT.getReplayLobby());
+    }
 }
