@@ -132,4 +132,15 @@ public class MoveProcessor {
             temporaryBoard.makeTempMove(move);
         }
     }
+
+    /**
+     * Resets the temporary board
+     * This is done to prevent an ajax error during a multijump move
+     * @param board The board
+     * @param player The player
+     */
+    public static void resetTempBoard(Board board, Player player){
+        player.getTurnStack().clear();
+        temporaryBoard = new Board(board);
+    }
 }

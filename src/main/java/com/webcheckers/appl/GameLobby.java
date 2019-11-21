@@ -52,8 +52,11 @@ public class GameLobby {
         whitePlayerPresent = this.whitePlayer.addInGameStatus();
     }
 
-    //TODO Fix to have multiple reasons along with winner/Loser
-    //TODO perhaps an enum with RESIGN, NO MOVES, NO PIECES
+    /**
+     * Sets the date in which the game ended
+     * Sets the gameEnded to true to show that a game has ended
+     * @param reason The message based on the reason the game ended
+     */
     public void endGame(Message reason){
         LOG.finer("Game over");
         game.setEndDate(new Date());

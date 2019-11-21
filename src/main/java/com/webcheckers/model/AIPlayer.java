@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Stack;
 
 
-public class AIPlayer extends Player implements Runnable{
+public class AIPlayer extends Player implements Runnable {
 
     /** Id to ensure each AIPlayer is Unique */
     private static int id = 0;
@@ -65,10 +65,12 @@ public class AIPlayer extends Player implements Runnable{
      * AI makes a turn on the board
      * Also determines if the ai has won or lost at the end of the game
      */
-    private void makeTurn(){
+    public void makeTurn(){
         Move move = getRandomMove(gameLobby.getBoard());
-        turnStack.push(move);
-        while (!(MoveProcessor.validateTurn(turnStack, gameLobby.getBoard()))) {
+        if (move != null) {
+            turnStack.push(move);
+        }
+        while (!turnStack.empty() && !(MoveProcessor.validateTurn(turnStack, gameLobby.getBoard()))) {
             gameLobby.getBoard().makeMove(move);
             move = getMultijump(move, gameLobby.getBoard());
             turnStack.push(move);
@@ -80,23 +82,25 @@ public class AIPlayer extends Player implements Runnable{
         BoardState boardState = new BoardState(board.getActiveColor());
         boardState.constructState(board);
         game.addGameState(boardState);
-
-        if(gameLobby.getBoard().checkNoAvailiablePieces()){
+        if(board.checkNoAvailiablePieces()){
             ReplayLobby replayLobby = playerLobby.getReplayLobby();
             replayLobby.addGame(game);
             gameLobby.endGame(Message.info(String.format("%s has no remaining pieces",gameLobby.getBoard().getActiveColor().toString())));
-        } else if(!gameLobby.getBoard().checkAvailableMove()){
+        }
+        board.switchTurn();
+        if(!board.checkAvailableMove()){
             ReplayLobby replayLobby = playerLobby.getReplayLobby();
             replayLobby.addGame(game);
             gameLobby.endGame(Message.info(String.format("%s has no available moves",gameLobby.getBoard().getActiveColor().toString())));
         }
+        board.switchTurn();
     }
 
     /**
      * Checks to see if it is the AI Player's turn
      * @return - boolean to determine the players turn
      */
-    private boolean checkMyTurn(){
+    public boolean checkMyTurn(){
         return (gameLobby.getRedPlayer().equals(this) && gameLobby.getBoard().getActiveColor() == Piece.pieceColor.RED) ||
                 (gameLobby.getWhitePlayer().equals(this) && gameLobby.getBoard().getActiveColor() == Piece.pieceColor.WHITE);
     }
@@ -106,7 +110,7 @@ public class AIPlayer extends Player implements Runnable{
      * @param board the board model
      * @return an arraylist of valid moves
      */
-    private Move getRandomMove(Board board) {
+    public Move getRandomMove(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
         List<Move> jumps = getValidJumpMoves(board);
         if(jumps.size() == 0) {
@@ -114,7 +118,10 @@ public class AIPlayer extends Player implements Runnable{
         }
         moves.addAll(jumps);
         int randMove = (int)(Math.random() * moves.size());
-        return moves.get(randMove);
+        if (moves.size() > 0) {
+            return moves.get(randMove);
+        }
+        return null;
     }
 
     /**
@@ -122,7 +129,7 @@ public class AIPlayer extends Player implements Runnable{
      * @param board the board model
      * @return an arraylist of valid simple moves
      */
-    private List<Move> getValidSimpleMoves(Board board) {
+    public List<Move> getValidSimpleMoves(Board board) {
         ArrayList<Move> validSimpleMoves = new ArrayList<>();
         Space[][] gameBoard = board.getBoard();
         int negOne = -1;
@@ -168,7 +175,7 @@ public class AIPlayer extends Player implements Runnable{
      * @param board the board model
      * @return an arraylist of jump moves
      */
-    private List<Move> getValidJumpMoves(Board board) {
+    public List<Move> getValidJumpMoves(Board board) {
         ArrayList<Move> validJumpMoves = new ArrayList<>();
         Space[][] gameBoard = board.getBoard();
         for (int row = 0; row < gameBoard.length; row ++) {

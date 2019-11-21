@@ -147,43 +147,43 @@ import com.webcheckers.util.MoveProcessor;
 //        board[2][3].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
 //        board[4][5].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
 //    }
-    private void customPopulate() {
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                if (row == 4) { // these rows need to have red pieces on black spaces
-                    if (board[row][col].isValid()) {
-                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
-                    }
-                } else if (row == 6) { // these rows need to have white pieces on black spaces
-                    if (board[row][col].isValid()) {
-                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-                    }
-                } else if (row == 0) { // these rows need to have red pieces on black spaces
-                    if (board[row][col].isValid()) {
-                        board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
-                    }
-                } else if (row == 2) { // these rows need to have white pieces on black spaces
-                    if (board[row][col].isValid()) {
-                        board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
-                    }
-                }
-            }
-        }
-    }
-
-    private void endGameTestOne() {
-        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
-        board[2][3].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
-
-        board[3][0].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
-        board[4][1].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-        board[5][2].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
-    }
-
-    private void endGameTestTwo() {
-        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
-        board[3][4].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
-    }
+//    private void customPopulate() {
+//        for (int row = 0; row < SIZE; row++) {
+//            for (int col = 0; col < SIZE; col++) {
+//                if (row == 4) { // these rows need to have red pieces on black spaces
+//                    if (board[row][col].isValid()) {
+//                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+//                    }
+//                } else if (row == 6) { // these rows need to have white pieces on black spaces
+//                    if (board[row][col].isValid()) {
+//                        board[row][col].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+//                    }
+//                } else if (row == 0) { // these rows need to have red pieces on black spaces
+//                    if (board[row][col].isValid()) {
+//                        board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+//                    }
+//                } else if (row == 2) { // these rows need to have white pieces on black spaces
+//                    if (board[row][col].isValid()) {
+//                        board[row][col].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    private void endGameTestOne() {
+//        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+//        board[2][3].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+//
+//        board[3][0].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.RED));
+//        board[4][1].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+//        board[5][2].place(new Piece(Piece.pieceType.SINGLE, Piece.pieceColor.WHITE));
+//    }
+//
+//    private void endGameTestTwo() {
+//        board[0][1].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.RED));
+//        board[3][4].place(new Piece(Piece.pieceType.KING, Piece.pieceColor.WHITE));
+//    }
 
 
     /**
@@ -198,10 +198,10 @@ import com.webcheckers.util.MoveProcessor;
 
     /**
      * sets the board to a new board 2-d array
-     * @param b current board to set
+     * @param board current board to set
      */
-    public void setBoard(Space[][] b){
-        this.board = b;
+    public void setBoard(Space[][] board){
+        this.board = board;
     }
 
 
@@ -320,7 +320,6 @@ import com.webcheckers.util.MoveProcessor;
             Position moveTo = new Position(((move.getStartRow() + move.getEndRow()) / 2), ((move.getStartCell() + move.getEndCell()) / 2));
             board[moveTo.getRow()][moveTo.getCell()].removePiece();
         }
-
     }
 
     /**
@@ -337,23 +336,23 @@ import com.webcheckers.util.MoveProcessor;
         }
     }
 
-    /**
-     * Debugging code to align temp boards with the original boards
-     *
-     * @param board - board to be printed
-     */
-    public void printBoard(Board board) {
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                if (board.getBoard()[row][col].getPiece() != null) {
-                    System.out.print("1");
-                } else {
-                    System.out.print("0");
-                }
-            }
-            System.out.println("");
-        }
-    }
+//    /**
+//     * Debugging code to align temp boards with the original boards
+//     *
+//     * @param board - board to be printed
+//     */
+//    public void printBoard(Board board) {
+//        for (int row = 0; row < SIZE; row++) {
+//            for (int col = 0; col < SIZE; col++) {
+//                if (board.getBoard()[row][col].getPiece() != null) {
+//                    System.out.print("1");
+//                } else {
+//                    System.out.print("0");
+//                }
+//            }
+//            System.out.println("");
+//        }
+//    }
 
     /**
      * Determines if a checkers piece reaches the end of the board

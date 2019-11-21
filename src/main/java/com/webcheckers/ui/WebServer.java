@@ -58,7 +58,7 @@ public class WebServer {
   public static final String GAME_URL = "/game";
   public static final String SIGNOUT_URL = "/signout";
   public static final String REPLAY_URL = "/replay/game";
-    public static final String REPLAY_SCREEN_URL = "/replay";
+  public static final String REPLAY_SCREEN_URL = "/replay";
 
   //
   // Attributes
@@ -159,7 +159,6 @@ public class WebServer {
 
     post(SIGNOUT_URL, new PostSignoutRoute(playerLobby));
 
-    //TODO Fix names
     post("/validateMove", new PostProposedMoveRoute(playerLobby));
 
     post("/submitTurn", new PostSubmitTurnRoute(playerLobby));

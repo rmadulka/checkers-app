@@ -93,6 +93,10 @@ public class PlayerLobby {
         return null;
     }
 
+    /**
+     * Gets the replay lobby
+     * @return the replay lobby
+     */
     public ReplayLobby getReplayLobby(){
         return replayGames;
     }

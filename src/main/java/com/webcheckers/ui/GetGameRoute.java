@@ -13,6 +13,7 @@ import com.webcheckers.appl.GameLobby;
 import com.webcheckers.model.Player;
 
 import com.webcheckers.util.Message;
+import com.webcheckers.util.MoveProcessor;
 import spark.*;
 
 import static spark.Spark.halt;
@@ -128,6 +129,9 @@ public class GetGameRoute implements Route {
         //load vm values
         vm.put(GetHomeRoute.CURRENT_USER, player);
         vm.put(GetHomeRoute.HOME_TITLE, "Checkers Game");
+
+        MoveProcessor.resetTempBoard(checkersBoard, player);
+
         vm.put(BOARD_VIEW, boardView);
         final Map<String, Object> modeOptions = new HashMap<>(2);
         vm.put(VIEW_MODE, viewMode.PLAY);

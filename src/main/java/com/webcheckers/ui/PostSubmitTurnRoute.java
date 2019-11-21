@@ -23,7 +23,7 @@ public class PostSubmitTurnRoute implements Route {
 
     /**
      * Intended to inform the user that their move(s) have been validated or invalidated
-     * @param playerLobby
+     * @param playerLobby The playerLobby
      */
     public PostSubmitTurnRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
@@ -63,7 +63,6 @@ public class PostSubmitTurnRoute implements Route {
 
 
         } else {
-            //TODO more than one error message
             message = Message.error("Invalid: There is a jump move available");
         }
 

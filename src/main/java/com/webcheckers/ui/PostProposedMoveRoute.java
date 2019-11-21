@@ -45,7 +45,6 @@ public class PostProposedMoveRoute implements Route {
             player.addMove(move);
             message = Message.info("Move is Valid");
         } else {
-            //TODO more than one error message
             message = Message.error("Invalid Move");
         }
 

@@ -19,7 +19,7 @@ public class ReplayLobby {
 
     /**
      * Gets the games that have been completed
-     * @return
+     * @return The games
      */
     public ArrayList<Game> getGames(){
         return games;

@@ -38,7 +38,6 @@ public class PostCheckTurnRoute implements Route{
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
         Message message;
-        //TODO check when user resigns game
         //if the current player controls the active piece it is their turn
         if((gameLobby.getRedPlayer() == player && board.getActiveColor() == Piece.pieceColor.RED) ||
                 (gameLobby.getWhitePlayer() == player && board.getActiveColor() == Piece.pieceColor.WHITE)){
