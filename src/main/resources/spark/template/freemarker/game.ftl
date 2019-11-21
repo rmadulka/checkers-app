@@ -102,7 +102,7 @@
     <h5>Kevin is the best!</h5>
   </#if>
 
-  <audio id="audio" src="http://www.soundjay.com/button/beep-07.mp3" autostart="false" ></audio>
+  <audio id="audio" src="/js/audio/GigaPuddingPuddiPuddiSong.mp3" autostart="false" ></audio>
   
   <script data-main="/js/game/index" src="/js/require.js"></script>
   
