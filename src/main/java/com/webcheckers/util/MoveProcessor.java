@@ -83,12 +83,6 @@ public class MoveProcessor {
             tempBoard.makeTempMove(move);
         }
 
-        //Debugging code I don't want to remove
-//        System.out.println("jump move available: " + allJumpRule.checkMoves(null, tempBoard));
-//        System.out.println("THIS PIECE JUMP MOVE AVAILABLE: " + oneJumpRule.checkMoves(turnStack.peek(), tempBoard));
-//        System.out.println("was jump move: " + turnStack.peek().isJumpMove());
-//        System.out.println("ACTIVE COLOR: " + tempBoard.getActiveColor().toString());
-
         //Checks if jump move is available after a jump move was made, If so disallow
         if(oneJumpRule.checkMoves(turnStack.peek(), tempBoard) && turnStack.peek().isJumpMove()){
             return false;

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Board;
+import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,6 +17,7 @@ import spark.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 
@@ -56,60 +58,6 @@ public class GetGameRouteTest {
         gameLobby = mock(GameLobby.class);
     }
 
-    /**
-     * Tests how the view model is normally set up
-     */
-//    @Test
-//    public void new_session(){
-//        Player p1 = new Player("Joe mama");
-//        Player p2 = new Player("Mike hawk");
-//        GameLobby gl = new GameLobby(p1,p2);
-//        final TemplateEngineTester testHelper = new TemplateEngineTester();
-//
-//        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-//        when(request.queryParams("receiver")).thenReturn(p2.getName());
-//        when(session.attribute("currentUser")).thenReturn(p1);
-//        when(playerLobby.getGameLobby(p1)).thenReturn(gl);
-//
-//        CuT.handle(request,response);
-//        testHelper.assertViewModelExists();
-//        testHelper.assertViewModelAttribute(GetHomeRoute.CURRENT_USER, p1);
-//        testHelper.assertViewModelAttribute(GetHomeRoute.HOME_TITLE, "Checkers Game");
-//        testHelper.assertViewModelAttribute(RED_PLAYER, gl.redPlayer);
-//        testHelper.assertViewModelAttribute(WHITE_PLAYER, gl.whitePlayer);
-//        testHelper.assertViewModelAttribute(VIEW_MODE, GetGameRoute.viewMode.PLAY);
-//        testHelper.assertViewModelAttribute(ACTIVE_COLOR, gl.getBoard().getActiveColor());
-//
-//    }
-
-    /**
-     * Tests when a user is in a game and another user is redirected back to home
-     */
-//    @Test
-//    public void user_in_game(){
-//        player1 = new Player("Joe mama");
-//        player2 = new Player("Mike hawk");
-//        player1.removeInGameStatus();
-//        GameLobby gl = new GameLobby(player1,player2);
-//        gl.removePlayer(player1);
-//        final TemplateEngineTester testHelper = new TemplateEngineTester();
-//
-//        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-//        when(request.queryParams("receiver")).thenReturn(player2.getName());
-//        when(session.attribute("currentUser")).thenReturn(player1);
-//        when(playerLobby.getGameLobby(player1)).thenReturn(gl);
-//        when(playerLobby.getPlayer(player2.getName())).thenReturn(player2);
-//
-//        try {
-//            CuT.handle(request, response);
-//            fail("Redirects invoke halt exceptions.");
-//        } catch (HaltException e) {
-//            // expected
-//        }
-//
-//        verify(response).redirect(WebServer.HOME_URL);
-//    }
-
     @Test
     /**
      * Tests when both users are not currently in a game
@@ -127,12 +75,12 @@ public class GetGameRouteTest {
         when(session.attribute("currentUser")).thenReturn(p1);
         when(playerLobby.getPlayer(p2.getName())).thenReturn(p2);
         when(playerLobby.startGame(p1,p2)).thenReturn(gameLobby);
+        p1.setTurnStack(new Stack<>());
+        p2.setTurnStack(new Stack<>());
 
         CuT.handle(request,response);
         testHelper.assertViewModelAttribute(RED_PLAYER, p1);
         testHelper.assertViewModelAttribute(WHITE_PLAYER, p2);
-
-
     }
 
 }
