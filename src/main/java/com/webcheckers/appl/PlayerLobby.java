@@ -1,5 +1,4 @@
 package com.webcheckers.appl;
-import com.webcheckers.model.AIPlayer;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
@@ -94,6 +93,10 @@ public class PlayerLobby {
         return null;
     }
 
+    /**
+     * Gets the replay lobby
+     * @return the replay lobby
+     */
     public ReplayLobby getReplayLobby(){
         return replayGames;
     }

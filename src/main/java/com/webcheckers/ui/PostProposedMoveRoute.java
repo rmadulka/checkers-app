@@ -3,9 +3,7 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Move;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.MoveProcessor;
 import spark.Request;
@@ -36,22 +34,17 @@ public class PostProposedMoveRoute implements Route {
     public Object handle(Request request, Response response) {
         Session httpSession = request.session();
         Player player = httpSession.attribute("currentUser");
-
         GameLobby gameLobby = playerLobby.getGameLobby(player);
         Board board = gameLobby.getBoard();
-
         String data = request.queryParams("actionData");
         Gson gson = new Gson();
         Move move = gson.fromJson(data, Move.class);
-
         Message message;
-
 
         if(MoveProcessor.validateMove(move, board, player)){
             player.addMove(move);
             message = Message.info("Move is Valid");
         } else {
-            //TODO more than one error message
             message = Message.error("Invalid Move");
         }
 

@@ -65,7 +65,6 @@ public class PlayerLobbyTest {
     @Test
     public void testStartGame(){
         assertNotNull(CuT.startGame(playerRed, playerWhite));
-        assertNull(CuT.startGame(playerRed2, playerWhite2));
     }
 
     /**
@@ -146,5 +145,13 @@ public class PlayerLobbyTest {
         assertNotNull(CuT.getGameLobby(playerRed));
         CuT.removeGameLobby(CuT.getGameLobby(playerRed));
         assertNull(CuT.getGameLobby(playerRed));
+    }
+
+    /**
+     * Tests that we can get the replay lobby
+     */
+    @Test
+    public void testGetReplayLobby () {
+        assertNotNull(CuT.getReplayLobby());
     }
 }

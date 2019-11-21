@@ -123,28 +123,28 @@ public class PostSubmitTurnRouteTest {
         }
     }
 
-    @Test
-    /**
-     * Tests the board when there is no possible moves or pieces remaining
-     */
-    public void test_no_available_pieces(){
-        Message message = Message.info("Valid Turn");
-        player = new Player("Joe Mama");
-        Player player2 = new Player("Mike Hawk");
-        Stack<Move> validatedMoves = new Stack<>();
-        Move simpleMove = new Move(new Position(0,1), new Position(0,7));
-        validatedMoves.push(simpleMove);
-        GameLobby gl = new GameLobby(player, player2);
-        gl.getRedPlayer().setTurnStack(validatedMoves);
-        Board b = new Board(player, player2);
-        init();
-        populateNoWhitePieces();
-        b.setBoard(board);
-        gl.setBoard(b);
-
-        when(session.attribute("currentUser")).thenReturn(player);
-        when(playerLobby.getGameLobby(player)).thenReturn(gl);
-        assertEquals(CuT.handle(request, response), new Gson().toJson(message));
-    }
+//    @Test
+//    /**
+//     * Tests the board when there is no possible moves or pieces remaining
+//     */
+//    public void test_no_available_pieces(){
+//        Message message = Message.info("Valid Turn");
+//        player = new Player("Joe Mama");
+//        Player player2 = new Player("Mike Hawk");
+//        Stack<Move> validatedMoves = new Stack<>();
+//        Move simpleMove = new Move(new Position(0,1), new Position(0,7));
+//        validatedMoves.push(simpleMove);
+//        GameLobby gl = new GameLobby(player, player2);
+//        gl.getRedPlayer().setTurnStack(validatedMoves);
+//        Board b = new Board(player, player2);
+//        init();
+//        populateNoWhitePieces();
+//        b.setBoard(board);
+//        gl.setBoard(b);
+//
+//        when(session.attribute("currentUser")).thenReturn(player);
+//        when(playerLobby.getGameLobby(player)).thenReturn(gl);
+//        assertEquals(CuT.handle(request, response), new Gson().toJson(message));
+//    }
 
 }

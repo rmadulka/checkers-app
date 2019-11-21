@@ -18,6 +18,8 @@ public class Game {
     /** acts as an index for the boardStates array, tracking what boardState is currently on display **/
     private int currentState;
 
+    private Date endDate = null;
+
     /**
      * Represents a recorded game that is ready to be replayed
      * @param redPlayer player who controls the red pieces
@@ -94,6 +96,23 @@ public class Game {
      */
     public int getCurrentState(){
         return currentState;
+    }
+
+
+    /**
+     * sets the end date, called once the game has been finalized
+     * @param date date game ended
+     */
+    public void setEndDate(Date date){
+        this.endDate = date;
+    }
+
+    /**
+     * gets the end date the game was finished
+     * @return string type of end date (for replay.ftl)
+     */
+    public String getEndDate(){
+        return endDate.toString();
     }
 
 

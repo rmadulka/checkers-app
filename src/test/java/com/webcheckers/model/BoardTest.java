@@ -195,4 +195,18 @@ public class BoardTest {
     CuT.makeTempMove(move2);
     assertNull(updateGame[6][5].getPiece());
   }
+
+  /**
+   * Tests that we can set the board to a new board
+   */
+  @Test
+  public void testSetBoard() {
+    Space[][] game = CuT.getBoard();
+    assertNotNull(game[0][1].getPiece());
+    Board CuT2 = new Board(whitePlayer, redPlayer);
+    Space [][] game2 = CuT.getBoard();
+    game2[0][1].removePiece();
+    CuT.setBoard(CuT2.getBoard());
+    assertNull(game[0][1].getPiece());
+  }
 }

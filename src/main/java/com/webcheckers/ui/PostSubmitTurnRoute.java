@@ -15,7 +15,6 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
-import static spark.Spark.halt;
 
 public class PostSubmitTurnRoute implements Route {
 
@@ -24,7 +23,7 @@ public class PostSubmitTurnRoute implements Route {
 
     /**
      * Intended to inform the user that their move(s) have been validated or invalidated
-     * @param playerLobby
+     * @param playerLobby The playerLobby
      */
     public PostSubmitTurnRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
@@ -48,6 +47,8 @@ public class PostSubmitTurnRoute implements Route {
         Message message;
         if(MoveProcessor.validateTurn(player.getTurnStack(), board) && !gameLobby.getIsGameOver()){
             MoveProcessor.processMoves(player, board);
+            boardState.constructState(board);   //used to record board for a replay
+            game.addGameState(boardState);
             message = Message.info("Valid Turn");
             //EndGame Conditions
             if(board.checkNoAvailiablePieces()){
@@ -57,13 +58,11 @@ public class PostSubmitTurnRoute implements Route {
                 replayLobby.addGame(game);
                 gameLobby.endGame(Message.info(String.format("%s has no available moves",board.getActiveColor().toString())));
             }
-            boardState.constructState(board);
-            game.addGameState(boardState);
+
             player.getTurnStack().removeAllElements();
 
 
         } else {
-            //TODO more than one error message
             message = Message.error("Invalid: There is a jump move available");
         }
 

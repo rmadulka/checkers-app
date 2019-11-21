@@ -4,12 +4,9 @@ import com.google.gson.Gson;
 import com.webcheckers.appl.GameLobby;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.appl.ReplayLobby;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.BoardState;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
-import com.webcheckers.util.MoveProcessor;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -22,7 +19,7 @@ public class PostResignRoute implements Route {
 
     /**
      * Intended to inform the user of their opponent's resignation after they have hit "Resign"
-     * @param playerLobby
+     * @param playerLobby The playerLobby
      */
     public PostResignRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
@@ -44,7 +41,6 @@ public class PostResignRoute implements Route {
 
         //Will fail if game is over
         if(!gameLobby.getIsGameOver()){
-            //TODO other means of game ending
             gameLobby.endGame(Message.info(String.format("%s has resigned",player.getName())));
             replayLobby.addGame(game);
             message = Message.info("Game has ended");
