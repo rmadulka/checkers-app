@@ -41,7 +41,6 @@ public class PostResignRoute implements Route {
 
         //Will fail if game is over
         if(!gameLobby.getIsGameOver()){
-            //TODO other means of game ending
             gameLobby.endGame(Message.info(String.format("%s has resigned",player.getName())));
             replayLobby.addGame(game);
             message = Message.info("Game has ended");
